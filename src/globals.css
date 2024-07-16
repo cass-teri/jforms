@@ -1,0 +1,160 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'Verdana', "sans-serif", "SansSerif";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+}
+
+@layer base {
+
+    :root {
+        --alert_text: rgb(22,22,22);
+
+        --background: rgb(255, 255, 255);
+        --foreground: rgb(2, 8, 3);
+
+        --card: rgb(255, 255, 255);
+        --card-foreground: rgb(2, 8, 3);
+
+        --popover: rgb(255, 255, 255);
+        --popover-foreground: rgb(2, 8, 3);
+
+/*        --primary: rgb(0, 109, 204);*/
+        --primary: rgb(155,155,155);
+        --primary-foreground: rgb(22,22,22);
+
+        --secondary: rgb(255,255,255);
+        --secondary-foreground: rgb(30, 41, 59);
+
+        --muted: rgb(241, 245, 249);
+        --muted-foreground: rgb(100, 116, 139);
+
+        --accent: rgb(241, 245, 249);
+        --accent-foreground: rgb(15, 23, 42);
+
+        --destructive: rgb(239, 68, 68);
+        --destructive-foreground: rgb(248, 250, 252);
+
+        --border: rgb(226, 232, 240);
+
+        --input: rgb(255,255,255);
+        --input-foreground: rgb(2, 8, 23);
+
+        --ring: rgb(2, 8, 23);
+
+        --radius: 0.5rem;
+    }
+
+    .dark {
+        --alert_text: rgb(22,22,22);
+
+        --background: rgb(50,61,79);
+        --foreground: rgb(248, 250, 252);
+
+        --card: rgb(2, 8, 23);
+        --card-foreground: rgb(248, 250, 252);
+
+        --popover: rgb(2, 8, 23);
+        --popover-foreground: rgb(248, 250, 252);
+
+/*        --primary: rgb(70, 81, 99);*/
+        --primary: rgb(22,22,22);
+        --primary-foreground: rgb(155,155,155);
+
+        --secondary: rgb(30, 41, 59);
+        --secondary-foreground: rgb(248, 250, 252);
+
+        --muted: rgb(30, 41, 59);
+        --muted-foreground: rgb(148, 163, 184);
+
+        --accent: rgb(148, 163, 184);
+        --accent-foreground: rgb(30,41,59);
+
+        --destructive: rgb(127, 29, 29);
+        --destructive-foreground: rgb(248, 250, 252);
+
+        --border: rgb(148, 163, 184);
+
+        --input: rgb(60,71, 89);
+        --input-foreground: rgb(248, 250, 252);
+
+
+        --ring: rgb(203, 213, 225);
+    }
+}
+
+
+@layer base {
+
+    *{
+        @apply border-border;
+    }
+
+    h1 {
+        @apply text-5xl text-gray-500;
+        /* Set Font */
+    }
+
+    h2 {
+        @apply text-4xl text-gray-500;
+    }
+
+    h3 {
+        @apply text-3xl text-gray-500;
+    }
+
+    h4 {
+        @apply text-2xl text-gray-500;
+    }
+
+    h5 {
+        @apply text-xl text-gray-500;
+    }
+
+    .picture {
+        border-radius: 2rem 16rem;
+        width: 40%;
+        height: 40%;
+        object-fit: cover;
+    }
+
+    ul {
+        @apply list-disc;
+        list-style: revert;
+        margin: revert;
+        padding: revert;
+    }
+
+
+    a {
+        @apply text-primary;
+    }
+
+    p{
+        @apply pt-3
+    }
+
+    hr{
+        @apply border-t-2 border-gray-300 mb-1;
+    }
+
+
+    select {
+        @apply border-2 border-gray-300 rounded-md py-2 px-4 my-2;
+    }
+
+    summary {
+
+        @apply text-xl max-w-xl pb-2 text-primary cursor-pointer;
+    }
+
+    details {
+        @apply p-2 max-w-2xl cursor-default;
+    }
+
+
+}
