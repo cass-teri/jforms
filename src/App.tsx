@@ -6,7 +6,7 @@ function App() {
   return (
 
         <section
-            className="flex flex-col items-top pt-16 pb-64 h-[calc(100vh-8rem)] bg-background border shadow-2xl overflow-scroll clear-both justify-start px-20"
+            className="flex flex-col items-top pt-8 pb-20 h-[calc(100vh-8rem)] bg-background border shadow-2xl overflow-auto clear-both justify-start px-20"
         >
             <RootDropZone></RootDropZone>
         </section>

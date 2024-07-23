@@ -25,9 +25,6 @@ export function RootDropZone() {
         if(root == null) {
             SetRoot(component)
         }
-        if (component?.props.children.length>0){
-            console.log("children", component?.props.children)
-        }
 
     }
 
