@@ -4,7 +4,16 @@ import {createId} from "@paralleldrive/cuid2";
 interface HelpContent {
 }
 
-export function ComponentBlankForName(component_type: string) {
+interface SchemaPackage {
+    ui_schema: ControlElement | GroupLayout | HorizontalLayout | VerticalLayout | HelpContent
+    data_schema: JsonSchema7
+    meta: {
+        is_container: boolean
+        id: string
+    }
+}
+
+export function SchemasForName(component_type: string) {
     const id=createId()
 
 
@@ -15,14 +24,14 @@ export function ComponentBlankForName(component_type: string) {
                 elements: []
             }
 
-            return {ui_schema, data_schema: {}, meta: {container: true}}
+            return {ui_schema, data_schema: {}, meta: {is_container: true, id }} as SchemaPackage
         }
         case "HorizontalLayout": {
             const ui_schema : HorizontalLayout = {
                 type: "HorizontalLayout",
                 elements: []
             }
-            return {ui_schema, data_schema: {}, meta: {container: true}}
+            return {ui_schema, data_schema: {}, meta: {is_container: true, id}} as SchemaPackage
         }
         case "VerticalLayout": {
             const ui_schema : VerticalLayout = {
@@ -30,7 +39,7 @@ export function ComponentBlankForName(component_type: string) {
                 elements: []
             }
 
-            return {ui_schema, data_schema: {}, meta:{container: true}}
+            return {ui_schema, data_schema: {}, meta:{is_container: true, id}} as SchemaPackage
         }
         case "Text": {
             const ui_schema: ControlElement = {
@@ -42,7 +51,7 @@ export function ComponentBlankForName(component_type: string) {
                 type: "string",
             }
 
-            return {ui_schema, data_schema, meta: {container: false, id}}
+            return {ui_schema, data_schema, meta: {is_container: false, id}} as SchemaPackage
         }
         case "Number": {
             const ui_schema: ControlElement = {
@@ -54,7 +63,7 @@ export function ComponentBlankForName(component_type: string) {
                 type: "number",
             }
 
-            return {ui_schema, data_schema, meta: {container: false, id}}
+            return {ui_schema, data_schema, meta: {is_container: false, id}} as SchemaPackage
         }
         case "Boolean": {
             const ui_schema: ControlElement = {
@@ -71,7 +80,7 @@ export function ComponentBlankForName(component_type: string) {
                 type: "boolean",
             }
 
-            return {ui_schema, data_schema, meta: {container: false, id}}
+            return {ui_schema, data_schema, meta: {is_container: false, id}} as SchemaPackage
         }
         case "Integer": {
             const ui_schema: ControlElement = {
@@ -83,7 +92,7 @@ export function ComponentBlankForName(component_type: string) {
                 type: "integer",
             }
 
-            return {ui_schema, data_schema, meta: {container: false, id}}
+            return {ui_schema, data_schema, meta: {is_container: false, id}} as SchemaPackage
         }
         case "Dropdown": {
             const ui_schema: ControlElement = {
@@ -96,7 +105,7 @@ export function ComponentBlankForName(component_type: string) {
                 enum: []
             }
 
-            return {ui_schema, data_schema, meta: {container: false, id}}
+            return {ui_schema, data_schema, meta: {is_container: false, id}} as SchemaPackage
         }
         case "Date": {
             const ui_schema: ControlElement = {
@@ -109,7 +118,7 @@ export function ComponentBlankForName(component_type: string) {
                 format: "date"
             }
 
-            return {ui_schema, data_schema, meta: {container: false, id}}
+            return {ui_schema, data_schema, meta: {is_container: false, id}} as SchemaPackage
         }
         case "Textarea": {
             const ui_schema: ControlElement = {
@@ -127,7 +136,7 @@ export function ComponentBlankForName(component_type: string) {
                 type: "string",
             }
 
-            return {ui_schema, data_schema, meta: {container: false, id}}
+            return {ui_schema, data_schema, meta: {is_container: false, id}} as SchemaPackage
         }
         case "Radio": {
             const ui_schema: ControlElement = {
@@ -143,7 +152,7 @@ export function ComponentBlankForName(component_type: string) {
                 type: "string",
             }
 
-            return {ui_schema, data_schema, meta: {container: false, id}}
+            return {ui_schema, data_schema, meta: {is_container: false, id}} as SchemaPackage
         }
         case "Checkbox": {
             const ui_schema: ControlElement = {
@@ -159,7 +168,7 @@ export function ComponentBlankForName(component_type: string) {
                 enum: []
             }
 
-            return {ui_schema, data_schema, meta: {container: false, id}}
+            return {ui_schema, data_schema, meta: {is_container: false, id}} as SchemaPackage
         }
         case "PostalCode": {
             const ui_schema: ControlElement = {
@@ -172,7 +181,7 @@ export function ComponentBlankForName(component_type: string) {
                 pattern: "^[A-Za-z]\\d[A-Za-z][ -]?\\d[A-Za-z]\\d$"
             }
 
-            return {ui_schema, data_schema, meta: {container: false, id }}
+            return {ui_schema, data_schema, meta: {is_container: false, id }} as SchemaPackage
         }
         case "Email": {
             const ui_schema: ControlElement = {
@@ -185,7 +194,7 @@ export function ComponentBlankForName(component_type: string) {
                 pattern: "^.+@.+\\.[a-zA-Z]{2,}$"
             }
 
-            return {ui_schema, data_schema, meta: {container: false, id}}
+            return {ui_schema, data_schema, meta: {is_container: false, id}} as SchemaPackage
         }
         case "Phone": {
             const ui_schema: ControlElement = {
@@ -198,7 +207,7 @@ export function ComponentBlankForName(component_type: string) {
                 pattern: "^\\d{3}[ -]?\\d{3}[ -]?\\d{4}$"
             }
 
-            return {ui_schema, data_schema, meta: {container: false, id }}
+            return {ui_schema, data_schema, meta: {is_container: false, id }} as SchemaPackage
         }
         case "Header": {
             const ui_schema: HelpContent = {
@@ -206,7 +215,18 @@ export function ComponentBlankForName(component_type: string) {
                 label: ""
             }
 
-            return {ui_schema, data_schema: {}, meta: {container: false, id}}
+            return {ui_schema, data_schema: {}, meta: {is_container: false, id}} as SchemaPackage
+        }
+        case "Paragraph": {
+            const ui_schema: HelpContent = {
+                type: "HelpContent",
+                label: "",
+                options: {
+                    help: ""
+                }
+            }
+
+            return {ui_schema, data_schema: {}, meta: {is_container: false, id}} as SchemaPackage
         }
         case "SubHeader": {
             const ui_schema: HelpContent ={
@@ -219,7 +239,7 @@ export function ComponentBlankForName(component_type: string) {
                 ]
             }
 
-            return {ui_schema, data_schema: {}, meta: {container: false, id}}
+            return {ui_schema, data_schema: {}, meta: {is_container: false, id}} as SchemaPackage
         }
         case "Bullets": {
             const ui_schema: HelpContent = {
@@ -233,7 +253,7 @@ export function ComponentBlankForName(component_type: string) {
                 }]
             }
 
-            return {ui_schema, data_schema: {}, meta: {container: false, id}}
+            return {ui_schema, data_schema: {}, meta: {is_container: false, id}} as SchemaPackage
         }
         case "Details": {
             const ui_schema: HelpContent = {
@@ -245,7 +265,7 @@ export function ComponentBlankForName(component_type: string) {
                     }
                 }
 
-            return {ui_schema, data_schema: {}, meta: {container: false, id}}
+            return {ui_schema, data_schema: {}, meta: {is_container: false, id}} as SchemaPackage
         }
         case "Image": {
             const ui_schema: HelpContent = {
@@ -259,7 +279,7 @@ export function ComponentBlankForName(component_type: string) {
                 }
             }
 
-            return {ui_schema, data_schema: {}, meta: {container: false, id}}
+            return {ui_schema, data_schema: {}, meta: {is_container: false, id}} as SchemaPackage
         }
         case "Link": {
             const ui_schema: HelpContent = {
@@ -271,7 +291,7 @@ export function ComponentBlankForName(component_type: string) {
                 }
             }
 
-            return {ui_schema, data_schema: {}, meta: {container: false, id}}
+            return {ui_schema, data_schema: {}, meta: {is_container: false, id}} as SchemaPackage
 
         }
         case "Repeater": {
@@ -288,13 +308,13 @@ export function ComponentBlankForName(component_type: string) {
                 }
             }
 
-            return {ui_schema, data_schema, meta: {container: false, id}}
+            return {ui_schema, data_schema, meta: {is_container: false, id}} as SchemaPackage
 
         }
 
 
         default: {
-            return {ui_schema: {}, data_schema: {}, meta: {container: false, id}}
+            return {ui_schema: {}, data_schema: {}, meta: {is_container: false, id}} as SchemaPackage
         }
 
 

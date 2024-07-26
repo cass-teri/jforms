@@ -3,34 +3,27 @@ import {cn} from "@/lib/utils.ts";
 import {motion} from "framer-motion";
 import {ComponentForName} from "@/lib/ComponentForName.tsx";
 import {FaPlus} from "react-icons/fa6";
+import {useDragging} from "@/components/context/DragContextProvider.tsx";
 
 
 export function DropZone() {
     const [is_dragging, SetIsDragging] = useState(false)
     const [children, SetChildren] = useState<ReactNode[]>([])
+    const {dragging_context, SetDraggingContext} = useDragging()
 
-    function pauseEvent(e) {
-        if (e.stopPropagation) e.stopPropagation();
-        if (e.preventDefault) e.preventDefault();
-        e.cancelBubble = true;
-        e.returnValue = false;
-        return false;
-    }
 
     const OnDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-        pauseEvent(e)
+        e.preventDefault()
         SetIsDragging(true)
     }
 
     const OnDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
-        pauseEvent(e)
         SetIsDragging(false)
     }
 
     const OnDrop = (e: React.DragEvent<HTMLDivElement>) => {
-        pauseEvent(e)
         SetIsDragging(false)
-        const data = e.dataTransfer.getData("text")
+        const data = dragging_context.id
         const component  =ComponentForName(data)
         SetChildren([...children, component])
     }
