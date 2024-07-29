@@ -1,4 +1,46 @@
-export function HelpComponent(props: { id: string, type: string }) {
+import {DropZone} from "@/components/editor/DropZone.tsx";
+import {useDragging} from "@/components/context/DragContextProvider.tsx";
+import {IAst} from "@/types/IAst.tsx";
 
-    return <div id={props.id} className="w-full">Help: {props.type}</div>;
+interface IHelpComponentProps {
+    id: string,
+    name?: string,
+    type: string,
+    parent: IAst
+}
+
+export function HelpComponent(props: IHelpComponentProps) {
+
+    const {SetDraggingContext} = useDragging()
+
+    function OnDragStart() {
+        SetDraggingContext({
+            is_dragging: true,
+            id: props.id,
+            dragging_type: "element"
+        })
+    }
+
+    return <>
+        <DropZone before={props.id}></DropZone>
+        <div
+            onDragStart={OnDragStart}
+            draggable
+            tabIndex={0}
+            className="bg-violet-100 border-2 hover:shadow-2xl px-4 py-2 focus:ring-4 ring-amber-300 shadow-inner flex flex-col rounded-xl border-neutral-400">
+            <div className="flex flex-row items-center border-b-neutral-400 justify-between">
+                <span className="flex flex-row items-center">
+                <span className="text-2xl font-extrabold">T</span>
+                {props.type}
+                </span>
+                <span>
+                    id={props.id}
+                </span>
+
+
+            </div>
+            <label> {props.name}</label>
+            <div className="border-neutral-400 border rounded-b bg-white px-4 py-2">id={props.id}</div>
+        </div>
+    </>
 }

@@ -1,10 +1,13 @@
 import {FaTrash} from "react-icons/fa6";
 import {useState} from "react";
 import {useDragging} from "@/components/context/DragContextProvider.tsx";
+import {useAst} from "@/components/context/AstContextProvider.tsx";
+import {FindById} from "@/lib/FindById.ts";
 
 export function Trash() {
     const [Active, SetActive] = useState(false)
     const {dragging_context, SetDraggingContext} = useDragging();
+    const {ast, SetAst} = useAst()
 
     function OnDragOver(event: any) {
         if (dragging_context.dragging_type === "element") {
@@ -30,6 +33,17 @@ export function Trash() {
             id: "",
             dragging_type: null
         })
+
+        const found = FindById(ast, dragging_context.id)
+        if (found){
+            const parent = found.parent
+            if (parent) {
+                parent.children = parent.children.filter((child) => {
+                    return child.id !== dragging_context.id
+                })
+                SetAst({...ast})
+            }
+        }
     }
 
     return <div

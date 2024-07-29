@@ -1,17 +1,7 @@
-import {ControlElement, GroupLayout, HorizontalLayout, JsonSchema7, VerticalLayout } from "@jsonforms/core";
+import {ControlElement, GroupLayout, HorizontalLayout, JsonSchema7, VerticalLayout} from "@jsonforms/core";
 import {createId} from "@paralleldrive/cuid2";
-
-interface HelpContent {
-}
-
-interface SchemaPackage {
-    ui_schema: ControlElement | GroupLayout | HorizontalLayout | VerticalLayout | HelpContent
-    data_schema: JsonSchema7
-    meta: {
-        is_container: boolean
-        id: string
-    }
-}
+import {SchemaPackage} from "@/types/SchemaPackage.tsx";
+import {HelpContent} from "@/types/HelpContent.tsx";
 
 export function SchemasForName(component_type: string) {
     const id=createId()

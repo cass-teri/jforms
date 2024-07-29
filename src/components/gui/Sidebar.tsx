@@ -68,7 +68,7 @@ export function Sidebar(){
                 </button>
 
                 <button draggable className={button_style} id="Textarea" onDragStart={OnDragStart} title="Textarea">
-                    <BsTextareaResize />
+                    <BsTextareaResize  className={icon_style}/>
                 </button>
 
                 <button draggable className={button_style} id="Date" onDragStart={OnDragStart} title="Date">

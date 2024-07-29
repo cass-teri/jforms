@@ -1,12 +1,13 @@
-import {ReactNode} from "react";
-import {FaObjectGroup} from "react-icons/fa6";
 import {DropZone} from "@/components/editor/DropZone.tsx";
 import {useDragging} from "@/components/context/DragContextProvider.tsx";
+import {AiOutlineGroup} from "react-icons/ai";
+import {IAst} from "@/types/IAst.tsx";
+import {ComponentForName} from "@/lib/ComponentForName.tsx";
 
 export interface IGroupComponentProps {
     id: string
-    children?: ReactNode[]
-
+    ast: IAst
+    parent?: IAst
 }
 export function GroupComponent(props: IGroupComponentProps) {
     const {SetDraggingContext}= useDragging()
@@ -19,26 +20,35 @@ export function GroupComponent(props: IGroupComponentProps) {
         })
     }
 
+    let children : IAst[] = []
+    if(props.ast.children !== null && props.ast.children !== undefined) {
+        children = props.ast.children
+    }
 
     return <>
-        <DropZone></DropZone>
+        <DropZone before={props.id}></DropZone>
         <div
             onDragStart={OnDragStart}
             draggable
             tabIndex={0}
-            className="w-full bg-secondary dark:bg-neutral-500 flex flex-col border-2 border-neutral-400 clear-both overflow-visible  p-2 hover:shadow-2xl rounded focus:ring-4 ring-amber-300">
+            className="w-full bg-neutral-100 dark:bg-neutral-500 flex flex-col border-2 border-neutral-400 clear-both overflow-visible  p-2 hover:shadow-2xl rounded focus:ring-4 ring-amber-300">
 
-            <div className="flex flex-row">
-                <FaObjectGroup className="h-8 w-8 clear-both pb-2"/>
-                Group
+            <div className="flex flex-row justify-between">
+                <div className="flex flex-row items-center">
+                    <AiOutlineGroup />
+                    Group
+                </div>
+                <div>
+                   id={props.id}
+                </div>
             </div>
 
-            <div className="bg-green-50 overflow-visible clear-both">
+            <div className="overflow-visible clear-both">
                 <div className="clear-both">
-                    {props.children?.map((child: ReactNode, index: number) => {
-                        return <div key={index}>{child}</div>
+                    {children.map((child: IAst, index: number) => {
+                        return ComponentForName(child.type, {ast: child, id: child.id, key: index})
                     })}</div>
-                <DropZone></DropZone>
+                <DropZone child_of={props.id}></DropZone>
             </div>
         </div>
     </>

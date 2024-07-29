@@ -21,18 +21,23 @@ export function TextComponent(props: ITextComponentProps) {
     }
 
     return <>
-        <DropZone></DropZone>
+        <DropZone before={props.id}></DropZone>
         <div
             onDragStart={OnDragStart}
             draggable
             tabIndex={0}
-            className="bg-neutral-100 border-2 hover:shadow-2xl px-4 py-2 focus:ring-4 ring-amber-300 shadow-inner flex flex-col rounded-xl border-neutral-400">
-            <div className="flex flex-row items-center border-b-neutral-400">
-                <LuTextCursorInput className=""/>
-                {props.type}
+            className="bg-red-100 border-2 hover:shadow-2xl px-4 py-2 focus:ring-4 ring-amber-300 shadow-inner flex flex-col rounded-xl border-neutral-400">
+            <div className="flex flex-row items-center border-b-neutral-400 justify-between">
+                <span className="flex flex-row items-center">
+                    <LuTextCursorInput className=""/>
+                    {props.type}
+                </span>
+                <span>
+                   id={props.id}
+                </span>
             </div>
             <label> {props.name}</label>
-            <div className="border-neutral-400 border rounded-b bg-white px-4 py-2">id={props.id}</div>
+            <div className="border-neutral-400 border rounded-b bg-white px-4 py-2"></div>
         </div>
     </>
 }
