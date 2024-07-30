@@ -7,7 +7,7 @@ function App() {
   return (
       <>
         <section
-            className="flex flex-col items-top pt-8 pb-20 h-[calc(100vh-6rem)] bg-background border shadow-2xl overflow-auto clear-both justify-start pl-36 pr-4"
+            className="flex flex-col items-top pt-8 pb-96 h-[calc(100vh-6rem)] bg-background border shadow-2xl overflow-auto clear-both justify-start pl-36 pr-4"
         >
             <Root></Root>
         </section>

@@ -12,12 +12,13 @@ interface IVerticalComponentProps {
 export function VerticalComponent (props: IVerticalComponentProps) {
     const {SetDraggingContext}= useDragging()
 
-    function OnDragStart() {
+    function OnDragStart(e: any) {
         SetDraggingContext({
             is_dragging: true,
             id: props.id,
             dragging_type: "element"
         })
+        e.stopPropagation()
     }
 
     let children : IAst[] = []

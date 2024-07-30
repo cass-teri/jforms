@@ -11,12 +11,13 @@ interface IStepperComponentProps {
 export function StepperComponent (props: IStepperComponentProps) {
     const {SetDraggingContext}= useDragging()
 
-    function OnDragStart() {
+    function OnDragStart(e:any) {
         SetDraggingContext({
             is_dragging: true,
             id: props.id,
             dragging_type: "element"
         })
+        e.stopPropagation()
     }
 
     return <>

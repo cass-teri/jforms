@@ -12,12 +12,14 @@ export function TextComponent(props: ITextComponentProps) {
 
     const {SetDraggingContext} = useDragging()
 
-    function OnDragStart() {
+    function OnDragStart(e: any) {
         SetDraggingContext({
             is_dragging: true,
             id: props.id,
             dragging_type: "element"
         })
+        e.stopPropagation()
+
     }
 
     return <>
@@ -37,7 +39,6 @@ export function TextComponent(props: ITextComponentProps) {
                 </span>
             </div>
             <label> {props.name}</label>
-            <div className="border-neutral-400 border rounded-b bg-white px-4 py-2"></div>
         </div>
     </>
 }
