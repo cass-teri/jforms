@@ -18,6 +18,8 @@ export function Header() {
 
     function OnClick() {
         SetAst({} as IAst)
+        // TEMP FIX FOR RELOADING THE PAGE TO CLEAR THE AST
+        location.reload()
     }
 
     return (

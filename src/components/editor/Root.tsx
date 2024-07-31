@@ -14,7 +14,7 @@ export function Root() {
 
     if (ast !== null && (root === undefined || root === null)) {
         if (ast.id !== undefined) {
-            const component = GetComponentForName(ast.type, { ast })
+            const component = GetComponentForName(ast.type, { ast, id: ast.id })
             SetRoot(component)
         }
     }

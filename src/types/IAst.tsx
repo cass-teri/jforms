@@ -4,6 +4,6 @@ export interface IAst {
     id: string
     SchemaPackage: SchemaPackage
     children: IAst[]
-    parent?: IAst | string | null | undefined
+    parent?: IAst | null | undefined
     type: string
 }
