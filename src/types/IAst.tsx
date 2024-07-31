@@ -1,9 +1,9 @@
-import {SchemaPackage} from "@/types/SchemaPackage.tsx";
+import { SchemaPackage } from "@/types/SchemaPackage.tsx"
 
 export interface IAst {
-    id: string;
+    id: string
     SchemaPackage: SchemaPackage
     children: IAst[]
-    parent?: IAst | null | undefined
+    parent?: IAst | string | null | undefined
     type: string
 }

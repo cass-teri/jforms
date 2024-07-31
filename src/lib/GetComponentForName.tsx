@@ -1,19 +1,16 @@
-import {HorizontalComponent} from "@/components/editor/components/HorizontalComponent.tsx";
-import {VerticalComponent} from "@/components/editor/components/VerticalComponent.tsx";
-import {TextComponent} from "@/components/editor/components/TextComponent.tsx";
-import {createId} from "@paralleldrive/cuid2";
-import {GroupComponent} from "@/components/editor/components/GroupComponent.tsx";
-import {ChoiceComponent} from "@/components/editor/components/ChoiceComponent.tsx";
-import {HelpComponent} from "@/components/editor/components/HelpComponent.tsx";
-import {RepeaterComponent} from "@/components/editor/components/RepeaterComponent.tsx";
-import {StepperComponent} from "@/components/editor/components/StepperComponent.tsx";
+import { HorizontalComponent } from "@/components/editor/components/HorizontalComponent.tsx"
+import { VerticalComponent } from "@/components/editor/components/VerticalComponent.tsx"
+import { TextComponent } from "@/components/editor/components/TextComponent.tsx"
+import { createId } from "@paralleldrive/cuid2"
+import { GroupComponent } from "@/components/editor/components/GroupComponent.tsx"
+import { ChoiceComponent } from "@/components/editor/components/ChoiceComponent.tsx"
+import { HelpComponent } from "@/components/editor/components/HelpComponent.tsx"
+import { RepeaterComponent } from "@/components/editor/components/RepeaterComponent.tsx"
+import { StepperComponent } from "@/components/editor/components/StepperComponent.tsx"
 
-
-export function ComponentForName(component_name: string, props: any) {
-
+export function GetComponentForName(component_name: string, props: any) {
     const new_id = createId()
-    const new_props = {id: new_id, ...props}
-
+    const new_props = { id: new_id, ...props }
 
     switch (component_name) {
         case "HorizontalLayout":
@@ -75,5 +72,4 @@ export function ComponentForName(component_name: string, props: any) {
         default:
             break
     }
-
 }

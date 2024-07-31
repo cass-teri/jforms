@@ -1,15 +1,14 @@
-import {useState} from "react";
-import {cn} from "@/lib/utils.ts";
-import {motion } from "framer-motion";
-import {ComponentForName} from "@/lib/ComponentForName.tsx";
-import {FaPlus} from "react-icons/fa6";
-import {useDragging} from "@/components/context/DragContextProvider.tsx";
-import {SchemasForName} from "@/lib/SchemasForName.ts";
-import {useAst} from "@/components/context/AstContextProvider.tsx";
-import {IAst} from "@/types/IAst.tsx";
-import {createId} from "@paralleldrive/cuid2";
-import {FindById} from "@/lib/FindById.ts";
-
+import { useState } from "react"
+import { cn } from "@/lib/utils.ts"
+import { motion } from "framer-motion"
+import { GetComponentForName } from "@/lib/GetComponentForName.tsx"
+import { FaPlus } from "react-icons/fa6"
+import { useDragging } from "@/components/context/DragContextProvider.tsx"
+import { SchemasForName } from "@/lib/SchemasForName.ts"
+import { useAst } from "@/components/context/AstContextProvider.tsx"
+import { IAst } from "@/types/IAst.tsx"
+import { createId } from "@paralleldrive/cuid2"
+import { FindById } from "@/lib/FindById.ts"
 
 interface IDropZoneProps {
     before?: string
@@ -17,9 +16,9 @@ interface IDropZoneProps {
 }
 
 export function DropZone(props: IDropZoneProps) {
-    const {dragging_context, SetDraggingContext} = useDragging()
+    const { dragging_context, SetDraggingContext } = useDragging()
     const [is_dragging_over, SetIsDraggingOver] = useState(false)
-    const {ast, SetAst} = useAst()
+    const { ast, SetAst } = useAst()
 
     const OnDragOver = () => {
         SetIsDraggingOver(true)
@@ -74,15 +73,11 @@ export function DropZone(props: IDropZoneProps) {
                 } else {
                     parent?.children.push(new_node)
                 }
-
-
             } else if (props.child_of) {
                 parent?.children.push(new_node)
             }
 
             SetAst(ast)
-
-
         }
         if (dragging_context.dragging_type === "element") {
             const element = FindById(ast, dragging_context.id)
@@ -96,7 +91,7 @@ export function DropZone(props: IDropZoneProps) {
                 const parent = sibling?.parent
                 const index = parent?.children.findIndex((child) => child.id === props.before)
 
-                const new_element = {...element}
+                const new_element = { ...element }
 
                 if (old_parent == null) {
                     throw new Error("Element not found")
@@ -114,32 +109,32 @@ export function DropZone(props: IDropZoneProps) {
                     new_element.parent = parent
                     parent?.children.splice(index, 0, new_element)
                 }
-
-
             } else if (props.child_of) {
                 const old_parent = element.parent
                 const parent = FindById(ast, props.child_of)
-                const new_element = {...element}
+                const new_element = { ...element }
 
-                if (old_parent === null || old_parent == undefined || element.parent === null || element.parent === undefined || element.parent?.children === null) {
+                if (
+                    old_parent === null ||
+                    old_parent == undefined ||
+                    element.parent === null ||
+                    element.parent === undefined ||
+                    element.parent?.children === null
+                ) {
                     throw new Error("Element not found")
                 }
 
                 old_parent.children = old_parent?.children.filter((child) => child.id !== element.id) || []
                 new_element.parent = parent
                 parent?.children.push(new_element)
-
-
             }
 
             SetAst(ast)
-
         }
     }
 
     let height = "h-0"
     if (dragging_context.is_dragging) {
-
         height = "h-2"
 
         if (is_dragging_over) {
@@ -147,33 +142,30 @@ export function DropZone(props: IDropZoneProps) {
         }
     }
 
-
-
-
-
-    return <motion.div layout
-                       className="w-full"
-                       data-before={props.before}
-                       data-child-of={props.child_of}
-
-                       style={{
-                           backgroundColor: "#ffffff",
-                           backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23999999' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-                       }}>
-        { ast.children.length > 0 ?
-            ast.children.map((child, index) =>
-                <div key={index}>{ComponentForName(child.id, {ast:child, id:child.id})}</div>)
-            : null
-        }
-        <div
-            className={cn("w-full flex justify-center items-center rounded-xl clear-both", height)}
-            onDragOver={OnDragOver}
-            onDragLeave={OnDragLeave}
-            onDrop={OnDrop}
+    return (
+        <motion.div
+            layout
+            className="w-full"
+            data-before={props.before}
+            data-child-of={props.child_of}
+            style={{
+                backgroundColor: "#ffffff",
+                backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23999999' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+            }}
         >
-            {dragging_context.is_dragging && is_dragging_over?
-                <FaPlus></FaPlus>
-                :null}
-        </div>
-    </motion.div>
+            {ast.children.length > 0
+                ? ast.children.map((child, index) => (
+                      <div key={index}>{GetComponentForName(child.id, { ast: child, id: child.id })}</div>
+                  ))
+                : null}
+            <div
+                className={cn("w-full flex justify-center items-center rounded-xl clear-both", height)}
+                onDragOver={OnDragOver}
+                onDragLeave={OnDragLeave}
+                onDrop={OnDrop}
+            >
+                {dragging_context.is_dragging && is_dragging_over ? <FaPlus></FaPlus> : null}
+            </div>
+        </motion.div>
+    )
 }

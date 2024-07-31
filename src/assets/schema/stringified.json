@@ -1,0 +1,92 @@
+{
+    "id": "kwwfyjfj6mgyhefyvjngcewq",
+    "SchemaPackage": {
+        "ui_schema": {
+            "type": "VerticalLayout",
+            "elements": []
+        },
+        "data_schema": {},
+        "meta": {
+            "is_container": true,
+            "id": "szw0w1obys5063lraqv4emcn"
+        }
+    },
+    "children": [
+        {
+            "SchemaPackage": {
+                "ui_schema": {
+                    "type": "HorizontalLayout",
+                    "elements": []
+                },
+                "data_schema": {},
+                "meta": {
+                    "is_container": true,
+                    "id": "l130q3cs3smeij9u6x4dgcuq"
+                }
+            },
+            "children": [
+                {
+                    "SchemaPackage": {
+                        "ui_schema": {
+                            "type": "Control",
+                            "scope": "#/properties/s7xv5ynd6a0jli7xy3yu8v4n"
+                        },
+                        "data_schema": {
+                            "type": "string"
+                        },
+                        "meta": {
+                            "is_container": false,
+                            "id": "s7xv5ynd6a0jli7xy3yu8v4n"
+                        }
+                    },
+                    "children": [],
+                    "id": "jsax895qwbs7fxt3xk44ht2h",
+                    "type": "Text",
+                    "parent": "#/kwwfyjfj6mgyhefyvjngcewq/yzq1jsd68odk0lstxxfzoztj"
+                },
+                {
+                    "SchemaPackage": {
+                        "ui_schema": {
+                            "type": "Control",
+                            "scope": "#/properties/luz912rej7jkk5iwrks108h4"
+                        },
+                        "data_schema": {
+                            "type": "string"
+                        },
+                        "meta": {
+                            "is_container": false,
+                            "id": "luz912rej7jkk5iwrks108h4"
+                        }
+                    },
+                    "children": [],
+                    "id": "if3ilx8ic9vk6017j1e0hxon",
+                    "type": "Text",
+                    "parent": "#/kwwfyjfj6mgyhefyvjngcewq/yzq1jsd68odk0lstxxfzoztj"
+                },
+                {
+                    "SchemaPackage": {
+                        "ui_schema": {
+                            "type": "Control",
+                            "scope": "#/properties/nw6av4zpvppw6fu8k42hqqz4"
+                        },
+                        "data_schema": {
+                            "type": "string"
+                        },
+                        "meta": {
+                            "is_container": false,
+                            "id": "nw6av4zpvppw6fu8k42hqqz4"
+                        }
+                    },
+                    "children": [],
+                    "id": "yhx6ii0nzhm7evby5x9hmpf9",
+                    "type": "Text",
+                    "parent": "#/kwwfyjfj6mgyhefyvjngcewq/yzq1jsd68odk0lstxxfzoztj"
+                }
+            ],
+            "id": "yzq1jsd68odk0lstxxfzoztj",
+            "type": "HorizontalLayout",
+            "parent": "#/kwwfyjfj6mgyhefyvjngcewq"
+        }
+    ],
+    "type": "VerticalLayout"
+}
