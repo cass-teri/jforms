@@ -1,7 +1,7 @@
 import React, { ReactNode, useState } from "react"
 import { cn } from "@/lib/utils.ts"
 import { GetComponentForName } from "@/lib/GetComponentForName.tsx"
-import { SchemasForName } from "@/lib/SchemasForName.ts"
+import { GetSchemasForName } from "@/lib/GetSchemasForName.ts"
 import { useDragging } from "@/components/context/DragContextProvider.tsx"
 import { useAst } from "@/components/context/AstContextProvider.tsx"
 import { createId } from "@paralleldrive/cuid2"
@@ -34,7 +34,7 @@ export function Root() {
         SetIsDragging(false)
         const id = createId()
         const dragging_id = dragging_context.id
-        const component_schemas = SchemasForName(dragging_id)
+        const component_schemas = GetSchemasForName(dragging_id)
 
         if (root !== null) {
             return root

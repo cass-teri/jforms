@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import { GetComponentForName } from "@/lib/GetComponentForName.tsx"
 import { FaPlus } from "react-icons/fa6"
 import { useDragging } from "@/components/context/DragContextProvider.tsx"
-import { SchemasForName } from "@/lib/SchemasForName.ts"
+import { GetSchemasForName } from "@/lib/GetSchemasForName.ts"
 import { useAst } from "@/components/context/AstContextProvider.tsx"
 import { IAst } from "@/types/IAst.tsx"
 import { createId } from "@paralleldrive/cuid2"
@@ -42,7 +42,7 @@ export function DropZone(props: IDropZoneProps) {
         // if we are dragging an element, move the element in the AST
 
         if (dragging_context.dragging_type === "button") {
-            const component_schemas = SchemasForName(dragging_id)
+            const component_schemas = GetSchemasForName(dragging_id)
 
             const id = createId()
 

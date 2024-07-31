@@ -12,14 +12,47 @@ import {
 } from "@/components/ui/menubar.tsx"
 import { useAst } from "@/components/context/AstContextProvider.tsx"
 import { IAst } from "@/types/IAst.tsx"
+import { GenerateDataSchema } from "@/lib/GenerateDataSchema.ts"
+import { GenerateUiSchema } from "@/lib/GenerateUiSchema.ts"
 
 export function Header() {
-    const { SetAst } = useAst()
+    const { ast, SetAst } = useAst()
 
-    function OnClick() {
+    function OnNewFile() {
         SetAst({} as IAst)
         // TEMP FIX FOR RELOADING THE PAGE TO CLEAR THE AST
         location.reload()
+    }
+
+    function OnDownloadDataSchema() {
+        const data = ast
+        if (data === null) {
+            console.error("No data to download")
+            return
+        }
+        const data_schema = GenerateDataSchema(data)
+        const blob = new Blob([data_schema], { type: "application/json" })
+        const url = URL.createObjectURL(blob)
+        const a = document.createElement("a")
+        a.href = url
+        a.download = "data_schema.json"
+        a.click()
+    }
+
+    function OnDownloadUiSchema() {
+        const ui = ast
+        if (ui === null) {
+            console.error("No data to download")
+            return
+        }
+        const ui_schema = GenerateUiSchema(ui)
+        const ui_schema_string = JSON.stringify(ui_schema, null, 4)
+        const blob = new Blob([ui_schema_string], { type: "application/json" })
+        const url = URL.createObjectURL(blob)
+        const a = document.createElement("a")
+        a.href = url
+        a.download = "ui_schema.json"
+        a.click()
     }
 
     return (
@@ -28,7 +61,9 @@ export function Header() {
                 <MenubarMenu>
                     <MenubarTrigger>File</MenubarTrigger>
                     <MenubarContent>
-                        <MenubarItem onClick={OnClick}>New Form</MenubarItem>
+                        <MenubarItem onClick={OnNewFile}>New Form</MenubarItem>
+                        <MenubarItem onClick={OnDownloadDataSchema}>Download Data Schema</MenubarItem>
+                        <MenubarItem onClick={OnDownloadUiSchema}>Download UI Schema</MenubarItem>
                     </MenubarContent>
                 </MenubarMenu>
                 <MenubarMenu>
