@@ -31,7 +31,8 @@ export function Header() {
             return
         }
         const data_schema = GenerateDataSchema(data)
-        const blob = new Blob([data_schema], { type: "application/json" })
+        const data_schema_string = JSON.stringify(data_schema, null, 4)
+        const blob = new Blob([data_schema_string], { type: "application/json" })
         const url = URL.createObjectURL(blob)
         const a = document.createElement("a")
         a.href = url

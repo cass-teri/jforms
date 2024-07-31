@@ -7,6 +7,7 @@ export function GenerateUiSchema(ast: IAst) {
         return null
     }
     if (ast.children && ast.children.length > 0) {
+        // @ts-ignore
         ui_schema.elements = ast.children.map((child) => GenerateUiSchema(child))
     }
 

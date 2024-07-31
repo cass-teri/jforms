@@ -45,7 +45,7 @@ export function GetSchemasForName(component_type: string) {
             }
 
             const data_schema: JsonSchema7 = {
-                [id]: {
+                [`${id}`]: {
                     type: "string"
                 }
             }
@@ -59,7 +59,7 @@ export function GetSchemasForName(component_type: string) {
             }
 
             const data_schema: JsonSchema7 = {
-                [id]: {
+                [`${id}`]: {
                     type: "number"
                 }
             }
@@ -78,7 +78,7 @@ export function GetSchemasForName(component_type: string) {
             }
 
             const data_schema: JsonSchema7 = {
-                [id]: {
+                [`${id}`]: {
                     type: "boolean"
                 }
             }
@@ -92,7 +92,7 @@ export function GetSchemasForName(component_type: string) {
             }
 
             const data_schema: JsonSchema7 = {
-                [id]: {
+                [`${id}`]: {
                     type: "integer"
                 }
             }
@@ -106,7 +106,7 @@ export function GetSchemasForName(component_type: string) {
             }
 
             const data_schema: JsonSchema7 = {
-                [id]: {
+                [`${id}`]: {
                     type: "string",
                     enum: []
                 }
@@ -121,7 +121,7 @@ export function GetSchemasForName(component_type: string) {
             }
 
             const data_schema: JsonSchema7 = {
-                [id]: {
+                [`${id}`]: {
                     type: "string",
                     format: "date"
                 }
@@ -142,7 +142,7 @@ export function GetSchemasForName(component_type: string) {
             }
 
             const data_schema: JsonSchema7 = {
-                [id]: {
+                [`${id}`]: {
                     type: "string"
                 }
             }
@@ -160,7 +160,7 @@ export function GetSchemasForName(component_type: string) {
             }
 
             const data_schema: JsonSchema7 = {
-                [id]: {
+                [`${id}`]: {
                     type: "string"
                 }
             }
@@ -177,7 +177,7 @@ export function GetSchemasForName(component_type: string) {
             }
 
             const data_schema: JsonSchema7 = {
-                [id]: {
+                [`${id}`]: {
                     type: "string",
                     enum: []
                 }
@@ -192,7 +192,7 @@ export function GetSchemasForName(component_type: string) {
             }
 
             const data_schema: JsonSchema7 = {
-                [id]: {
+                [`${id}`]: {
                     type: "string",
                     pattern: "^[A-Za-z]\\d[A-Za-z][ -]?\\d[A-Za-z]\\d$"
                 }
@@ -207,7 +207,7 @@ export function GetSchemasForName(component_type: string) {
             }
 
             const data_schema: JsonSchema7 = {
-                [id]: {
+                [`${id}`]: {
                     type: "string",
                     pattern: "^.+@.+\\.[a-zA-Z]{2,}$"
                 }
@@ -222,7 +222,7 @@ export function GetSchemasForName(component_type: string) {
             }
 
             const data_schema: JsonSchema7 = {
-                [id]: {
+                [`${id}`]: {
                     type: "string",
                     pattern: "^\\d{3}[ -]?\\d{3}[ -]?\\d{4}$"
                 }
