@@ -55,9 +55,9 @@ export function GetComponentForName(component_name: string, props: any) {
             return <ChoiceComponent {...new_props} key={props.key} type="ministry"></ChoiceComponent>
 
         case "Header":
-            return <HelpComponent {...new_props} key={props.key} type="main"></HelpComponent>
+            return <HelpComponent {...new_props} key={props.key} type="header"></HelpComponent>
         case "SubHeader":
-            return <HelpComponent {...new_props} key={props.key} type="sub"></HelpComponent>
+            return <HelpComponent {...new_props} key={props.key} type="sub_header"></HelpComponent>
         case "Paragraph":
             return <HelpComponent {...new_props} key={props.key} type="paragraph"></HelpComponent>
         case "Bullets":

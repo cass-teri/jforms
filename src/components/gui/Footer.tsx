@@ -6,7 +6,7 @@ export function Footer() {
     const { selected } = useSelection()
 
     return (
-        <footer className="fixed h-16 left-0 bottom-0 right-0 bg-primary">
+        <footer className="fixed h-16 left-0 bottom-0 right-0 bg-primary z-40">
             <div className="flex justify-around items-center h-full px-4">
                 <div className="text-neutral-200">Selected: {selected}</div>
 

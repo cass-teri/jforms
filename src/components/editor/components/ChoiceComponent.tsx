@@ -47,7 +47,6 @@ export function ChoiceComponent(props: IChoiceComponentProps) {
                     <div>id={props.id}</div>
                 </div>
                 <label> {props.name}</label>
-                <div className="border-neutral-400 border rounded-b bg-white px-4 py-2"></div>
             </div>
         </>
     )

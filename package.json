@@ -13,6 +13,7 @@
     "@abgov/jsonforms-components": "^1.25.5",
     "@hookform/resolvers": "^3.9.0",
     "@jsonforms/core": "^3.3.0",
+    "@jsonforms/material-renderers": "^3.3.0",
     "@paralleldrive/cuid2": "^2.2.2",
     "@radix-ui/react-accordion": "^1.2.0",
     "@radix-ui/react-alert-dialog": "^1.1.1",

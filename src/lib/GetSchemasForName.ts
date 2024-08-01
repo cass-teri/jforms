@@ -233,7 +233,7 @@ export function GetSchemasForName(component_type: string) {
         case "Header": {
             const ui_schema: HelpContent = {
                 type: "HelpContent",
-                label: ""
+                label: "Header"
             }
 
             return { ui_schema, data_schema: {}, meta: { is_container: false, id } } as SchemaPackage
@@ -243,7 +243,7 @@ export function GetSchemasForName(component_type: string) {
                 type: "HelpContent",
                 label: "",
                 options: {
-                    help: ""
+                    help: "Paragraph Text"
                 }
             }
 
@@ -255,7 +255,7 @@ export function GetSchemasForName(component_type: string) {
                 elements: [
                     {
                         type: "HelpContent",
-                        label: ""
+                        label: "SubHeader"
                     }
                 ]
             }
@@ -270,7 +270,9 @@ export function GetSchemasForName(component_type: string) {
                         type: "HelpContent",
                         label: "",
                         options: {
-                            help: []
+                            help: [
+                                "one", "two", "three"
+                            ]
                         }
                     }
                 ]
@@ -309,7 +311,7 @@ export function GetSchemasForName(component_type: string) {
                 type: "HelpContent",
                 options: {
                     variant: "hyperlink",
-                    link: "",
+                    link: "http://alberta.ca",
                     help: `Link: ${id}`
                 }
             }
