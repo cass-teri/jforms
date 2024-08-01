@@ -3,6 +3,7 @@ import { PiSquareSplitHorizontal } from "react-icons/pi"
 import { useDragging } from "@/components/context/DragContextProvider.tsx"
 import { IAst } from "@/types/IAst.tsx"
 import { GetComponentForName } from "@/lib/GetComponentForName.tsx"
+import { useSelection } from "@/components/context/SelectionContext.tsx"
 
 interface IHorizontalComponentProps {
     id: string
@@ -12,6 +13,12 @@ interface IHorizontalComponentProps {
 
 export function HorizontalComponent(props: IHorizontalComponentProps) {
     const { SetDraggingContext } = useDragging()
+    const { SetSelected } = useSelection()
+
+    function OnClick(e: any) {
+        e.stopPropagation()
+        SetSelected(props.id)
+    }
 
     function OnDragStart(e: any) {
         SetDraggingContext({
@@ -32,6 +39,7 @@ export function HorizontalComponent(props: IHorizontalComponentProps) {
             <DropZone before={props.id}></DropZone>
             <div
                 onDragStart={OnDragStart}
+                onClick={OnClick}
                 draggable
                 tabIndex={0}
                 className="w-full bg-neutral-50 dark:bg-neutral-500 border-neutral-400 flex flex-col border-2 clear-both overflow-visible p-2 hover:shadow-2xl rounded focus:ring-4 ring-amber-300"

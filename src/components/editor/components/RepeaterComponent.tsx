@@ -3,6 +3,7 @@ import { useDragging } from "@/components/context/DragContextProvider.tsx"
 import { FaLayerGroup } from "react-icons/fa6"
 import { IAst } from "@/types/IAst.tsx"
 import { GetComponentForName } from "@/lib/GetComponentForName.tsx"
+import { useSelection } from "@/components/context/SelectionContext.tsx"
 
 interface IRepeaterComponentProps {
     id: string
@@ -12,6 +13,12 @@ interface IRepeaterComponentProps {
 
 export function RepeaterComponent(props: IRepeaterComponentProps) {
     const { SetDraggingContext } = useDragging()
+    const { SetSelected } = useSelection()
+
+    function OnClick(e: any) {
+        e.stopPropagation()
+        SetSelected(props.id)
+    }
 
     function OnDragStart(e: any) {
         SetDraggingContext({
@@ -33,6 +40,7 @@ export function RepeaterComponent(props: IRepeaterComponentProps) {
             <div
                 draggable
                 onDragStart={OnDragStart}
+                onClick={OnClick}
                 tabIndex={0}
                 className="w-full bg-neutral-300 dark:bg-neutral-500 flex flex-col border-2 border-neutral-400 clear-both overflow-visible  p-2 hover:shadow-2xl rounded focus:ring-4 ring-amber-300"
             >

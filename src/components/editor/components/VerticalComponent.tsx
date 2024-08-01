@@ -3,6 +3,7 @@ import { PiSquareSplitVertical } from "react-icons/pi"
 import { useDragging } from "@/components/context/DragContextProvider.tsx"
 import { IAst } from "@/types/IAst.tsx"
 import { GetComponentForName } from "@/lib/GetComponentForName.tsx"
+import { useSelection } from "@/components/context/SelectionContext.tsx"
 
 interface IVerticalComponentProps {
     id: string
@@ -11,6 +12,12 @@ interface IVerticalComponentProps {
 
 export function VerticalComponent(props: IVerticalComponentProps) {
     const { SetDraggingContext } = useDragging()
+    const { SetSelected } = useSelection()
+
+    function OnClick(e: any) {
+        e.stopPropagation()
+        SetSelected(props.id)
+    }
 
     function OnDragStart(e: any) {
         SetDraggingContext({
@@ -32,6 +39,7 @@ export function VerticalComponent(props: IVerticalComponentProps) {
             <div
                 draggable
                 onDragStart={OnDragStart}
+                onClick={OnClick}
                 tabIndex={0}
                 className="w-full bg-white dark:bg-neutral-500 flex flex-col border-2 border-neutral-400 clear-both overflow-visible  p-2 hover:shadow-2xl rounded focus:ring-4 ring-amber-300"
             >
