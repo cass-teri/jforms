@@ -59,7 +59,7 @@ export function Root() {
     }
 
     return (
-        <div className={cn("flex flex-col justify-center items-start pb-96 mb-[1080px]")}>
+        <div className={cn("flex flex-col justify-center items-start pb-96 mb-[1080px] w-full")}>
             <div
                 className={cn("w-full bg-accent my-16", is_dragging ? "h-32" : "h-16")}
                 style={{
