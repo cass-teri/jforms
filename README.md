@@ -1,30 +1,27 @@
-# React + TypeScript + Vite
+# JSON Forms Drag and Drop Editor
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+---
 
-Currently, two official plugins are available:
+# WARNING - This project is a work in progress and is in a pre-alpha state. It is not yet ready for use.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This project is a drag and drop editor for JSON forms. It is based on the [JSON Forms](https://jsonforms.io/) library
+and uses the [React](https://reactjs.org/) framework. The editor allows you to create and edit JSON forms by dragging
+and dropping form elements from a palette to a canvas.
 
-## Expanding the ESLint configuration
+## Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+![Editor Preview](./public/img.png)
 
-- Configure the top-level `parserOptions` property like this:
+To install the project, clone the repository and run the following commands:
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```bash
+npm install
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Running the project
+
+To run the project, run the following command:
+
+```bash
+npm run dev
+```
