@@ -1,8 +1,8 @@
-import { DropZone } from "@/components/editor/DropZone.tsx"
-import { useDragging } from "@/components/context/DragContextProvider.tsx"
-import { RiDropdownList } from "react-icons/ri"
-import { IAst } from "@/types/IAst.tsx"
-import { useSelection } from "@/components/context/SelectionContext.tsx"
+import {DropZone} from "@/components/editor/DropZone.tsx"
+import {useDragging} from "@/components/context/DragContextProvider.tsx"
+import {RiDropdownList} from "react-icons/ri"
+import {IAst} from "@/types/IAst.tsx"
+import {useSelection} from "@/components/context/SelectionContext.tsx"
 
 interface IChoiceComponentProps {
     id: string
@@ -12,8 +12,8 @@ interface IChoiceComponentProps {
 }
 
 export function ChoiceComponent(props: IChoiceComponentProps) {
-    const { SetDraggingContext } = useDragging()
-    const { SetSelected } = useSelection()
+    const {SetDraggingContext} = useDragging()
+    const {SetSelected} = useSelection()
 
     function OnClick(e: any) {
         e.stopPropagation()
@@ -39,9 +39,9 @@ export function ChoiceComponent(props: IChoiceComponentProps) {
                 tabIndex={0}
                 className="bg-sky-100 border-2 hover:shadow-2xl px-4 py-2 focus:ring-4 ring-amber-300 shadow-inner flex flex-col rounded border-neutral-400"
             >
-                <div className="flex flex-row items-center border-b-neutral-400 justify-between">
-                    <div className="flex flex-row items-center">
-                        <RiDropdownList className="" />
+                <div className="flex flex-row items-center border-b-neutral-400 justify-between overflow-hidden">
+                    <div className="flex flex-row items-center pr-4">
+                        <RiDropdownList className=""/>
                         <span className="align-bottom">{props.type}</span>
                     </div>
                     <div>id={props.id}</div>

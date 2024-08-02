@@ -1,8 +1,8 @@
-import { DropZone } from "@/components/editor/DropZone.tsx"
-import { ReactNode } from "react"
-import { useDragging } from "@/components/context/DragContextProvider.tsx"
-import { PiStepsBold } from "react-icons/pi"
-import { useSelection } from "@/components/context/SelectionContext.tsx"
+import {DropZone} from "@/components/editor/DropZone.tsx"
+import {ReactNode} from "react"
+import {useDragging} from "@/components/context/DragContextProvider.tsx"
+import {PiStepsBold} from "react-icons/pi"
+import {useSelection} from "@/components/context/SelectionContext.tsx"
 
 interface IStepperComponentProps {
     id: string
@@ -10,8 +10,8 @@ interface IStepperComponentProps {
 }
 
 export function StepperComponent(props: IStepperComponentProps) {
-    const { SetDraggingContext } = useDragging()
-    const { SetSelected } = useSelection()
+    const {SetDraggingContext} = useDragging()
+    const {SetSelected} = useSelection()
 
     function OnClick(e: any) {
         e.stopPropagation()
@@ -37,9 +37,9 @@ export function StepperComponent(props: IStepperComponentProps) {
                 tabIndex={0}
                 className="w-full bg-neutral-200 dark:bg-neutral-500 flex flex-col border-2 border-neutral-400 clear-both overflow-visible  p-2 hover:shadow-2xl rounded focus:ring-4 ring-amber-300"
             >
-                <div className="flex flex-row justify-between items-center">
-                    <span className="flex flex-row items-center ">
-                        <PiStepsBold />
+                <div className="flex flex-row justify-between items-center overflow-hidden">
+                    <span className="flex flex-row items-center pr-4">
+                        <PiStepsBold/>
                         Stepper
                     </span>
                     <span>id={props.id}</span>

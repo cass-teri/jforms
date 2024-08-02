@@ -1,9 +1,9 @@
-import { DropZone } from "@/components/editor/DropZone.tsx"
-import { PiSquareSplitVertical } from "react-icons/pi"
-import { useDragging } from "@/components/context/DragContextProvider.tsx"
-import { IAst } from "@/types/IAst.tsx"
-import { GetComponentForName } from "@/lib/GetComponentForName.tsx"
-import { useSelection } from "@/components/context/SelectionContext.tsx"
+import {DropZone} from "@/components/editor/DropZone.tsx"
+import {PiSquareSplitVertical} from "react-icons/pi"
+import {useDragging} from "@/components/context/DragContextProvider.tsx"
+import {IAst} from "@/types/IAst.tsx"
+import {GetComponentForName} from "@/lib/GetComponentForName.tsx"
+import {useSelection} from "@/components/context/SelectionContext.tsx"
 
 interface IVerticalComponentProps {
     id: string
@@ -11,8 +11,8 @@ interface IVerticalComponentProps {
 }
 
 export function VerticalComponent(props: IVerticalComponentProps) {
-    const { SetDraggingContext } = useDragging()
-    const { SetSelected } = useSelection()
+    const {SetDraggingContext} = useDragging()
+    const {SetSelected} = useSelection()
 
     function OnClick(e: any) {
         e.stopPropagation()
@@ -43,9 +43,9 @@ export function VerticalComponent(props: IVerticalComponentProps) {
                 tabIndex={0}
                 className="w-full bg-white dark:bg-neutral-500 flex flex-col border-2 border-neutral-400 clear-both overflow-visible  p-2 hover:shadow-2xl rounded focus:ring-4 ring-amber-300"
             >
-                <div className="flex flex-row justify-between">
-                    <span className="flex flex-row items-center">
-                        <PiSquareSplitVertical />
+                <div className="flex flex-row justify-between overflow-hidden">
+                    <span className="flex flex-row items-center pr-4">
+                        <PiSquareSplitVertical/>
                         Vertical
                     </span>
                     <span>id={props.id}</span>
@@ -54,7 +54,7 @@ export function VerticalComponent(props: IVerticalComponentProps) {
                 <div className="overflow-visible clear-both">
                     <div className="clear-both">
                         {children?.map((ast, index) => {
-                            return GetComponentForName(ast.type, { ast, id: ast.id, key: index })
+                            return GetComponentForName(ast.type, {ast, id: ast.id, key: index})
                         })}
                     </div>
                     <DropZone child_of={props.id}></DropZone>
