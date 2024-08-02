@@ -4,7 +4,7 @@ import { App } from "@/App.tsx"
 import { Header } from "./components/gui/Header.tsx"
 import { Footer } from "./components/gui/Footer.tsx"
 import { ThemeProvider } from "@/components/context/ThemeProvider.tsx"
-import { Sidebar } from "@/components/gui/Sidebar.tsx"
+import { Toolbar } from "@/components/gui/Toolbar.tsx"
 import { DragContextProvider } from "@/components/context/DragContextProvider.tsx"
 import { AstContextProvider } from "@/components/context/AstContextProvider.tsx"
 import { SelectionProvider } from "@/components/context/SelectionContext.tsx"
@@ -17,7 +17,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                     <AstContextProvider>
                         <Header></Header>
                         <App />
-                        <Sidebar></Sidebar>
+                        <Toolbar></Toolbar>
                         <Footer></Footer>
                     </AstContextProvider>
                 </DragContextProvider>

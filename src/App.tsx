@@ -7,14 +7,15 @@ import {Trash} from "@/components/editor/Trash.tsx"
 import {PropertiesPanel} from "@/components/gui/PropertiesPanel.tsx"
 import {useAst} from "@/components/context/AstContextProvider.tsx"
 import { materialCells, materialRenderers } from "@jsonforms/material-renderers"
+import { vanillaCells, vanillaRenderers} from "@jsonforms/vanilla-renderers"
 import { GoABaseRenderers, GoACells, GoARenderers } from "@abgov/jsonforms-components"
 
 export function App() {
     const {data_schema, ui_schema} = useAst()
     const data = {}
 
-    const renderers = [ ...materialRenderers, ...GoABaseRenderers,...GoARenderers]
-    const cells = [ ...materialCells, ...GoACells]
+    const renderers = [ ...materialRenderers,  ...vanillaRenderers, ...GoABaseRenderers,...GoARenderers]
+    const cells = [ ...materialCells,  ...vanillaCells, ...GoACells]
 
 /*
     const renderers = [...materialRenderers, ...GoABaseRenderers, ...GoARenderers]
