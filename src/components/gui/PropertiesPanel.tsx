@@ -1,11 +1,12 @@
 import {createRef, useEffect, useState} from "react";
-import {LuMaximize2, LuMinimize2} from "react-icons/lu";
+import {LuMinimize2} from "react-icons/lu";
 import {motion} from "framer-motion";
 import {Input} from "@/components/ui/input.tsx";
 import {useSelection} from "@/components/context/SelectionContext.tsx";
 import {useAst} from "@/components/context/AstContextProvider.tsx";
 import {FindById} from "@/lib/FindById.ts";
 import {Button} from "@/components/ui/button.tsx";
+import {GetSchemasForName} from "@/lib/GetSchemasForName.ts";
 
 
 export function PropertiesPanel() {
@@ -38,6 +39,7 @@ export function PropertiesPanel() {
             id_ref.current.value = node?.id ?? ""
         }
 
+        // @ts-expect-error possibly null or undefined
         const data_schema = node?.SchemaPackage.data_schema[node.id]
         if (data_schema) {
             console.log(data_schema)
@@ -59,31 +61,56 @@ export function PropertiesPanel() {
     }, [ast, id_ref, selected]);
 
 
-    const minimize_icon = minimize ? (
-        <LuMinimize2 className="text-foreground"/>
-    ) : (
-        <LuMaximize2 className="text-foreground"/>
-    )
+    /*
+        const minimize_icon = minimize ? (
+        ) : (
+            <LuMaximize2 className="text-foreground"/>
+        )
+    */
 
     function Minimize() {
         setMinimize(!minimize)
+        SetType("")
+        SetFormat("")
+        SetTitle("")
+        SetDefaultValue("")
+        SetDescription("")
+        SetMin(-1)
+        SetMax(-1)
+        ExclusiveMin(-1)
+        ExclusiveMax(-1)
+        MinLength(-1)
+        MaxLength(-1)
+        Pattern("")
+        MultipleOf(-1)
     }
 
     function OnChangeId() {
         console.log("OnChangeId")
 
         const node = FindById(ast, selected)
+
         if (node) {
-            node.id = id_ref.current?.value ?? ""
+            const old_id = node.id
+            const old_schema = node.SchemaPackage.data_schema[old_id]
+
+
+            const new_id = id_ref.current?.value.replace(" ", "_") ?? ""
+            const new_schema = GetSchemasForName(node.type, new_id)
+
+            new_schema.data_schema[`${new_id}`] = old_schema
+
+            node.SchemaPackage = new_schema
+            node.id = new_id
         }
         SetAst(ast)
-        location.reload()
 
     }
 
     function OnChange(e: any, name: string) {
 
         const node = FindById(ast, selected)
+        // @ts-expect-error possibly null or undefined
         const schema = node.SchemaPackage.data_schema[node.id]
 
         switch (name) {
@@ -173,23 +200,24 @@ export function PropertiesPanel() {
 
     return (
         <motion.aside
-            className={`fixed top-16 right-0 bottom-16 bg-background text-foreground z-50 p-4 shadow-2xl ${minimize ? "w-12" : "w-2/5"}`}
+            className={`fixed top-16 right-0 bottom-16 bg-background text-foreground z-50 p-4 shadow-2xl ${minimize ? "w-14" : "w-2/5"}`}
             layout
             layoutId="properties-panel"
         >
-            <div className="flex flex-col">
-                <div className="flex flex-row justify-between">
+            <div className="flex flex-col w-full">
+                <div className="flex flex-row justify-between w-full">
                     {minimize ? null : <span className="text-2xl">Properties</span>}
-                    <button className="text-white dark:text-neutral-800" onClick={Minimize}>
-                        {minimize_icon}
+                    <button className="text-white bg-neutral-800 w-8 h-8 flex items-center justify-center rounded-xl "
+                            onClick={Minimize}>
+                        <LuMinimize2 className="text-foreground text-neutral-200 font-bold h-6 w-6"/>
                     </button>
                 </div>
 
                 {minimize ? null : <form>
-                    <div className="px-4 py-2 border border-neutral-200 rounded flex flex-col gap-4">
+                    <div className="px-4 py-2 border border-neutral-200 rounded flex flex-col gap-4 w-full">
                         <label className="flex flex-row items-center w-full">
                             <span>Id: </span>
-                            <div className="flex flex-row justify-between items-center">
+                            <div className="flex flex-row justify-between items-center w-full">
                                 <Input className="w-full" type="text" ref={id_ref}/>
                                 <Button type="button" onClick={OnChangeId}>Change</Button>
                             </div>
