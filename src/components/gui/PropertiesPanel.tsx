@@ -104,6 +104,7 @@ export function PropertiesPanel() {
             node.id = new_id
         }
         SetAst(ast)
+        location.reload()
 
     }
 
