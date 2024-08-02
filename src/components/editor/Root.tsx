@@ -10,7 +10,7 @@ export function Root() {
     const [is_dragging, SetIsDragging] = useState(false)
     const [root, SetRoot] = useState<ReactNode | null>(null)
     const { dragging_context, SetDraggingContext } = useDragging()
-    const { ast, SetAst } = useAst()
+    const { ast, SetAst} = useAst()
 
     if (ast !== null && (root === undefined || root === null)) {
         if (ast.id !== undefined) {
@@ -34,7 +34,7 @@ export function Root() {
         SetIsDragging(false)
         const id = createId()
         const dragging_id = dragging_context.id
-        const component_schemas = GetSchemasForName(dragging_id)
+        const component_schemas = GetSchemasForName(dragging_id, id)
 
         if (root !== null) {
             return root

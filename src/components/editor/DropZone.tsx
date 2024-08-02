@@ -42,9 +42,9 @@ export function DropZone(props: IDropZoneProps) {
         // if we are dragging an element, move the element in the AST
 
         if (dragging_context.dragging_type === "button") {
-            const component_schemas = GetSchemasForName(dragging_id)
-
             const id = createId()
+
+            const component_schemas = GetSchemasForName(dragging_id, id)
 
             const parent_id = (props.before ? props.before : props.child_of) ?? null
 

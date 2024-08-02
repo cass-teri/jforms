@@ -7,12 +7,10 @@ import {
     UISchemaElement,
     VerticalLayout
 } from "@jsonforms/core"
-import { createId } from "@paralleldrive/cuid2"
 import { SchemaPackage } from "@/types/SchemaPackage.tsx"
 import { HelpContent } from "@/types/HelpContent.tsx"
 
-export function GetSchemasForName(component_type: string) {
-    const id = createId()
+export function GetSchemasForName(component_type: string, id: string) {
 
     switch (component_type) {
         case "Group": {
@@ -178,8 +176,7 @@ export function GetSchemasForName(component_type: string) {
 
             const data_schema: JsonSchema7 = {
                 [`${id}`]: {
-                    type: "string",
-                    enum: []
+                    type: "boolean",
                 }
             }
 
