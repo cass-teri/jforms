@@ -7,7 +7,7 @@ export function FindById(ast: IAst, id?: string | undefined | null): IAst | null
         return ast
     }
 
-    if (ast.children !== null && ast.children.length > 0) {
+    if (ast.children !== undefined && ast.children.length > 0) {
         for (let i = 0; i < ast.children.length; i++) {
             const result = FindById(ast.children[i], id)
             if (result) {
