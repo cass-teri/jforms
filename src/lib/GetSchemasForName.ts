@@ -333,6 +333,41 @@ export function GetSchemasForName(component_type: string, id: string) {
 
             return { ui_schema, data_schema, meta: { is_container: false, id } } as SchemaPackage
         }
+        case "Province": {
+            const ui_schema: ControlElement = {
+                type: "Control",
+                scope: `#/properties/${id}`
+            }
+
+            const data_schema: JsonSchema7 = {
+                [`${id}`]: {
+                    type: "string",
+                    enum: [
+                        "Alberta", "British Columbia", "Manitoba", "New Brunswick", "Newfoundland and Labrador", "Nova Scotia", "Northwest Territories", "Nunavut", "Ontario", "Prince Edward Island", "Quebec", "Saskatchewan", "Yukon"
+                    ]
+                }
+            }
+
+            return { ui_schema, data_schema, meta: { is_container: false, id } } as SchemaPackage
+        }
+        case "Ministry": {
+            const ui_schema: ControlElement = {
+                type: "Control",
+                scope: `#/properties/${id}`
+            }
+
+            const data_schema: JsonSchema7 = {
+                [`${id}`]: {
+                    type: "string",
+                    enum: [
+                        "Agriculture and Forestry", "Children's Services", "Community and Social Services", "Culture and Multiculturalism", "Economic Development, Trade and Tourism", "Education", "Energy", "Environment and Parks", "Health", "Indigenous Relations", "Infrastructure", "Justice and Solicitor General", "Labour", "Municipal Affairs", "Seniors and Housing", "Service Alberta", "Transportation", "Treasury Board and Finance"
+                    ]
+                }
+
+            }
+            return { ui_schema, data_schema, meta: { is_container: false, id } } as SchemaPackage
+        }
+
 
         default: {
             return { ui_schema: {}, data_schema: {}, meta: { is_container: false, id } } as SchemaPackage
