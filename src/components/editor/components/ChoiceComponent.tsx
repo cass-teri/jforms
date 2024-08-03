@@ -44,7 +44,7 @@ export function ChoiceComponent(props: IChoiceComponentProps) {
                         <RiDropdownList className=""/>
                         <span className="align-bottom">{props.type}</span>
                     </div>
-                    <div>id={props.id}</div>
+                    <span className="text-neutral-600">id={props.id}</span>
                 </div>
                 <label> {props.name}</label>
             </div>

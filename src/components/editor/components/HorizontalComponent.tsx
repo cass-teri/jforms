@@ -49,7 +49,7 @@ export function HorizontalComponent(props: IHorizontalComponentProps) {
                         <PiSquareSplitHorizontal/>
                         Horizontal
                     </span>
-                    <span>id={props.id}</span>
+                    <span className="text-neutral-200">id={props.id}</span>
                 </div>
                 <div className="">
                     {children?.map((child: IAst, index: number) => {

@@ -42,7 +42,7 @@ export function TextComponent(props: ITextComponentProps) {
                         <LuTextCursorInput className=""/>
                         {props.type}
                     </span>
-                    <span>id={props.id}</span>
+                    <span className="text-neutral-600">id={props.id}</span>
                 </div>
                 <label> {props.name}</label>
             </div>

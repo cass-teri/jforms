@@ -43,7 +43,7 @@ export function HelpComponent(props: IHelpComponentProps) {
                         <span className="text-2xl font-extrabold">T</span>
                         {props.type}
                     </span>
-                    <span>id={props.id}</span>
+                    <span className="text-neutral-600">id={props.id}</span>
                 </div>
                 <label> {props.name}</label>
             </div>

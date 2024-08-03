@@ -48,7 +48,7 @@ export function VerticalComponent(props: IVerticalComponentProps) {
                         <PiSquareSplitVertical/>
                         Vertical
                     </span>
-                    <span>id={props.id}</span>
+                    <span className="text-neutral-200">id={props.id}</span>
                 </div>
 
                 <div className="overflow-visible clear-both">

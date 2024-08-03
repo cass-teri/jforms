@@ -42,7 +42,7 @@ export function StepperComponent(props: IStepperComponentProps) {
                         <PiStepsBold/>
                         Stepper
                     </span>
-                    <span>id={props.id}</span>
+                    <span className="text-neutral-200">id={props.id}</span>
                 </div>
 
                 <div className="overflow-visible clear-both">

@@ -49,7 +49,7 @@ export function GroupComponent(props: IGroupComponentProps) {
                         <AiOutlineGroup/>
                         Group
                     </div>
-                    <div>id={props.id}</div>
+                    <span className="text-neutral-200">id={props.id}</span>
                 </div>
 
                 <div className="overflow-visible clear-both">

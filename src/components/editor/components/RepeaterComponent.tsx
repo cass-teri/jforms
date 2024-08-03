@@ -49,7 +49,7 @@ export function RepeaterComponent(props: IRepeaterComponentProps) {
                         <FaLayerGroup/>
                         Repeater
                     </span>
-                    <span>id={props.id}</span>
+                    <span className="text-neutral-200">id={props.id}</span>
                 </div>
 
                 <div className="bg-green-50 overflow-visible clear-both">
