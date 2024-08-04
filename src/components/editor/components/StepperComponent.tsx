@@ -39,7 +39,7 @@ export function StepperComponent(props: IStepperComponentProps) {
                 onDragStart={OnDragStart}
                 onClick={OnClick}
                 tabIndex={0}
-                className={cn("w-full bg-neutral-200 dark:bg-neutral-500 flex flex-col clear-both overflow-visible  p-2 hover:shadow-2xl rounded focus:ring-4 ring-amber-300", props.id == selected? "ring-4": "")}
+                className={cn("w-full bg-neutral-200 dark:bg-neutral-500 flex flex-col clear-both overflow-visible  p-2 hover:shadow-2xl rounded ring-amber-300", props.id == selected? "ring-4": "")}
             >
                 <div className="flex flex-row justify-between items-center overflow-hidden">
                     <span className="flex flex-row items-center pr-4">

@@ -19,6 +19,7 @@ import {IoMdRadioButtonOn} from "react-icons/io";
 import {RiDropdownList} from "react-icons/ri";
 import {VscSymbolBoolean} from "react-icons/vsc";
 import {ImParagraphLeft} from "react-icons/im";
+import {IoDocumentsOutline} from "react-icons/io5";
 
 export function Toolbar(){
     const button_style = "w-12 h-12 flex justify-center items-center bg-neutral-700 text-white rounded-md";
@@ -36,7 +37,7 @@ export function Toolbar(){
     }
 
     return <>
-        <aside className="bg-neutral-600 fixed left-0 top-16 bottom-16 w-28 justify-start items-center pt-4 overflow-auto" >
+        <aside className="bg-neutral-700 fixed left-0 top-16 bottom-16 w-28 justify-start items-center pt-4 overflow-auto" >
 
             <div className="grid grid-cols-2 grid-flow-dense gap-1">
                 <button draggable className={button_style} id="VerticalLayout" onDragStart={OnDragStart} title="Vertical Layout" >
@@ -58,6 +59,11 @@ export function Toolbar(){
                 <button draggable className={button_style} id="Stepper" onDragStart={OnDragStart} title="Stepper">
                     <PiStepsBold className={icon_style}/>
                 </button>
+
+                <button draggable className={button_style} id="Category" onDragStart={OnDragStart} title="Category">
+                    <IoDocumentsOutline className={icon_style}/>
+                </button>
+
             </div>
 
             <hr className="w-full my-2 border-neutral-500" />

@@ -5,8 +5,8 @@ import {Input} from "@/components/ui/input.tsx";
 import {useSelection} from "@/components/context/SelectionContext.tsx";
 import {useAst} from "@/components/context/AstContextProvider.tsx";
 import {FindById} from "@/lib/FindById.ts";
-import {Button} from "@/components/ui/button.tsx";
 import {GetSchemasForName} from "@/lib/GetSchemasForName.ts";
+import {IAst} from "@/types/IAst.tsx";
 
 
 export function PropertiesPanel() {
@@ -33,8 +33,15 @@ export function PropertiesPanel() {
     const [pattern, Pattern] = useState("")
     const [multiple_of, MultipleOf] = useState(-8675309)
 
+    const [current_node, SetCurrentNode] = useState({} as IAst)
+
     useEffect(() => {
         const node = FindById(ast, selected)
+        if (node)
+            SetCurrentNode(node)
+        else
+            return
+
         if (id_ref.current) {
             id_ref.current.value = node?.id ?? ""
         }
@@ -88,16 +95,17 @@ export function PropertiesPanel() {
     function OnChangeId() {
         console.log("OnChangeId")
 
-        const node = FindById(ast, selected)
+        const node = current_node
 
         if (node) {
             const old_id = node.id
+            // @ts-expect-error possibly null or undefined
             const old_schema = node.SchemaPackage.data_schema[old_id]
-
 
             const new_id = id_ref.current?.value.replace(" ", "_") ?? ""
             const new_schema = GetSchemasForName(node.type, new_id)
 
+            // @ts-expect-error possibly null or undefined
             new_schema.data_schema[`${new_id}`] = old_schema
 
             node.SchemaPackage = new_schema
@@ -183,7 +191,17 @@ export function PropertiesPanel() {
                 break
             case "pattern":
                 if (node) {
-                    schema.pattern = e.target.value
+                    try{
+                        const regex = new RegExp(e.target.value)
+                        regex.test("test")
+
+                        schema.pattern = e.target.value
+                    }
+                   catch(e) {
+                       console.log(e)
+                   }
+
+
                 }
                 Pattern(e.target.value)
                 break
@@ -201,13 +219,13 @@ export function PropertiesPanel() {
 
     return (
         <motion.aside
-            className={`fixed top-16 right-0 bottom-16 bg-background text-foreground z-50 p-4 shadow-2xl ${minimize ? "w-14" : "w-2/5"}`}
+            className={`fixed top-16 right-0 bottom-16 bg-background text-foreground overflow-auto z-40 p-4 shadow-2xl ${minimize ? "w-14" : "w-2/5"}`}
             layout
             layoutId="properties-panel"
         >
             <div className="flex flex-col w-full">
                 <div className="flex flex-row justify-between w-full">
-                    {minimize ? null : <span className="text-2xl">Properties</span>}
+                    {minimize ? null : <span className="text-xl">Properties</span>}
                     <button className="text-white bg-neutral-800 w-8 h-8 flex items-center justify-center rounded-xl "
                             onClick={Minimize}>
                         <LuMinimize2 className="text-foreground text-neutral-200 font-bold h-6 w-6"/>
@@ -215,15 +233,15 @@ export function PropertiesPanel() {
                 </div>
 
                 {minimize ? null : <form>
-                    <div className="px-4 py-2 border border-neutral-200 rounded flex flex-col gap-4 w-full">
-                        <label className="flex flex-row items-center w-full">
-                            <span>Id: </span>
-                            <div className="flex flex-row justify-between items-center w-full">
-                                <Input className="w-full" type="text" ref={id_ref}/>
-                                <Button type="button" onClick={OnChangeId}>Change</Button>
-                            </div>
+                    <label className="flex flex-row items-center w-full text-xl">
+                        <span>Id: </span>
+                        <div className="flex flex-row justify-between items-center w-full">
+                            <Input className="w-full text-xl" type="text" ref={id_ref}/>
+                            <button className="rounded text-neutral-50 bg-neutral-600 px-4 py-2" type="button" onClick={OnChangeId}>Change</button>
+                        </div>
+                    </label>
 
-                        </label>
+                    <div className="px-4 py-2 border border-neutral-200 rounded flex flex-col gap-1 w-full">
                         <h4>General</h4>
                         <hr/>
                         <div className="flex flex-row">
@@ -250,15 +268,15 @@ export function PropertiesPanel() {
                             </label>
                         </div>
                         <label className="flex items-center">
-                            <span>Title: </span>
+                            <span className="pr-4">Title: </span>
                             <Input type="text" tabIndex={-1} onChange={(e) => OnChange(e, "title")} value={title}/>
                         </label>
                         <label className="flex items-center">
-                            <span>Default: </span>
+                            <span className="pr-4" >Default: </span>
                             <Input type="text" onChange={(e) => OnChange(e, "default")} value={default_value}/>
                         </label>
                         <label className="flex items-center">
-                            <span>Description: </span>
+                            <span className="pr-4">Description: </span>
                             <Input type="text" onChange={(e) => OnChange(e, "description")} value={description}/>
                         </label>
                     </div>
@@ -268,16 +286,16 @@ export function PropertiesPanel() {
                         <hr/>
                         <div className="flex flex-row">
                             <label className="flex flex-row w-1/2 items-center">
-                                <span className="text-nowrap">Min Length: </span>
+                                <span className="text-nowrap pr-4">Min Length: </span>
                                 <Input type="number" onChange={(e) => OnChange(e, "minLength")} value={min_length}/>
                             </label>
                             <label className="flex flex-row w-1/2 items-center">
-                                <span className="text-nowrap">Max Length: </span>
+                                <span className="text-nowrap pr-4">Max Length: </span>
                                 <Input type="number" onChange={(e) => OnChange(e, "maxLength")} value={max_length}/>
                             </label>
                         </div>
                         <label className="flex flex-row items-center">
-                            <span>Pattern: </span>
+                            <span className="pr-4">Pattern: </span>
                             <Input type="text" onChange={(e) => OnChange(e, "pattern")} value={pattern}/>
                         </label>
                     </div>
@@ -286,30 +304,30 @@ export function PropertiesPanel() {
                         <h4>Number</h4>
                         <hr/>
                         <label className="flex flex-row items-center">
-                            <span>MultipleOf: </span>
+                            <span className="pr-4">MultipleOf: </span>
                             <Input type="number" onChange={(e) => OnChange(e, "multipleOf")} value={multiple_of}/>
                         </label>
 
 
                         <div className="flex flex-row">
                             <label className="flex w-1/2 items-center">
-                                <span>Min: </span>
+                                <span className="pr-4" >Min: </span>
                                 <Input type="number" onChange={(e) => OnChange(e, "minimum")} value={min}/>
                             </label>
                             <label className="flex w-1/2 items-center">
-                                <span>Max: </span>
+                                <span className="pr-4">Max: </span>
                                 <Input type="number" onChange={(e) => OnChange(e, "maximum")} value={max}/>
                             </label>
                         </div>
 
                         <div className="flex flex-row">
                             <label className="flex w-1/2 items-center">
-                                <span className="flex text-nowrap">Excl. Min: </span>
+                                <span className="flex text-nowrap pr-4">Excl. Min: </span>
                                 <Input type="number" onChange={(e) => OnChange(e, "exclusiveMinimum")}
                                        value={exclusive_min}/>
                             </label>
                             <label className="flex w-1/2 items-center">
-                                <span className="flex text-nowrap">Excl. Max: </span>
+                                <span className="flex text-nowrap pr-4">Excl. Max: </span>
                                 <Input type="number" onChange={(e) => OnChange(e, "exclusiveMaximum")}
                                        value={exclusive_max}/>
                             </label>

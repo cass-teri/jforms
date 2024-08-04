@@ -41,7 +41,7 @@ export function ChoiceComponent(props: IChoiceComponentProps) {
                 onClick={OnClick}
                 draggable
                 tabIndex={0}
-                className={cn("bg-white border hover:shadow-2xl px-4 py-2 focus:ring-4 ring-amber-300 shadow-inner flex flex-col rounded border-neutral-200 overflow-hidden", props.id == selected? "ring-4": "")}
+                className={cn("bg-white border hover:shadow-2xl px-4 py-2 ring-amber-300 shadow-inner flex flex-col rounded border-neutral-200 overflow-hidden", props.id == selected? "ring-4": "")}
             >
                 <div className="flex flex-row items-center justify-between overflow-hidden">
                     <span className="text-neutral-600">{ToDisplayString(props.id)}</span>

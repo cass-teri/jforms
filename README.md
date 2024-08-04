@@ -1,4 +1,4 @@
-# JSON Forms Drag and Drop Editor
+# Yet Another JSONForms Designer (YAJD) 
 
 ---
 

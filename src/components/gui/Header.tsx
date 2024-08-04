@@ -57,8 +57,8 @@ export function Header() {
     }
 
     return (
-        <header className="bg-primary fixed left-0 top-0 right-0 h-16 flex flex-row justify-between items-center px-8">
-            <Menubar>
+        <header className="bg-neutral-900 fixed left-0 top-0 right-0 h-16 flex flex-row justify-between items-center px-8 z-50">
+            <Menubar className="bg-neutral-800 border-0 text-neutral-100">
                 <MenubarMenu>
                     <MenubarTrigger>File</MenubarTrigger>
                     <MenubarContent>
