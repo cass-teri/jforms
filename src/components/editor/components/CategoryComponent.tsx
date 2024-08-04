@@ -1,19 +1,19 @@
 import {DropZone} from "@/components/editor/DropZone.tsx"
-import {PiSquareSplitVertical} from "react-icons/pi"
 import {useDragging} from "@/components/context/DragContextProvider.tsx"
+import {AiOutlineGroup} from "react-icons/ai"
 import {IAst} from "@/types/IAst.tsx"
 import {GetComponentForName} from "@/lib/GetComponentForName.tsx"
 import {useSelection} from "@/components/context/SelectionContext.tsx"
 import {cn} from "@/lib/utils.ts";
-import {motion} from "framer-motion"
+import {motion} from "framer-motion";
 
-interface IVerticalComponentProps {
+export interface ICategoryComponentProps {
     id: string
     ast: IAst
-    debug?: boolean
+    parent?: IAst
 }
 
-export function VerticalComponent(props: IVerticalComponentProps) {
+export function CategoryComponent(props: ICategoryComponentProps) {
     const {SetDraggingContext} = useDragging()
     const {selected, SetSelected} = useSelection()
 
@@ -32,7 +32,7 @@ export function VerticalComponent(props: IVerticalComponentProps) {
     }
 
     let children: IAst[] = []
-    if (props.ast !== null && props.ast.children !== null) {
+    if (props.ast.children !== null && props.ast.children !== undefined) {
         children = props.ast.children
     }
 
@@ -40,26 +40,25 @@ export function VerticalComponent(props: IVerticalComponentProps) {
         <>
             <DropZone before={props.id}></DropZone>
             <motion.div
-                draggable
                 layout
                 onDragStart={OnDragStart}
                 onClick={OnClick}
+                draggable
                 tabIndex={0}
-                className={cn("my-1 w-full bg-neutral-200 flex flex-col clear-both overflow-visible  p-2 hover:shadow-2xl rounded focus:ring-4 ring-amber-300", props.id == selected? "ring-4": "")}
-
+                className={cn("my-1 w-full bg-neutral-400 dark:bg-neutral-500 border flex flex-col clear-both overflow-visible  p-2 hover:shadow-2xl rounded focus:ring-4 ring-amber-300", props.id == selected? "ring-4": "")}
             >
                 <div className="flex flex-row justify-between overflow-hidden">
-                    <span className="flex flex-row items-center pr-4">
-                        <PiSquareSplitVertical/>
-                        Vertical
-                    </span>
-                    {props.debug ? <span className="text-neutral-50">{props.id}</span> : null}
+                    <div className="flex flex-row items-center pr-4">
+                        <AiOutlineGroup/>
+                        Category
+                    </div>
+                    <span className="text-neutral-50">id={props.id}</span>
                 </div>
 
                 <div className="overflow-visible clear-both">
                     <div className="clear-both">
-                        {children?.map((ast, index) => {
-                            return GetComponentForName(ast.type, {ast, id: ast.id, key: index})
+                        {children.map((child: IAst, index: number) => {
+                            return GetComponentForName(child.type, {ast: child, id: child.id, key: index})
                         })}
                     </div>
                     <DropZone child_of={props.id}></DropZone>
