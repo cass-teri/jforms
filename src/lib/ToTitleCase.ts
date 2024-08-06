@@ -13,5 +13,5 @@ export function CamelCaseToTitleCase(s: string) {
 
 export function ToDisplayString(str: string) {
     const de_camel = CamelCaseToTitleCase(str)
-    return ToTitleCase(de_camel)
+    return ToTitleCase(de_camel).trim().replaceAll("\t", " ").replaceAll("  ", " ")
 }

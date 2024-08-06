@@ -1,12 +1,10 @@
-import {createRef, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {LuMinimize2} from "react-icons/lu";
 import {motion} from "framer-motion";
 import {Input} from "@/components/ui/input.tsx";
 import {useSelection} from "@/components/context/SelectionContext.tsx";
 import {useAst} from "@/components/context/AstContextProvider.tsx";
 import {FindById} from "@/lib/FindById.ts";
-import {GetSchemasForName} from "@/lib/GetSchemasForName.ts";
-import {IAst} from "@/types/IAst.tsx";
 
 
 export function PropertiesPanel() {
@@ -15,8 +13,8 @@ export function PropertiesPanel() {
 
     const {ast, SetAst} = useAst()
 
-    const id_ref = createRef<HTMLInputElement>()
 
+    const [id, SetId] = useState("")
     const [type, SetType] = useState("")
     const [format, SetFormat] = useState("")
     const [title, SetTitle] = useState("")
@@ -33,18 +31,10 @@ export function PropertiesPanel() {
     const [pattern, Pattern] = useState("")
     const [multiple_of, MultipleOf] = useState(-8675309)
 
-    const [current_node, SetCurrentNode] = useState({} as IAst)
-
     useEffect(() => {
         const node = FindById(ast, selected)
-        if (node)
-            SetCurrentNode(node)
-        else
-            return
 
-        if (id_ref.current) {
-            id_ref.current.value = node?.id ?? ""
-        }
+        SetId(node?.id ?? "")
 
         // @ts-expect-error possibly null or undefined
         const data_schema = node?.SchemaPackage.data_schema[node.id]
@@ -65,17 +55,11 @@ export function PropertiesPanel() {
             Pattern(data_schema.pattern ?? "")
             MultipleOf(data_schema.multipleOf ?? -1)
         }
-    }, [ast, id_ref, selected]);
+    }, [ast, id, selected]);
 
-
-    /*
-        const minimize_icon = minimize ? (
-        ) : (
-            <LuMaximize2 className="text-foreground"/>
-        )
-    */
 
     function Minimize() {
+        SetId("")
         setMinimize(!minimize)
         SetType("")
         SetFormat("")
@@ -92,29 +76,6 @@ export function PropertiesPanel() {
         MultipleOf(-1)
     }
 
-    function OnChangeId() {
-        console.log("OnChangeId")
-
-        const node = current_node
-
-        if (node) {
-            const old_id = node.id
-            // @ts-expect-error possibly null or undefined
-            const old_schema = node.SchemaPackage.data_schema[old_id]
-
-            const new_id = id_ref.current?.value.replace(" ", "_") ?? ""
-            const new_schema = GetSchemasForName(node.type, new_id)
-
-            // @ts-expect-error possibly null or undefined
-            new_schema.data_schema[`${new_id}`] = old_schema
-
-            node.SchemaPackage = new_schema
-            node.id = new_id
-        }
-        SetAst(ast)
-        location.reload()
-
-    }
 
     function OnChange(e: any, name: string) {
 
@@ -191,21 +152,7 @@ export function PropertiesPanel() {
                 break
             case "pattern":
                 if (node) {
-/*
-                    try{
-                        const regex = new RegExp(e.target.value)
-                        regex.test("test")
-*/
-
-                        schema.pattern = e.target.value
-/*
-                    }
-                   catch(e) {
-                       console.log(e)
-                   }
-
-*/
-
+                    schema.pattern = e.target.value
                 }
                 Pattern(e.target.value)
                 break
@@ -237,13 +184,15 @@ export function PropertiesPanel() {
                 </div>
 
                 {minimize ? null : <form>
-                    <label className="flex flex-row items-center w-full text-xl">
+
+                    <label
+                        className="bg-neutral-600 text-neutral-50 px-4 py-2 rounded-t flex flex-row items-center w-full text-xl">
                         <span>Id: </span>
                         <div className="flex flex-row justify-between items-center w-full">
-                            <Input className="w-full text-xl" type="text" ref={id_ref}/>
-                            <button className="rounded text-neutral-50 bg-neutral-600 px-4 py-2" type="button" onClick={OnChangeId}>Change</button>
+                            <span className="w-full text-xl">{id}</span>
                         </div>
                     </label>
+
 
                     <div className="px-4 py-2 border border-neutral-200 rounded flex flex-col gap-1 w-full">
                         <h4>General</h4>
@@ -276,7 +225,7 @@ export function PropertiesPanel() {
                             <Input type="text" tabIndex={-1} onChange={(e) => OnChange(e, "title")} value={title}/>
                         </label>
                         <label className="flex items-center">
-                            <span className="pr-4" >Default: </span>
+                            <span className="pr-4">Default: </span>
                             <Input type="text" onChange={(e) => OnChange(e, "default")} value={default_value}/>
                         </label>
                         <label className="flex items-center">
@@ -315,7 +264,7 @@ export function PropertiesPanel() {
 
                         <div className="flex flex-row">
                             <label className="flex w-1/2 items-center">
-                                <span className="pr-4" >Min: </span>
+                                <span className="pr-4">Min: </span>
                                 <Input type="number" onChange={(e) => OnChange(e, "minimum")} value={min}/>
                             </label>
                             <label className="flex w-1/2 items-center">
