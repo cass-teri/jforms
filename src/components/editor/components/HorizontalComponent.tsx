@@ -46,7 +46,7 @@ export function HorizontalComponent(props: IHorizontalComponentProps) {
                 onClick={OnClick}
                 draggable
                 tabIndex={0}
-                className={cn("my-1 w-full bg-neutral-300 dark:bg-neutral-500 flex flex-col clear-both overflow-visible p-2 hover:shadow-2xl rounded ring-amber-300", props.id == selected? "ring-4": "")}
+                className={cn("m-1 w-full bg-neutral-300 dark:bg-neutral-500 flex flex-col clear-both overflow-visible hover:shadow-2xl rounded ring-amber-300 p-2", props.id == selected? "ring-4": "", props.ast.parent == undefined ? "m-0" : "m-1", props.ast.parent == undefined ? "m-0" : "m-1" )}
             >
                 <div className="flex flex-row justify-between overflow-hidden">
                     <span className="flex flex-row items-center pr-4">

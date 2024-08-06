@@ -5,11 +5,13 @@ import {PiStepsBold} from "react-icons/pi"
 import {useSelection} from "@/components/context/SelectionContext.tsx"
 import {cn} from "@/lib/utils.ts";
 import {motion} from "framer-motion"
+import {IAst} from "@/types/IAst.tsx";
 
 interface IStepperComponentProps {
     id: string
     children?: ReactNode[]
     debug?: boolean
+    ast: IAst
 }
 
 export function StepperComponent(props: IStepperComponentProps) {
@@ -39,7 +41,7 @@ export function StepperComponent(props: IStepperComponentProps) {
                 onDragStart={OnDragStart}
                 onClick={OnClick}
                 tabIndex={0}
-                className={cn("w-full bg-neutral-200 dark:bg-neutral-500 flex flex-col clear-both overflow-visible  p-2 hover:shadow-2xl rounded ring-amber-300", props.id == selected? "ring-4": "")}
+                className={cn("m-1 w-full bg-neutral-200 dark:bg-neutral-500 flex flex-col clear-both overflow-visible  p-2 hover:shadow-2xl rounded ring-amber-300", props.id == selected? "ring-4": "", props.ast.parent == undefined ? "m-0" : "m-1")}
             >
                 <div className="flex flex-row justify-between items-center overflow-hidden">
                     <span className="flex flex-row items-center pr-4">

@@ -191,16 +191,20 @@ export function PropertiesPanel() {
                 break
             case "pattern":
                 if (node) {
+/*
                     try{
                         const regex = new RegExp(e.target.value)
                         regex.test("test")
+*/
 
                         schema.pattern = e.target.value
+/*
                     }
                    catch(e) {
                        console.log(e)
                    }
 
+*/
 
                 }
                 Pattern(e.target.value)
@@ -219,7 +223,7 @@ export function PropertiesPanel() {
 
     return (
         <motion.aside
-            className={`fixed top-16 right-0 bottom-16 bg-background text-foreground overflow-auto z-40 p-4 shadow-2xl ${minimize ? "w-14" : "w-2/5"}`}
+            className={`fixed top-16 right-0 bottom-16 bg-background text-foreground overflow-auto z-40 p-4 shadow-2xl ${minimize ? "w-16" : "w-2/5"}`}
             layout
             layoutId="properties-panel"
         >

@@ -2,7 +2,6 @@ import React from "react"
 import ReactDOM from "react-dom/client"
 import { App } from "@/App.tsx"
 import { Header } from "./components/gui/Header.tsx"
-import { Footer } from "./components/gui/Footer.tsx"
 import { ThemeProvider } from "@/components/context/ThemeProvider.tsx"
 import { Toolbar } from "@/components/gui/Toolbar.tsx"
 import { DragContextProvider } from "@/components/context/DragContextProvider.tsx"
@@ -18,7 +17,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                         <Header></Header>
                         <App />
                         <Toolbar></Toolbar>
+{/*
                         <Footer></Footer>
+*/}
                     </AstContextProvider>
                 </DragContextProvider>
             </SelectionProvider>

@@ -8,6 +8,7 @@ import {PropertiesPanel} from "@/components/gui/PropertiesPanel.tsx"
 import {useAst} from "@/components/context/AstContextProvider.tsx"
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers"
 import {GoARenderers} from "@abgov/jsonforms-components";
+import {ErrorBoundary} from "react-error-boundary"
 
 export function App() {
     const {data_schema, ui_schema} = useAst()
@@ -25,16 +26,21 @@ export function App() {
     }
 
     return (
-        <div className="flex flex-row justify-between ">
+        <div className="flex flex-row justify-between " style={{touchAction: "pan-y"}}>
             <ResizablePanelGroup
                 direction="horizontal"
-                className="flex flex-col items-top pt-16 pb-96 h-[calc(100vh-6rem)] bg-background border shadow-2xl overflow-auto clear-both justify-start pl-36 pr-4 w-1/2"
+                className="flex flex-col items-top pt-8 bg-background border shadow-2xl clear-both justify-start pl-28 pr-4 w-1/2 overflow-hidden h-screen"
+
             >
-                <ResizablePanel defaultSize={50} className="flex flex-col items-center justify-center pr-8">
+                <ResizablePanel defaultSize={50} className="flex flex-col" >
                     <Root></Root>
                 </ResizablePanel>
                 <ResizableHandle/>
-                <ResizablePanel defaultSize={50} className="pl-8 pr-16 py-16">
+                <ResizablePanel defaultSize={50} className="pl-8 pr-16 py-16 overflow-hidden">
+                    <ErrorBoundary FallbackComponent={()=><div>Temporary Error Placeholder</div> }
+                        onError={(error, componentStack) => console.log(error, componentStack)}
+                    >
+
                     <JsonForms
                         schema={data_schema}
                         uischema={ui_schema as UISchemaElement}
@@ -43,6 +49,7 @@ export function App() {
                         cells={cells}
                         onChange={OnChange}
                     />
+                    </ErrorBoundary>
                 </ResizablePanel>
             </ResizablePanelGroup>
             <PropertiesPanel></PropertiesPanel>
