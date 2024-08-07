@@ -7,8 +7,8 @@ import {
     UISchemaElement,
     VerticalLayout
 } from "@jsonforms/core"
-import { SchemaPackage } from "@/types/SchemaPackage.tsx"
-import { HelpContent } from "@/types/HelpContent.tsx"
+import {SchemaPackage} from "@/types/SchemaPackage.tsx"
+import {HelpContent} from "@/types/HelpContent.tsx"
 
 export function GetSchemasForName(component_type: string, id: string) {
 
@@ -19,14 +19,14 @@ export function GetSchemasForName(component_type: string, id: string) {
                 elements: []
             }
 
-            return { ui_schema, data_schema: {}, meta: { is_container: true, id } } as SchemaPackage
+            return {ui_schema, data_schema: {}, meta: {is_container: true, id}} as SchemaPackage
         }
         case "HorizontalLayout": {
             const ui_schema: HorizontalLayout & Layout & UISchemaElement = {
                 type: "HorizontalLayout",
                 elements: []
             }
-            return { ui_schema, data_schema: {}, meta: { is_container: true, id } } as SchemaPackage
+            return {ui_schema, data_schema: {}, meta: {is_container: true, id}} as SchemaPackage
         }
         case "VerticalLayout": {
             const ui_schema: VerticalLayout & Layout & UISchemaElement = {
@@ -34,7 +34,7 @@ export function GetSchemasForName(component_type: string, id: string) {
                 elements: []
             }
 
-            return { ui_schema, data_schema: {}, meta: { is_container: true, id } } as SchemaPackage
+            return {ui_schema, data_schema: {}, meta: {is_container: true, id}} as SchemaPackage
         }
         case "Text": {
             const ui_schema: ControlElement = {
@@ -48,7 +48,7 @@ export function GetSchemasForName(component_type: string, id: string) {
                 }
             }
 
-            return { ui_schema, data_schema, meta: { is_container: false, id } } as SchemaPackage
+            return {ui_schema, data_schema, meta: {is_container: false, id}} as SchemaPackage
         }
         case "Number": {
             const ui_schema: ControlElement = {
@@ -62,7 +62,7 @@ export function GetSchemasForName(component_type: string, id: string) {
                 }
             }
 
-            return { ui_schema, data_schema, meta: { is_container: false, id } } as SchemaPackage
+            return {ui_schema, data_schema, meta: {is_container: false, id}} as SchemaPackage
         }
         case "Boolean": {
             const ui_schema: ControlElement = {
@@ -81,7 +81,7 @@ export function GetSchemasForName(component_type: string, id: string) {
                 }
             }
 
-            return { ui_schema, data_schema, meta: { is_container: false, id } } as SchemaPackage
+            return {ui_schema, data_schema, meta: {is_container: false, id}} as SchemaPackage
         }
         case "Integer": {
             const ui_schema: ControlElement = {
@@ -95,9 +95,9 @@ export function GetSchemasForName(component_type: string, id: string) {
                 }
             }
 
-            return { ui_schema, data_schema, meta: { is_container: false, id } } as SchemaPackage
+            return {ui_schema, data_schema, meta: {is_container: false, id}} as SchemaPackage
         }
-        case "Dropdown": {
+        case "DropDown": {
             const ui_schema: ControlElement = {
                 type: "Control",
                 scope: `#/properties/${id}`
@@ -106,11 +106,11 @@ export function GetSchemasForName(component_type: string, id: string) {
             const data_schema: JsonSchema7 = {
                 [`${id}`]: {
                     type: "string",
-                    enum: []
+                    enum: [""]
                 }
             }
 
-            return { ui_schema, data_schema, meta: { is_container: false, id } } as SchemaPackage
+            return {ui_schema, data_schema, meta: {is_container: false, id}} as SchemaPackage
         }
         case "Date": {
             const ui_schema: ControlElement = {
@@ -125,7 +125,7 @@ export function GetSchemasForName(component_type: string, id: string) {
                 }
             }
 
-            return { ui_schema, data_schema, meta: { is_container: false, id } } as SchemaPackage
+            return {ui_schema, data_schema, meta: {is_container: false, id}} as SchemaPackage
         }
         case "Textarea": {
             const ui_schema: ControlElement = {
@@ -145,7 +145,7 @@ export function GetSchemasForName(component_type: string, id: string) {
                 }
             }
 
-            return { ui_schema, data_schema, meta: { is_container: false, id } } as SchemaPackage
+            return {ui_schema, data_schema, meta: {is_container: false, id}} as SchemaPackage
         }
         case "Radio": {
             const ui_schema: ControlElement = {
@@ -153,17 +153,18 @@ export function GetSchemasForName(component_type: string, id: string) {
                 scope: `#/properties/${id}`,
                 options: {
                     format: "radio",
-                    enumOptions: []
                 }
+
             }
 
             const data_schema: JsonSchema7 = {
                 [`${id}`]: {
-                    type: "string"
+                    type: "string",
+                    enum: [""]
                 }
             }
 
-            return { ui_schema, data_schema, meta: { is_container: false, id } } as SchemaPackage
+            return {ui_schema, data_schema, meta: {is_container: false, id}} as SchemaPackage
         }
         case "Checkbox": {
             const ui_schema: ControlElement = {
@@ -180,7 +181,7 @@ export function GetSchemasForName(component_type: string, id: string) {
                 }
             }
 
-            return { ui_schema, data_schema, meta: { is_container: false, id } } as SchemaPackage
+            return {ui_schema, data_schema, meta: {is_container: false, id}} as SchemaPackage
         }
         case "PostalCode": {
             const ui_schema: ControlElement = {
@@ -195,7 +196,7 @@ export function GetSchemasForName(component_type: string, id: string) {
                 }
             }
 
-            return { ui_schema, data_schema, meta: { is_container: false, id } } as SchemaPackage
+            return {ui_schema, data_schema, meta: {is_container: false, id}} as SchemaPackage
         }
         case "Email": {
             const ui_schema: ControlElement = {
@@ -210,7 +211,7 @@ export function GetSchemasForName(component_type: string, id: string) {
                 }
             }
 
-            return { ui_schema, data_schema, meta: { is_container: false, id } } as SchemaPackage
+            return {ui_schema, data_schema, meta: {is_container: false, id}} as SchemaPackage
         }
         case "Phone": {
             const ui_schema: ControlElement = {
@@ -225,7 +226,7 @@ export function GetSchemasForName(component_type: string, id: string) {
                 }
             }
 
-            return { ui_schema, data_schema, meta: { is_container: false, id } } as SchemaPackage
+            return {ui_schema, data_schema, meta: {is_container: false, id}} as SchemaPackage
         }
         case "Header": {
             const ui_schema: HelpContent = {
@@ -233,7 +234,7 @@ export function GetSchemasForName(component_type: string, id: string) {
                 label: "Header"
             }
 
-            return { ui_schema, data_schema: {}, meta: { is_container: false, id } } as SchemaPackage
+            return {ui_schema, data_schema: {}, meta: {is_container: false, id}} as SchemaPackage
         }
         case "Paragraph": {
             const ui_schema: HelpContent = {
@@ -244,7 +245,7 @@ export function GetSchemasForName(component_type: string, id: string) {
                 }
             }
 
-            return { ui_schema, data_schema: {}, meta: { is_container: false, id } } as SchemaPackage
+            return {ui_schema, data_schema: {}, meta: {is_container: false, id}} as SchemaPackage
         }
         case "SubHeader": {
             const ui_schema: HelpContent = {
@@ -257,7 +258,7 @@ export function GetSchemasForName(component_type: string, id: string) {
                 ]
             }
 
-            return { ui_schema, data_schema: {}, meta: { is_container: false, id } } as SchemaPackage
+            return {ui_schema, data_schema: {}, meta: {is_container: false, id}} as SchemaPackage
         }
         case "Bullets": {
             const ui_schema: HelpContent = {
@@ -275,7 +276,7 @@ export function GetSchemasForName(component_type: string, id: string) {
                 ]
             }
 
-            return { ui_schema, data_schema: {}, meta: { is_container: false, id } } as SchemaPackage
+            return {ui_schema, data_schema: {}, meta: {is_container: false, id}} as SchemaPackage
         }
         case "Details": {
             const ui_schema: HelpContent = {
@@ -287,7 +288,7 @@ export function GetSchemasForName(component_type: string, id: string) {
                 }
             }
 
-            return { ui_schema, data_schema: {}, meta: { is_container: false, id } } as SchemaPackage
+            return {ui_schema, data_schema: {}, meta: {is_container: false, id}} as SchemaPackage
         }
         case "Image": {
             const ui_schema: HelpContent = {
@@ -301,7 +302,7 @@ export function GetSchemasForName(component_type: string, id: string) {
                 }
             }
 
-            return { ui_schema, data_schema: {}, meta: { is_container: false, id } } as SchemaPackage
+            return {ui_schema, data_schema: {}, meta: {is_container: false, id}} as SchemaPackage
         }
         case "Link": {
             const ui_schema: HelpContent = {
@@ -313,7 +314,7 @@ export function GetSchemasForName(component_type: string, id: string) {
                 }
             }
 
-            return { ui_schema, data_schema: {}, meta: { is_container: false, id } } as SchemaPackage
+            return {ui_schema, data_schema: {}, meta: {is_container: false, id}} as SchemaPackage
         }
         case "Repeater": {
             const ui_schema: ControlElement = {
@@ -331,7 +332,7 @@ export function GetSchemasForName(component_type: string, id: string) {
                 }
             }
 
-            return { ui_schema, data_schema, meta: { is_container: false, id } } as SchemaPackage
+            return {ui_schema, data_schema, meta: {is_container: false, id}} as SchemaPackage
         }
         case "Province": {
             const ui_schema: ControlElement = {
@@ -348,7 +349,7 @@ export function GetSchemasForName(component_type: string, id: string) {
                 }
             }
 
-            return { ui_schema, data_schema, meta: { is_container: false, id } } as SchemaPackage
+            return {ui_schema, data_schema, meta: {is_container: false, id}} as SchemaPackage
         }
         case "Ministry": {
             const ui_schema: ControlElement = {
@@ -365,12 +366,12 @@ export function GetSchemasForName(component_type: string, id: string) {
                 }
 
             }
-            return { ui_schema, data_schema, meta: { is_container: false, id } } as SchemaPackage
+            return {ui_schema, data_schema, meta: {is_container: false, id}} as SchemaPackage
         }
 
 
         default: {
-            return { ui_schema: {}, data_schema: {}, meta: { is_container: false, id } } as SchemaPackage
+            return {ui_schema: {}, data_schema: {}, meta: {is_container: false, id}} as SchemaPackage
         }
     }
 }

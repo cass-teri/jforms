@@ -16,11 +16,13 @@ import {BsPostcard, BsTextareaResize} from "react-icons/bs";
 import {MdOutlineAlternateEmail, MdOutlineLandscape} from "react-icons/md";
 import {VscSymbolBoolean} from "react-icons/vsc";
 import {ImParagraphLeft} from "react-icons/im";
+import {IoMdRadioButtonOn} from "react-icons/io";
+import {RiDropdownList} from "react-icons/ri";
 
-export function Toolbar(){
+export function Toolbar() {
     const button_style = "w-12 h-12 flex justify-center items-center bg-neutral-700 text-white rounded-md";
     const icon_style = "w-8 h-8";
-    const { SetDraggingContext } = useDragging()
+    const {SetDraggingContext} = useDragging()
 
     const OnDragStart = (e: React.DragEvent<HTMLButtonElement>) => {
 
@@ -33,21 +35,24 @@ export function Toolbar(){
     }
 
     return <>
-        <aside className="bg-neutral-700 fixed left-0 top-16 bottom-0 w-28 justify-start items-center pt-4 overflow-auto" >
+        <aside
+            className="bg-neutral-700 fixed left-0 top-16 bottom-0 w-28 justify-start items-center pt-4 overflow-auto">
 
             <div className="grid grid-cols-2 grid-flow-dense gap-1">
-                <button draggable className={button_style} id="VerticalLayout" onDragStart={OnDragStart} title="Vertical Layout" >
-                    <PiSquareSplitVertical  className={icon_style}/>
+                <button draggable className={button_style} id="VerticalLayout" onDragStart={OnDragStart}
+                        title="Vertical Layout">
+                    <PiSquareSplitVertical className={icon_style}/>
                 </button>
 
-                <button draggable className={button_style} id="HorizontalLayout" onDragStart={OnDragStart} title="Horizontal Layout">
+                <button draggable className={button_style} id="HorizontalLayout" onDragStart={OnDragStart}
+                        title="Horizontal Layout">
                     <PiSquareSplitHorizontal className={icon_style}/>
                 </button>
 
                 <button draggable className={button_style} id="Group" onDragStart={OnDragStart} title="Group">
                     <AiOutlineGroup className={icon_style}/>
                 </button>
-{/*
+                {/*
 
                 <button draggable className={button_style} id="Repeater" onDragStart={OnDragStart} title="Repeater">
                     <FaLayerGroup className={icon_style}/>
@@ -64,7 +69,7 @@ export function Toolbar(){
 
             </div>
 
-            <hr className="w-full my-2 border-neutral-500" />
+            <hr className="w-full my-2 border-neutral-500"/>
 
             <div className="grid grid-cols-2 grid-flow-dense gap-1">
                 <button draggable className={button_style} id="Text" onDragStart={OnDragStart} title="Text">
@@ -72,11 +77,11 @@ export function Toolbar(){
                 </button>
 
                 <button draggable className={button_style} id="Textarea" onDragStart={OnDragStart} title="Textarea">
-                    <BsTextareaResize  className={icon_style}/>
+                    <BsTextareaResize className={icon_style}/>
                 </button>
 
                 <button draggable className={button_style} id="Date" onDragStart={OnDragStart} title="Date">
-                    <FaRegCalendarAlt  className={icon_style}/>
+                    <FaRegCalendarAlt className={icon_style}/>
                 </button>
 
                 <button draggable className={button_style} id="Integer" onDragStart={OnDragStart} title="Integer">
@@ -87,7 +92,8 @@ export function Toolbar(){
                     <TbDecimal className={icon_style}/>
                 </button>
 
-                <button draggable className={button_style} id="PostalCode" onDragStart={OnDragStart} title="Postal Code">
+                <button draggable className={button_style} id="PostalCode" onDragStart={OnDragStart}
+                        title="Postal Code">
                     <BsPostcard className={icon_style}/>
                 </button>
 
@@ -101,38 +107,38 @@ export function Toolbar(){
 
             </div>
 
-            <hr className="w-full my-2 border-neutral-500" />
+            <hr className="w-full my-2 border-neutral-500"/>
 
             <div className="grid grid-cols-2 grid-flow-dense gap-1">
                 <button draggable className={button_style} id="Boolean" onDragStart={OnDragStart} title="Boolean">
-                    <VscSymbolBoolean className={icon_style} />
+                    <VscSymbolBoolean className={icon_style}/>
                 </button>
 
-{/*
+
                 <button draggable className={button_style} id="DropDown" onDragStart={OnDragStart} title="DropDown">
-                    <RiDropdownList className={icon_style} />
+                    <RiDropdownList className={icon_style}/>
                 </button>
 
                 <button draggable className={button_style} id="Radio" onDragStart={OnDragStart} title="Radio">
-                    <IoMdRadioButtonOn className={icon_style} />
+                    <IoMdRadioButtonOn className={icon_style}/>
                 </button>
-*/}
+
 
                 <button draggable className={button_style} id="Checkbox" onDragStart={OnDragStart} title="Checkbox">
-                    <FaRegSquareCheck className={icon_style} />
+                    <FaRegSquareCheck className={icon_style}/>
                 </button>
 
                 <button draggable className={button_style} id="Province" onDragStart={OnDragStart} title="Province">
-                    <MdOutlineLandscape className={icon_style} />
+                    <MdOutlineLandscape className={icon_style}/>
                 </button>
 
                 <button draggable className={button_style} id="Ministry" onDragStart={OnDragStart} title="Ministry">
-                    <FaLandmark className={icon_style} />
+                    <FaLandmark className={icon_style}/>
                 </button>
 
             </div>
 
-            <hr className="w-full my-2 border-neutral-500" />
+            <hr className="w-full my-2 border-neutral-500"/>
 
             <div className="grid grid-cols-2 grid-flow-dense gap-1">
                 <button draggable className={button_style} id="Header" onDragStart={OnDragStart} title="Header">
@@ -140,17 +146,17 @@ export function Toolbar(){
                 </button>
 
                 <button draggable className={button_style} id="SubHeader" onDragStart={OnDragStart} title="Sub Header">
-                    <h2 className={`text-xl font-bold text-white`} >H</h2>
+                    <h2 className={`text-xl font-bold text-white`}>H</h2>
                 </button>
 
                 <button draggable className={button_style} id="Paragraph" onDragStart={OnDragStart} title="Paragraph">
-                    <ImParagraphLeft className={icon_style} />
+                    <ImParagraphLeft className={icon_style}/>
                 </button>
 
                 <button draggable className={button_style} id="Bullets" onDragStart={OnDragStart} title="Bullets">
-                    <PiListBulletsBold className={icon_style} />
+                    <PiListBulletsBold className={icon_style}/>
                 </button>
-{/*
+                {/*
 
                 <button draggable className={button_style} id="Details" onDragStart={OnDragStart} title="Details">
                     <AiOutlineDownSquare className={icon_style} />
