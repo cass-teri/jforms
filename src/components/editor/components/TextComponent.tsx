@@ -37,7 +37,7 @@ export function TextComponent(props: ITextComponentProps) {
     function OnBlur(e: any) {
         console.log(e.target.innerText)
 
-        const new_id = e.target.innerText.trim().replaceAll("\t", " ").replaceAll("\n", " ").replaceAll("  ", " ").replaceAll(" ", "_")
+        const new_id = e.target.innerText.trim().replaceAll("\n", "").replaceAll("\t", " ").replaceAll("\n", " ").replaceAll("  ", " ").replaceAll(" ", "_")
         const node = FindById(ast, props.id)
 
         if (node) {
@@ -54,8 +54,6 @@ export function TextComponent(props: ITextComponentProps) {
             node.id = new_id
         }
         SetAst(ast)
-        //location.reload()
-
     }
 
     return (
@@ -70,9 +68,10 @@ export function TextComponent(props: ITextComponentProps) {
                 className={cn("bg-white m-1 hover:shadow-2xl px-4 py-2 ring-amber-300 shadow-inner flex flex-col rounded ", props.id == selected ? "ring-4" : "")}
             >
                 <div className="flex flex-row items-center justify-between overflow-hidden">
-                    <span contentEditable="plaintext-only"
-                          onBlur={OnBlur}
-                          className="text-neutral-800 ">{ToDisplayString(props.id)}</span>
+                    <div contentEditable
+                         suppressContentEditableWarning={true}
+                         onBlur={OnBlur}
+                         className="text-neutral-800 ">{ToDisplayString(props.id)}</div>
                     <span className="text-neutral-500 flex flex-row items-center pr-4">
                         <LuTextCursorInput className=""/>
                         {props.type}

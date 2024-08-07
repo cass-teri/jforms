@@ -73,8 +73,11 @@ export function ChoiceComponent(props: IChoiceComponentProps) {
                 className={cn("m-1 bg-white border hover:shadow-2xl px-4 py-2 ring-amber-300 shadow-inner flex flex-col rounded border-neutral-200 overflow-hidden", props.id == selected ? "ring-4" : "")}
             >
                 <div className="flex flex-row items-center justify-between overflow-hidden">
-                    <span contentEditable="plaintext-only" onBlur={OnBlur}
-                          className="text-neutral-600">{ToDisplayString(props.id)}</span>
+                    <span
+                        contentEditable
+                        suppressContentEditableWarning={true}
+                        onBlur={OnBlur}
+                        className="text-neutral-600">{ToDisplayString(props.id)}</span>
                     <div className="flex flex-row items-center pr-4 text-neutral-400">
                         <RiDropdownList className=""/>
                         <span className="align-bottom ">{props.type}</span>
