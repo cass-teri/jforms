@@ -17,6 +17,7 @@ export function HelpComponent(props: IHelpComponentProps) {
     const {SetDraggingContext} = useDragging()
     const {selected, SetSelected} = useSelection()
 
+
     function OnClick(e: any) {
         e.stopPropagation()
         SetSelected(props.id)
@@ -40,7 +41,7 @@ export function HelpComponent(props: IHelpComponentProps) {
                 onClick={OnClick}
                 draggable
                 tabIndex={0}
-                className={cn("my-1 bg-neutral-50 border hover:shadow-2xl px-4 py-2 ring-amber-300 shadow-inner flex flex-col rounded border-neutral-200", props.id == selected? "ring-4": "")}
+                className={cn("my-1 bg-neutral-50 border hover:shadow-2xl px-4 py-2 ring-amber-300 shadow-inner flex flex-col rounded border-neutral-200", props.id == selected ? "ring-4" : "")}
             >
                 <div className="flex flex-row items-center justify-between overflow-hidden">
                     <span className="flex flex-row items-center pr-4">

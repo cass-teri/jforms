@@ -29,26 +29,26 @@ export function App() {
         <div className="flex flex-row justify-between " style={{touchAction: "pan-y"}}>
             <ResizablePanelGroup
                 direction="horizontal"
-                className="flex flex-col items-top pt-8 bg-background border shadow-2xl clear-both justify-start pl-28 pr-4 w-1/2 overflow-hidden h-screen"
-
+                className="flex flex-col items-top pt-16 bg-background border shadow-2xl clear-both justify-start pl-28 pr-4 w-1/2 overflow-hidden h-screen"
             >
-                <ResizablePanel defaultSize={50} className="flex flex-col" >
+                <ResizablePanel defaultSize={50} className="flex flex-col" minSize={18}>
                     <Root></Root>
                 </ResizablePanel>
                 <ResizableHandle/>
-                <ResizablePanel defaultSize={50} className="pl-8 pr-16 py-16 overflow-hidden">
-                    <ErrorBoundary FallbackComponent={()=><div>Temporary Error Placeholder</div> }
-                        onError={(error, componentStack) => console.log(error, componentStack)}
+                <ResizablePanel defaultSize={50} className="pr-12" minSize={18}>
+                    <ErrorBoundary FallbackComponent={() => <div>Temporary Error Placeholder</div>}
+                                   onError={(error, componentStack) => console.log(error, componentStack)}
                     >
-
-                    <JsonForms
-                        schema={data_schema}
-                        uischema={ui_schema as UISchemaElement}
-                        data={data}
-                        renderers={renderers}
-                        cells={cells}
-                        onChange={OnChange}
-                    />
+                        <div className="pl-8 pr-8 pt-16 overflow-auto h-[calc(100vh-4.1rem)]">
+                            <JsonForms
+                                schema={data_schema}
+                                uischema={ui_schema as UISchemaElement}
+                                data={data}
+                                renderers={renderers}
+                                cells={cells}
+                                onChange={OnChange}
+                            />
+                        </div>
                     </ErrorBoundary>
                 </ResizablePanel>
             </ResizablePanelGroup>
