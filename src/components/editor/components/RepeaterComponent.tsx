@@ -46,7 +46,7 @@ export function RepeaterComponent(props: IRepeaterComponentProps) {
                 onDragStart={OnDragStart}
                 onClick={OnClick}
                 tabIndex={0}
-                className={cn("m-1 w-full bg-neutral-300 dark:bg-neutral-500 flex flex-col clear-both overflow-visible  p-2 hover:shadow-2xl rounded ring-amber-300", props.id == selected? "ring-4": "", props.ast.parent == undefined ? "m-0" : "m-1")}
+                className={cn("m-1 w-full bg-neutral-300 dark:bg-neutral-500 flex flex-col clear-both overflow-visible  p-2 hover:shadow-2xl rounded ring-amber-300", props.id == selected ? "ring-4" : "", props.ast.parent == undefined ? "m-0" : "m-1")}
             >
                 <div className="flex flex-row justify-between overflow-hidden">
                     <span className="flex flex-row items-center pr-4">
@@ -57,7 +57,7 @@ export function RepeaterComponent(props: IRepeaterComponentProps) {
                 </div>
 
                 <div className="bg-green-50 overflow-visible clear-both">
-                <div className="clear-both">
+                    <div className="clear-both">
                         {children?.map((child: IAst, index: number) => {
                             return GetComponentForName(child.type, {
                                 ast: child,
@@ -67,7 +67,7 @@ export function RepeaterComponent(props: IRepeaterComponentProps) {
                             })
                         })}
                     </div>
-                    <DropZone child_of={props.id}></DropZone>
+                    <DropZone child_of={props.id} always_open={props.ast.parent === undefined}></DropZone>
                 </div>
             </motion.div>
         </>

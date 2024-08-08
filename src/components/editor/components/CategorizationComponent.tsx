@@ -1,20 +1,20 @@
 import {DropZone} from "@/components/editor/DropZone.tsx"
-import {ReactNode} from "react"
 import {useDragging} from "@/components/context/DragContextProvider.tsx"
-import {PiStepsBold} from "react-icons/pi"
+import {IAst} from "@/types/IAst.tsx"
+import {GetComponentForName} from "@/lib/GetComponentForName.tsx"
 import {useSelection} from "@/components/context/SelectionContext.tsx"
 import {cn} from "@/lib/utils.ts";
-import {motion} from "framer-motion"
-import {IAst} from "@/types/IAst.tsx";
+import {motion} from "framer-motion";
+import {PiStepsBold} from "react-icons/pi";
 
-interface IStepperComponentProps {
+export interface ICategorizationComponentProps {
     id: string
-    children?: ReactNode[]
-    debug?: boolean
     ast: IAst
+    parent?: IAst
+    debug?: boolean
 }
 
-export function StepperComponent(props: IStepperComponentProps) {
+export function CategorizationComponent(props: ICategorizationComponentProps) {
     const {SetDraggingContext} = useDragging()
     const {selected, SetSelected} = useSelection()
 
@@ -32,32 +32,38 @@ export function StepperComponent(props: IStepperComponentProps) {
         e.stopPropagation()
     }
 
+    let children: IAst[] = []
+    if (props.ast.children !== null && props.ast.children !== undefined) {
+        children = props.ast.children
+    }
+
+
     return (
         <>
             <DropZone before={props.id}></DropZone>
             <motion.div
                 layout
-                draggable
                 onDragStart={OnDragStart}
                 onClick={OnClick}
+                draggable
                 tabIndex={0}
-                className={cn("m-1 w-full bg-neutral-200 dark:bg-neutral-500 flex flex-col clear-both overflow-visible  p-2 hover:shadow-2xl rounded ring-amber-300", props.id == selected? "ring-4": "", props.ast.parent == undefined ? "m-0" : "m-1")}
+                className={cn("m-1 w-full bg-neutral-600 text-neutral-50 flex flex-col clear-both overflow-visible  p-2 hover:shadow-2xl rounded ring-amber-300", props.id == selected ? "ring-4" : "", props.ast.parent == undefined ? "m-0" : "m-1")}
             >
-                <div className="flex flex-row justify-between items-center overflow-hidden">
-                    <span className="flex flex-row items-center pr-4">
+                <div className="flex flex-row justify-between overflow-hidden">
+                    <div className="flex flex-row items-center pr-4">
                         <PiStepsBold/>
-                        Stepper
-                    </span>
+                        Categorization
+                    </div>
                     {props.debug ? <span className="text-neutral-50">{props.id}</span> : null}
                 </div>
 
                 <div className="overflow-visible clear-both">
                     <div className="clear-both">
-                        {props.children?.map((child: ReactNode, index: number) => {
-                            return <div key={index}>{child}</div>
+                        {children.map((child: IAst, index: number) => {
+                            return GetComponentForName(child.type, {ast: child, id: child.id, key: index})
                         })}
                     </div>
-                    <DropZone child_of={props.id}></DropZone>
+                    <DropZone child_of={props.id} always_open={props.ast.parent === undefined}></DropZone>
                 </div>
             </motion.div>
         </>

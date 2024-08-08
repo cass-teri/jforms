@@ -4,6 +4,7 @@ import {
     PiPhoneDisconnect,
     PiSquareSplitHorizontal,
     PiSquareSplitVertical,
+    PiStepsBold,
 } from "react-icons/pi";
 import {LuTextCursorInput} from "react-icons/lu";
 import {FaRegCalendarAlt} from "react-icons/fa";
@@ -18,6 +19,7 @@ import {VscSymbolBoolean} from "react-icons/vsc";
 import {ImParagraphLeft} from "react-icons/im";
 import {IoMdRadioButtonOn} from "react-icons/io";
 import {RiDropdownList} from "react-icons/ri";
+import {IoDocumentsOutline} from "react-icons/io5";
 
 export function Toolbar() {
     const button_style = "w-12 h-12 flex justify-center items-center bg-neutral-700 text-white rounded-md";
@@ -57,15 +59,16 @@ export function Toolbar() {
                 <button draggable className={button_style} id="Repeater" onDragStart={OnDragStart} title="Repeater">
                     <FaLayerGroup className={icon_style}/>
                 </button>
+                */}
 
-                <button draggable className={button_style} id="Stepper" onDragStart={OnDragStart} title="Stepper">
+                <button draggable className={button_style} id="Categorization" onDragStart={OnDragStart}
+                        title="Categorization">
                     <PiStepsBold className={icon_style}/>
                 </button>
 
                 <button draggable className={button_style} id="Category" onDragStart={OnDragStart} title="Category">
                     <IoDocumentsOutline className={icon_style}/>
                 </button>
-*/}
 
             </div>
 

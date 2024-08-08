@@ -1,16 +1,17 @@
-import { HorizontalComponent } from "@/components/editor/components/HorizontalComponent.tsx"
-import { VerticalComponent } from "@/components/editor/components/VerticalComponent.tsx"
-import { TextComponent } from "@/components/editor/components/TextComponent.tsx"
-import { createId } from "@paralleldrive/cuid2"
-import { GroupComponent } from "@/components/editor/components/GroupComponent.tsx"
-import { ChoiceComponent } from "@/components/editor/components/ChoiceComponent.tsx"
-import { HelpComponent } from "@/components/editor/components/HelpComponent.tsx"
-import { RepeaterComponent } from "@/components/editor/components/RepeaterComponent.tsx"
-import { StepperComponent } from "@/components/editor/components/StepperComponent.tsx"
+import {HorizontalComponent} from "@/components/editor/components/HorizontalComponent.tsx"
+import {VerticalComponent} from "@/components/editor/components/VerticalComponent.tsx"
+import {TextComponent} from "@/components/editor/components/TextComponent.tsx"
+import {createId} from "@paralleldrive/cuid2"
+import {GroupComponent} from "@/components/editor/components/GroupComponent.tsx"
+import {ChoiceComponent} from "@/components/editor/components/ChoiceComponent.tsx"
+import {HelpComponent} from "@/components/editor/components/HelpComponent.tsx"
+import {RepeaterComponent} from "@/components/editor/components/RepeaterComponent.tsx"
+import {CategorizationComponent} from "@/components/editor/components/CategorizationComponent.tsx"
+import {CategoryComponent} from "@/components/editor/components/CategoryComponent.tsx";
 
 export function GetComponentForName(component_name: string, props: any) {
     const new_id = createId()
-    const new_props = { id: new_id, ...props }
+    const new_props = {id: new_id, ...props}
 
     switch (component_name) {
         case "HorizontalLayout":
@@ -21,8 +22,14 @@ export function GetComponentForName(component_name: string, props: any) {
             return <GroupComponent {...new_props} key={props.key}></GroupComponent>
         case "Repeater":
             return <RepeaterComponent {...new_props} key={props.key}></RepeaterComponent>
-        case "Stepper":
-            return <StepperComponent {...new_props} key={props.key}></StepperComponent>
+        case "Categorization":
+            return <CategorizationComponent {...new_props}
+                                            key={props.key}
+                                            type="categorization">
+            </CategorizationComponent>
+        case "Category":
+            return <CategoryComponent {...new_props} key={props.key} type="category"></CategoryComponent>
+
 
         case "Text":
             return <TextComponent {...new_props} key={props.key} type="string"></TextComponent>

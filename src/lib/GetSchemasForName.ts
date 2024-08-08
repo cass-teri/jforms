@@ -1,4 +1,6 @@
 import {
+    Categorization,
+    Category,
     ControlElement,
     GroupLayout,
     HorizontalLayout,
@@ -31,6 +33,27 @@ export function GetSchemasForName(component_type: string, id: string) {
         case "VerticalLayout": {
             const ui_schema: VerticalLayout & Layout & UISchemaElement = {
                 type: "VerticalLayout",
+                elements: []
+            }
+
+            return {ui_schema, data_schema: {}, meta: {is_container: true, id}} as SchemaPackage
+        }
+        case "Categorization": {
+            const ui_schema: Categorization & Layout & UISchemaElement = {
+                type: "Categorization",
+                label: id,
+                elements: [],
+                options: {
+                    variant: "stepper"
+                }
+            }
+
+            return {ui_schema, data_schema: {}, meta: {is_container: true, id}} as SchemaPackage
+        }
+        case "Category": {
+            const ui_schema: Category & Layout & UISchemaElement = {
+                type: "Category",
+                label: id,
                 elements: []
             }
 

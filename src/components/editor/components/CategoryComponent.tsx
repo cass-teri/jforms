@@ -1,16 +1,17 @@
 import {DropZone} from "@/components/editor/DropZone.tsx"
 import {useDragging} from "@/components/context/DragContextProvider.tsx"
-import {AiOutlineGroup} from "react-icons/ai"
 import {IAst} from "@/types/IAst.tsx"
 import {GetComponentForName} from "@/lib/GetComponentForName.tsx"
 import {useSelection} from "@/components/context/SelectionContext.tsx"
 import {cn} from "@/lib/utils.ts";
 import {motion} from "framer-motion";
+import {IoDocumentsOutline} from "react-icons/io5";
 
 export interface ICategoryComponentProps {
     id: string
     ast: IAst
     parent?: IAst
+    debug?: boolean
 }
 
 export function CategoryComponent(props: ICategoryComponentProps) {
@@ -36,6 +37,7 @@ export function CategoryComponent(props: ICategoryComponentProps) {
         children = props.ast.children
     }
 
+
     return (
         <>
             <DropZone before={props.id}></DropZone>
@@ -45,14 +47,14 @@ export function CategoryComponent(props: ICategoryComponentProps) {
                 onClick={OnClick}
                 draggable
                 tabIndex={0}
-                className={cn("my-1 w-full bg-neutral-400 dark:bg-neutral-500 border flex flex-col clear-both overflow-visible  p-2 hover:shadow-2xl rounded  ring-amber-300", props.id == selected? "ring-4": "")}
+                className={cn("m-1 w-full bg-neutral-500 dark:bg-neutral-500 flex flex-col clear-both overflow-visible  p-2 hover:shadow-2xl rounded ring-amber-300", props.id == selected ? "ring-4" : "", props.ast.parent == undefined ? "m-0" : "m-1")}
             >
                 <div className="flex flex-row justify-between overflow-hidden">
                     <div className="flex flex-row items-center pr-4">
-                        <AiOutlineGroup/>
+                        <IoDocumentsOutline/>
                         Category
                     </div>
-                    <span className="text-neutral-50">id={props.id}</span>
+                    {props.debug ? <span className="text-neutral-50">{props.id}</span> : null}
                 </div>
 
                 <div className="overflow-visible clear-both">
@@ -61,7 +63,7 @@ export function CategoryComponent(props: ICategoryComponentProps) {
                             return GetComponentForName(child.type, {ast: child, id: child.id, key: index})
                         })}
                     </div>
-                    <DropZone child_of={props.id}></DropZone>
+                    <DropZone child_of={props.id} always_open={props.ast.parent === undefined}></DropZone>
                 </div>
             </motion.div>
         </>
