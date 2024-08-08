@@ -1,4 +1,4 @@
-# Yet Another JSONForms Designer (YAJD) 
+# jForms
 
 ---
 

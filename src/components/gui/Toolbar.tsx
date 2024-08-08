@@ -38,9 +38,17 @@ export function Toolbar() {
 
     return <>
         <aside
-            className="bg-neutral-700 fixed left-0 top-16 bottom-0 w-28 justify-start items-center pt-4 overflow-auto">
+            className="bg-neutral-700 fixed left-0 top-0 bottom-0 w-28 justify-start items-center pt-4 overflow-auto">
 
             <div className="grid grid-cols-2 grid-flow-dense gap-1">
+                <button draggable className={button_style} id="Categorization" onDragStart={OnDragStart}
+                        title="Categorization">
+                    <PiStepsBold className={icon_style}/>
+                </button>
+
+                <button draggable className={button_style} id="Category" onDragStart={OnDragStart} title="Category">
+                    <IoDocumentsOutline className={icon_style}/>
+                </button>
                 <button draggable className={button_style} id="VerticalLayout" onDragStart={OnDragStart}
                         title="Vertical Layout">
                     <PiSquareSplitVertical className={icon_style}/>
@@ -61,14 +69,6 @@ export function Toolbar() {
                 </button>
                 */}
 
-                <button draggable className={button_style} id="Categorization" onDragStart={OnDragStart}
-                        title="Categorization">
-                    <PiStepsBold className={icon_style}/>
-                </button>
-
-                <button draggable className={button_style} id="Category" onDragStart={OnDragStart} title="Category">
-                    <IoDocumentsOutline className={icon_style}/>
-                </button>
 
             </div>
 
