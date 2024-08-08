@@ -45,7 +45,7 @@ export function VerticalComponent(props: IVerticalComponentProps) {
                 onDragStart={OnDragStart}
                 onClick={OnClick}
                 tabIndex={0}
-                className={cn("my-1 w-full bg-neutral-200 flex flex-col clear-both overflow-visible  p-2 hover:shadow-2xl rounded ring-amber-300", props.id == selected? "ring-4": "", props.ast.parent == undefined ? "m-0" : "m-1")}
+                className={cn("my-1 w-full bg-neutral-200 flex flex-col clear-both overflow-visible  p-2 hover:shadow-2xl rounded ring-amber-300", props.id == selected ? "ring-4" : "", props.ast.parent === undefined ? "m-0" : "m-1")}
 
             >
                 <div className="flex flex-row justify-between overflow-hidden">
@@ -62,7 +62,7 @@ export function VerticalComponent(props: IVerticalComponentProps) {
                             return GetComponentForName(ast.type, {ast, id: ast.id, key: index})
                         })}
                     </div>
-                    <DropZone child_of={props.id}></DropZone>
+                    <DropZone child_of={props.id} always_open={props.ast.parent === undefined}></DropZone>
                 </div>
             </motion.div>
         </>

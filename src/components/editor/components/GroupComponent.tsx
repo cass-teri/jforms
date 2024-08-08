@@ -63,7 +63,7 @@ export function GroupComponent(props: IGroupComponentProps) {
                             return GetComponentForName(child.type, {ast: child, id: child.id, key: index})
                         })}
                     </div>
-                    <DropZone child_of={props.id}></DropZone>
+                    <DropZone child_of={props.id} always_open={props.ast.parent === undefined}></DropZone>
                 </div>
             </motion.div>
         </>

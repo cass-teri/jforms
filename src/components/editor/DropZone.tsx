@@ -1,24 +1,25 @@
-import { useState } from "react"
-import { cn } from "@/lib/utils.ts"
-import { motion } from "framer-motion"
-import { GetComponentForName } from "@/lib/GetComponentForName.tsx"
-import { FaPlus } from "react-icons/fa6"
-import { useDragging } from "@/components/context/DragContextProvider.tsx"
-import { GetSchemasForName } from "@/lib/GetSchemasForName.ts"
-import { useAst } from "@/components/context/AstContextProvider.tsx"
-import { IAst } from "@/types/IAst.tsx"
-import { createId } from "@paralleldrive/cuid2"
-import { FindById } from "@/lib/FindById.ts"
+import {useState} from "react"
+import {cn} from "@/lib/utils.ts"
+import {motion} from "framer-motion"
+import {GetComponentForName} from "@/lib/GetComponentForName.tsx"
+import {FaPlus} from "react-icons/fa6"
+import {useDragging} from "@/components/context/DragContextProvider.tsx"
+import {GetSchemasForName} from "@/lib/GetSchemasForName.ts"
+import {useAst} from "@/components/context/AstContextProvider.tsx"
+import {IAst} from "@/types/IAst.tsx"
+import {createId} from "@paralleldrive/cuid2"
+import {FindById} from "@/lib/FindById.ts"
 
 interface IDropZoneProps {
-    before?: string
-    child_of?: string
+    before?: string,
+    child_of?: string,
+    always_open?: boolean
 }
 
 export function DropZone(props: IDropZoneProps) {
-    const { dragging_context, SetDraggingContext } = useDragging()
+    const {dragging_context, SetDraggingContext} = useDragging()
     const [is_dragging_over, SetIsDraggingOver] = useState(false)
-    const { ast, SetAst } = useAst()
+    const {ast, SetAst} = useAst()
 
     const OnDragOver = () => {
         SetIsDraggingOver(true)
@@ -91,7 +92,7 @@ export function DropZone(props: IDropZoneProps) {
                 const parent = sibling?.parent
                 const index = parent?.children.findIndex((child) => child.id === props.before)
 
-                const new_element = { ...element }
+                const new_element = {...element}
 
                 if (old_parent == null) {
                     throw new Error("Element not found")
@@ -112,7 +113,7 @@ export function DropZone(props: IDropZoneProps) {
             } else if (props.child_of) {
                 const old_parent = element.parent
                 const parent = FindById(ast, props.child_of)
-                const new_element = { ...element }
+                const new_element = {...element}
 
                 if (
                     old_parent === null ||
@@ -141,6 +142,9 @@ export function DropZone(props: IDropZoneProps) {
             height = "h-24"
         }
     }
+    if (props.always_open) {
+        height = "h-96"
+    }
 
     return (
         <motion.div
@@ -155,8 +159,8 @@ export function DropZone(props: IDropZoneProps) {
         >
             {ast.children && ast.children.length > 0
                 ? ast.children.map((child, index) => (
-                      <div key={index}>{GetComponentForName(child.id, { ast: child, id: child.id })}</div>
-                  ))
+                    <div key={index}>{GetComponentForName(child.id, {ast: child, id: child.id})}</div>
+                ))
                 : null}
             <div
                 className={cn("w-full flex justify-center items-center rounded-xl clear-both", height)}
