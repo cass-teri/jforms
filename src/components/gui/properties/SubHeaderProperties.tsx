@@ -15,6 +15,7 @@ export function SubHeaderProperties() {
 
         const ui_schema = node?.SchemaPackage.ui_schema as HelpContent
 
+        // @ts-expect-error possibly null or undefined
         if (ui_schema && ui_schema.elements && ui_schema.elements[0].label) {
             // @ts-expect-error possibly null or undefined
             const sub_header = ui_schema.elements[0].label

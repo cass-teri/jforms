@@ -7,18 +7,19 @@ import {Trash} from "@/components/editor/Trash.tsx"
 import {PropertiesPanel} from "@/components/gui/PropertiesPanel.tsx"
 import {useAst} from "@/components/context/AstContextProvider.tsx"
 import {materialCells, materialRenderers} from "@jsonforms/material-renderers"
-import {GoARenderers} from "@abgov/jsonforms-components";
+import {GoARenderers} from "@abgov/jsonforms-components"
 import {ErrorBoundary} from "react-error-boundary"
-import {useEffect} from "react";
+import {useEffect} from "react"
 import {appWindow} from "@tauri-apps/api/window"
-import {IAst} from "@/types/IAst.tsx";
-import {GenerateDataSchema} from "@/lib/GenerateDataSchema.ts";
-import {readDir, readTextFile, writeTextFile} from "@tauri-apps/api/fs";
-import {open, save} from "@tauri-apps/api/dialog";
-import {GenerateUiSchema} from "@/lib/GenerateUiSchema.ts";
-import {useProject} from "@/components/context/ProjectContextProvider.tsx";
-import {ReparentAst} from "@/components/context/ReparentAst.tsx";
-import {GenerateAstFromSchemas} from "@/lib/GenerateAstFromSchemas.ts";
+import {IAst} from "@/types/IAst.tsx"
+import {GenerateDataSchema} from "@/lib/GenerateDataSchema.ts"
+import {readDir, readTextFile, writeTextFile} from "@tauri-apps/api/fs"
+import {open, save} from "@tauri-apps/api/dialog"
+import {GenerateUiSchema} from "@/lib/GenerateUiSchema.ts"
+import {useProject} from "@/components/context/ProjectContextProvider.tsx"
+import {ReparentAst} from "@/components/context/ReparentAst.tsx"
+import {GenerateAstFromSchemas} from "@/lib/GenerateAstFromSchemas.ts"
+
 
 export function App() {
     const {data_schema, ui_schema, ast, SetAst} = useAst()
@@ -130,7 +131,8 @@ export function App() {
                                     name: "project",
                                     extensions: ["json"]
                                 }
-                            ]
+                            ],
+                            defaultPath: "project.json"
                         })
                     }
 
@@ -173,7 +175,8 @@ export function App() {
                                     name: "data_schema",
                                     extensions: ["json"]
                                 }
-                            ]
+                            ],
+                            defaultPath: "data_schema.json"
                         })
                     }
 
@@ -215,7 +218,8 @@ export function App() {
                                     name: "ui_schema",
                                     extensions: ["json"]
                                 }
-                            ]
+                            ],
+                            defaultPath: "ui_schema.json"
                         })
                     }
 
@@ -252,7 +256,7 @@ export function App() {
             save_ui_schema.then((f) => f())
             save_all.then((f) => f())
         }
-    }, [SetAst, SetProjectPath, ast, project_path]);
+    }, [SetAst, SetProjectPath, ast, project_path])
 
     return (
         <div className="flex flex-row justify-between " style={{touchAction: "pan-y"}}>

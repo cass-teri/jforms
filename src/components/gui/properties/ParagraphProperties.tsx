@@ -14,8 +14,10 @@ export function ParagraphProperties() {
 
         const ui_schema = node?.SchemaPackage.ui_schema as HelpContent
 
+        // @ts-expect-error possibly null or undefined
         if (ui_schema && ui_schema.options && ui_schema.options.help) {
 
+            // @ts-expect-error possibly null or undefined
             SetParagraph(ui_schema.options.help ?? "")
         }
     }, [ast, selected]);
