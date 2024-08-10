@@ -11,6 +11,8 @@ import {EnumProperties} from "@/components/gui/properties/EnumProperties.tsx";
 import {HeaderProperties} from "@/components/gui/properties/HeaderProperties.tsx";
 import {SubHeaderProperties} from "@/components/gui/properties/SubHeaderProperties.tsx";
 import {ParagraphProperties} from "@/components/gui/properties/ParagraphProperties.tsx";
+import {LayoutProperties} from "@/components/gui/properties/LayoutProperties.tsx";
+import {CategorizationProperties} from "@/components/gui/properties/CategorizationProperties.tsx";
 
 export function PropertiesPanel() {
     const [minimize, setMinimize] = useState(true)
@@ -36,7 +38,7 @@ export function PropertiesPanel() {
 
     return (
         <motion.aside
-            className={`fixed top-16 right-0 bottom-16 bg-background text-foreground overflow-auto z-40 p-4 shadow-2xl ${minimize ? "w-16" : "w-2/5"}`}
+            className={`fixed top-0 right-0 bottom-16 bg-background text-foreground overflow-auto z-40 p-4 shadow-2xl ${minimize ? "w-16" : "w-2/5"}`}
             layout
             layoutId="properties-panel"
         >
@@ -60,16 +62,16 @@ export function PropertiesPanel() {
                     </label>
 
 
-                    {selected && (type !== "Header") && (type !== "SubHeader") && (type !== "Paragraph") && (type !== "Bullets") ?
-                        <GeneralProperties></GeneralProperties> : null}
-                    {(type === "Text") || (type === "Email") || (type === "Phone") || (type === "PostalCode") ?
-                        <StringProperties></StringProperties> : null}
+                   {/* TODO Clean this disaster up*/}
+                    {selected && (type !== "Header") && (type !== "SubHeader") && (type !== "Paragraph") && (type !== "Bullets") && (type !== "VerticalLayout") && (type !== "HorizontalLayout") && (type!== "Categorization") && (type !== "Category") &&(type !== "Group")? <GeneralProperties></GeneralProperties> : null}
+                    {(type === "Text") || (type === "Email") || (type === "Phone") || (type === "PostalCode") ? <StringProperties></StringProperties> : null}
                     {(type === "Number") || (type === "Integer") ? <NumberProperties></NumberProperties> : null}
-                    {(type === "DropDown") || (type === "Radio") || (type === "Province") || (type === "Ministry") ?
-                        <EnumProperties></EnumProperties> : null}
+                    {(type === "DropDown") || (type === "Radio") || (type === "Province") || (type === "Ministry") ? <EnumProperties></EnumProperties> : null}
                     {type === "Header" ? <HeaderProperties></HeaderProperties> : null}
                     {type === "SubHeader" ? <SubHeaderProperties></SubHeaderProperties> : null}
                     {type === "Paragraph" ? <ParagraphProperties></ParagraphProperties> : null}
+                    {(type === "Category") || (type === "Group") ? <LayoutProperties></LayoutProperties> : null}
+                    {type === "Categorization" ? <CategorizationProperties></CategorizationProperties> : null}
 
 
                 </form>}

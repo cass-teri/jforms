@@ -62,9 +62,9 @@ export function Root() {
     */
     return (
         <div
-            className={cn("flex flex-col justify-start items-start w-full pb-96 overflow-auto h-[calc(100vh-4.1rem)]")}>
+            className={cn("flex flex-col justify-start items-start w-full pb-96 overflow-auto h-[calc(100vh-0.1rem)]")}>
             <div
-                className={cn("w-full bg-white", root ? "h-[calc(100vh-4.1rem)]" : (is_dragging ? "h-64" : "h-32"))}
+                className={cn("w-full bg-white", root ? "h-[calc(100vh-0.1rem)]" : (is_dragging ? "h-64" : "h-32"))}
                 onDragOver={OnDragOver}
                 onDragLeave={OnDragLeave}
                 onDrop={OnDrop}
