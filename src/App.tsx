@@ -28,10 +28,6 @@ export function App() {
     const renderers = [...materialRenderers, ...GoARenderers]
     const cells = [...materialCells]
 
-    function OnChange(e: any) {
-        console.log(e)
-    }
-
     useEffect(() => {
         const new_project = appWindow.listen(
             "new_project",
@@ -59,10 +55,9 @@ export function App() {
                     if (typeof selected === "string") {
 
 
-                        SetProjectPath(selected)
-                        const selected_path = selected.split("/")[selected.split("/").length - 1]
-                        //SetProjectName(meselected_path)
-                        console.log(selected_path)
+                        const split = selected.split("/")
+                        const selected_path = split[split.length - 1]
+                        SetProjectPath(selected_path)
 
                         let project = ""
                         let data_schema = ""
@@ -85,16 +80,12 @@ export function App() {
                             }
                         }
 
-                        console.log("project", project)
-                        console.log("data_schema", data_schema)
-                        console.log("ui_schema", ui_schema)
-
                         if (project !== "") {
                             const new_ast = ReparentAst(JSON.parse(project) as IAst)
                             SetAst(new_ast)
                         } else if (data_schema !== "" && ui_schema !== "") {
                             const new_ast = GenerateAstFromSchemas(data_schema, ui_schema)
-                            SetAst(new_ast)
+                            SetAst(new_ast as IAst)
                         }
                     }
 
@@ -110,9 +101,12 @@ export function App() {
             async () => {
 
                 try {
-                    const data = JSON.stringify(ast, (key, value) => {
+                    const new_ast = ReparentAst(ast)
+                    const data = JSON.stringify(new_ast, (key, value) => {
                         if (key == "parent") {
-                            return value.id
+                            if (value!== undefined && value!= null && value.id)
+                                return value.id
+                            return value
                         }
                         return value
                     })
@@ -124,6 +118,7 @@ export function App() {
 
                     let path: string | null = project_path
 
+                    console.log(project_path)
                     if (path == "") {
                         path = await save({
                             filters: [
@@ -135,6 +130,10 @@ export function App() {
                             defaultPath: "project.json"
                         })
                     }
+                    else{
+                        path = project_path + "/project.json"
+                    }
+
 
                     if (path == null) {
                         console.log("No path selected")
@@ -143,7 +142,10 @@ export function App() {
 
                     await writeTextFile(path, data)
 
-                    if (path != project_path) {
+                    const new_path = path.split("/")[path.split("/").length - 1]
+
+                    if (new_path !== project_path) {
+
                         SetProjectPath(path)
                     }
                 } catch (e: any) {
@@ -179,6 +181,9 @@ export function App() {
                             defaultPath: "data_schema.json"
                         })
                     }
+                    else{
+                        path = project_path + "/data_schema.json"
+                    }
 
                     if (path == null) {
                         console.log("No path selected")
@@ -186,9 +191,10 @@ export function App() {
                     }
 
                     await writeTextFile(path, data_schema_string)
+                    const new_path = path.split("/")[path.split("/").length - 1]
 
-                    if (path != project_path) {
-                        SetProjectPath(path)
+                    if (new_path !== project_path) {
+                        SetProjectPath(new_path)
                     }
                 } catch (e: any) {
                     console.error(e)
@@ -222,6 +228,9 @@ export function App() {
                             defaultPath: "ui_schema.json"
                         })
                     }
+                    else{
+                        path = project_path + "/ui_schema.json"
+                    }
 
                     if (path == null) {
                         console.log("No path selected")
@@ -229,9 +238,11 @@ export function App() {
                     }
 
                     await writeTextFile(path, ui_schema_string)
+                    const new_path = path.split("/")[path.split("/").length - 1]
 
-                    if (path != project_path) {
-                        SetProjectPath(path)
+
+                    if (new_path !== project_path) {
+                        SetProjectPath(new_path)
                     }
                 } catch (e: any) {
                     console.error(e)
@@ -269,7 +280,7 @@ export function App() {
                 </ResizablePanel>
                 <ResizableHandle/>
                 <ResizablePanel defaultSize={50} className="pr-12" minSize={18}>
-                    <ErrorBoundary FallbackComponent={() => <div>Temporary Error Placeholder</div>}
+                    <ErrorBoundary FallbackComponent={(e) => <div>Temporary Error Placeholder: {e.error}</div>}
                                    onError={(error, componentStack) => console.log(error, componentStack)}
                     >
                         <div className="px-8 pt-8 overflow-auto h-[calc(100vh-0.1rem)]">
@@ -279,7 +290,6 @@ export function App() {
                                 data={data}
                                 renderers={renderers}
                                 cells={cells}
-                                onChange={OnChange}
                             />
                         </div>
                     </ErrorBoundary>

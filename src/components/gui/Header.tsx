@@ -10,10 +10,8 @@ import {
     MenubarSubTrigger,
     MenubarTrigger
 } from "@/components/ui/menubar.tsx"
-import {useAst} from "@/components/context/AstContextProvider.tsx"
 
 export function Header() {
-    const {ast} = useAst()
 
     function OnDownloadUiSchema() {
     }
@@ -25,8 +23,10 @@ export function Header() {
                 <MenubarMenu>
                     <MenubarTrigger>File</MenubarTrigger>
                     <MenubarContent>
+{/*
                         <MenubarItem onClick={OnNewFile}>New Form</MenubarItem>
                         <MenubarItem onClick={OnDownloadDataSchema}>Download Data Schema</MenubarItem>
+*/}
                         <MenubarItem onClick={OnDownloadUiSchema}>Download UI Schema</MenubarItem>
                     </MenubarContent>
                 </MenubarMenu>

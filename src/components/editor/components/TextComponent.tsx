@@ -71,10 +71,11 @@ export function TextComponent(props: ITextComponentProps) {
                     <div contentEditable
                          suppressContentEditableWarning={true}
                          onBlur={OnBlur}
-                         className="text-neutral-800 ">{ToDisplayString(props.id)}</div>
+                         className=" text-nowrap text-neutral-800 pr-2">{ToDisplayString(props.id)}</div>
+
                     <span className="text-neutral-500 flex flex-row items-center pr-4">
-                        <LuTextCursorInput className=""/>
-                        {props.type}
+                        <LuTextCursorInput className="text-neutral-400"/>
+                        {/*{props.type}*/}
                     </span>
                 </div>
             </motion.div>
