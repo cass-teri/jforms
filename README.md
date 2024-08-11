@@ -1,12 +1,12 @@
-# Yet Another JSONForms Designer (YAJD) 
+# jForms
 
 ---
 
-# WARNING - This project is a work in progress and is in a pre-alpha state. It is not yet ready for use.
+# WARNING - This project is a work in progress and is in a pre-alpha state. It is not yet ready for production use.
 
 This project is a drag and drop editor for JSON forms. It is based on the [JSON Forms](https://jsonforms.io/) library
 and uses the [React](https://reactjs.org/) framework. The editor allows you to create and edit JSON forms by dragging
-and dropping form elements from a palette to a canvas.
+and dropping form elements from a palette to a canvas.                                             
 
 ## Installation
 
