@@ -79,11 +79,11 @@ export function ChoiceComponent(props: IChoiceComponentProps) {
                         onBlur={OnBlur}
                         className="text-neutral-600">{ToDisplayString(props.id)}</span>
                     <div className="flex flex-row items-center pr-4 text-neutral-400">
-                        <RiDropdownList className=""/>
-                        <span className="align-bottom ">{props.type}</span>
+                        <RiDropdownList className="text-neutral-400"/>
+                        {/*<span className="align-bottom ">{props.type}</span>*/}
                     </div>
                 </div>
-                <label> {props.name}</label>
+          {/*<label> {props.name}</label>*/}
             </motion.div>
         </>
     )

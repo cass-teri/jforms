@@ -28,10 +28,6 @@ export function App() {
     const renderers = [...materialRenderers, ...GoARenderers]
     const cells = [...materialCells]
 
-    function OnChange(e: any) {
-        console.log(e)
-    }
-
     useEffect(() => {
         const new_project = appWindow.listen(
             "new_project",
@@ -59,10 +55,10 @@ export function App() {
                     if (typeof selected === "string") {
 
 
-                        SetProjectPath(selected)
-                        const selected_path = selected.split("/")[selected.split("/").length - 1]
+                        const split = selected.split("/")
+                        const selected_path = split[split.length - 1]
                         //SetProjectName(meselected_path)
-                        console.log(selected_path)
+                        SetProjectPath(selected_path)
 
                         let project = ""
                         let data_schema = ""
@@ -85,16 +81,12 @@ export function App() {
                             }
                         }
 
-                        console.log("project", project)
-                        console.log("data_schema", data_schema)
-                        console.log("ui_schema", ui_schema)
-
                         if (project !== "") {
                             const new_ast = ReparentAst(JSON.parse(project) as IAst)
                             SetAst(new_ast)
                         } else if (data_schema !== "" && ui_schema !== "") {
                             const new_ast = GenerateAstFromSchemas(data_schema, ui_schema)
-                            SetAst(new_ast)
+                            SetAst(new_ast as IAst)
                         }
                     }
 
@@ -269,7 +261,7 @@ export function App() {
                 </ResizablePanel>
                 <ResizableHandle/>
                 <ResizablePanel defaultSize={50} className="pr-12" minSize={18}>
-                    <ErrorBoundary FallbackComponent={() => <div>Temporary Error Placeholder</div>}
+                    <ErrorBoundary FallbackComponent={(e) => <div>Temporary Error Placeholder: {e.error}</div>}
                                    onError={(error, componentStack) => console.log(error, componentStack)}
                     >
                         <div className="px-8 pt-8 overflow-auto h-[calc(100vh-0.1rem)]">
@@ -279,7 +271,6 @@ export function App() {
                                 data={data}
                                 renderers={renderers}
                                 cells={cells}
-                                onChange={OnChange}
                             />
                         </div>
                     </ErrorBoundary>
