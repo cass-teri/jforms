@@ -33,7 +33,6 @@ export function ParseUiSchemaNode(type: string, data_schema: any, ui_schema: any
         }
         case "Control": {
 
-            const sub_type = "Text"
 
             let id = createId()
             if(ui_schema.scope) {
@@ -43,6 +42,49 @@ export function ParseUiSchemaNode(type: string, data_schema: any, ui_schema: any
             const data_schema_element = GetObjectFromDataSchemaAddress(ui_schema.scope, data_schema)
             console.log("data_schema_element", data_schema_element)
 
+            let sub_type = "Text"
+            switch (data_schema_element.type) {
+                case "string": {
+                    sub_type = "Text"
+                    if (data_schema_element.enum) {
+                        sub_type = "Select"
+                    }
+                    else if (data_schema_element.format === "date-time" || data_schema_element.format === "date" || data_schema_element.format === "time") {
+                        sub_type = "Date"
+                    }
+                    else if (data_schema_element.format === "email") {
+                        sub_type = "Email"
+                    }
+                    else if (data_schema_element.format === "phone") {
+                        sub_type = "Phone"
+                    }
+                    else if (data_schema_element.format === "postal_code") {
+                        sub_type = "PostalCode"
+                    }
+                    else if (ui_schema.options !== null && ui_schema.options !== undefined && ui_schema.options.multi) {
+                        sub_type = "Textarea"
+                    }
+
+                    break
+                }
+                case "number": {
+                    sub_type = "Number"
+                    break
+                }
+                case "integer": {
+                    sub_type = "Integer"
+                    break
+                }
+                case "boolean": {
+                    sub_type = "Checkbox"
+                    break
+                }
+                default: {
+                    sub_type = "Text"
+                    break
+                }
+
+            }
 
             ast = {
                 id: id,

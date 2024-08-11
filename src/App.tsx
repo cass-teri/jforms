@@ -102,9 +102,12 @@ export function App() {
             async () => {
 
                 try {
-                    const data = JSON.stringify(ast, (key, value) => {
+                    const new_ast = ReparentAst(ast)
+                    const data = JSON.stringify(new_ast, (key, value) => {
                         if (key == "parent") {
-                            return value.id
+                            if (value!== undefined && value!= null && value.id)
+                                return value.id
+                            return value
                         }
                         return value
                     })
@@ -116,6 +119,7 @@ export function App() {
 
                     let path: string | null = project_path
 
+                    console.log(project_path)
                     if (path == "") {
                         path = await save({
                             filters: [
@@ -127,6 +131,10 @@ export function App() {
                             defaultPath: "project.json"
                         })
                     }
+                    else{
+                        path = project_path + "/project.json"
+                    }
+
 
                     if (path == null) {
                         console.log("No path selected")
@@ -135,7 +143,10 @@ export function App() {
 
                     await writeTextFile(path, data)
 
-                    if (path != project_path) {
+                    const new_path = path.split("/")[path.split("/").length - 1]
+
+                    if (new_path !== project_path) {
+
                         SetProjectPath(path)
                     }
                 } catch (e: any) {
@@ -171,6 +182,9 @@ export function App() {
                             defaultPath: "data_schema.json"
                         })
                     }
+                    else{
+                        path = project_path + "/data_schema.json"
+                    }
 
                     if (path == null) {
                         console.log("No path selected")
@@ -178,9 +192,10 @@ export function App() {
                     }
 
                     await writeTextFile(path, data_schema_string)
+                    const new_path = path.split("/")[path.split("/").length - 1]
 
-                    if (path != project_path) {
-                        SetProjectPath(path)
+                    if (new_path !== project_path) {
+                        SetProjectPath(new_path)
                     }
                 } catch (e: any) {
                     console.error(e)
@@ -214,6 +229,9 @@ export function App() {
                             defaultPath: "ui_schema.json"
                         })
                     }
+                    else{
+                        path = project_path + "/ui_schema.json"
+                    }
 
                     if (path == null) {
                         console.log("No path selected")
@@ -221,9 +239,11 @@ export function App() {
                     }
 
                     await writeTextFile(path, ui_schema_string)
+                    const new_path = path.split("/")[path.split("/").length - 1]
 
-                    if (path != project_path) {
-                        SetProjectPath(path)
+
+                    if (new_path !== project_path) {
+                        SetProjectPath(new_path)
                     }
                 } catch (e: any) {
                     console.error(e)

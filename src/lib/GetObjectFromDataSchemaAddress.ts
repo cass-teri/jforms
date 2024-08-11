@@ -3,6 +3,8 @@ export function GetObjectFromDataSchemaAddress(scope: string, data_schema: any) 
         return null
     }
     const keys = scope.split("/")
+    keys.shift()
+
     let obj = data_schema
     keys.forEach((key) => {
         if (obj === undefined || obj === null) {

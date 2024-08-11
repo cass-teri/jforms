@@ -65,6 +65,9 @@ export function AstContextProvider(props: IAstContextProviderProps) {
             "ast",
             JSON.stringify(ast, (key, value) => {
                 if (key == "parent") {
+                    if (value === null || value === undefined || value.id === undefined) {
+                        return undefined
+                    }
                     return value.id
                 }
                 return value

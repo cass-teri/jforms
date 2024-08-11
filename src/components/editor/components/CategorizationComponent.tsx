@@ -47,7 +47,7 @@ export function CategorizationComponent(props: ICategorizationComponentProps) {
                 onClick={OnClick}
                 draggable
                 tabIndex={0}
-                className={cn("m-1 w-full bg-neutral-600 text-neutral-50 flex flex-col clear-both overflow-visible  p-2 hover:shadow-2xl rounded ring-amber-300", props.id == selected ? "ring-4" : "", props.ast.parent == undefined ? "m-0" : "m-1")}
+                className={cn("m-1 w-full bg-neutral-600 text-neutral-50 flex flex-col clear-both overflow-visible  p-2 hover:shadow-2xl rounded ring-amber-300", props.id == selected ? "ring-4" : "", props.ast.parent == undefined || false ? "m-0" : "m-1")}
             >
                 <div className="flex flex-row justify-between overflow-hidden">
                     <div className="flex flex-row items-center pr-4">
