@@ -57,7 +57,6 @@ export function App() {
 
                         const split = selected.split("/")
                         const selected_path = split[split.length - 1]
-                        //SetProjectName(meselected_path)
                         SetProjectPath(selected_path)
 
                         let project = ""

@@ -47,7 +47,7 @@ export function ParseUiSchemaNode(type: string, data_schema: any, ui_schema: any
                 case "string": {
                     sub_type = "Text"
                     if (data_schema_element.enum) {
-                        sub_type = "Select"
+                        sub_type = "DropDown"
                     }
                     else if (data_schema_element.format === "date-time" || data_schema_element.format === "date" || data_schema_element.format === "time") {
                         sub_type = "Date"
@@ -80,8 +80,7 @@ export function ParseUiSchemaNode(type: string, data_schema: any, ui_schema: any
                     break
                 }
                 default: {
-                    sub_type = "Text"
-                    break
+                    throw new Error(`Unknown type: ${data_schema_element.type}`)
                 }
 
             }
