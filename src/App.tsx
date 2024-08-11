@@ -38,8 +38,8 @@ export function App() {
             }
         )
 
-        const open_project = appWindow.listen(
-            "open_project",
+        const open_schemas_folder = appWindow.listen(
+            "open_schemas_folder",
             async () => {
                 try {
                     const selected = await open({
@@ -53,23 +53,12 @@ export function App() {
                     }
 
                     if (typeof selected === "string") {
-
-
-                        const split = selected.split("/")
-                        const selected_path = split[split.length - 1]
-                        SetProjectPath(selected_path)
-
-                        let project = ""
                         let data_schema = ""
                         let ui_schema = ""
 
                         const files = await readDir(`${selected}`)
 
                         for (const file of files) {
-                            if (file.name?.endsWith("project.json")) {
-                                console.log(file.path)
-                                project = await readTextFile(file.path)
-                            }
                             if (file.name?.endsWith("data_schema.json")) {
                                 console.log(file.path)
                                 data_schema = await readTextFile(file.path)
@@ -80,10 +69,7 @@ export function App() {
                             }
                         }
 
-                        if (project !== "") {
-                            const new_ast = ReparentAst(JSON.parse(project) as IAst)
-                            SetAst(new_ast)
-                        } else if (data_schema !== "" && ui_schema !== "") {
+                        if (data_schema !== "" && ui_schema !== "") {
                             const new_ast = GenerateAstFromSchemas(data_schema, ui_schema)
                             SetAst(new_ast as IAst)
                         }
@@ -95,6 +81,43 @@ export function App() {
                 }
             }
         )
+
+
+        const open_project_file = appWindow.listen(
+            "open_project_file",
+            async () => {
+                try {
+                    const selected = await open({
+                        directory: false,
+                        multiple: false
+                    })
+
+                    if (selected === null) {
+                        console.error("No path selected")
+                        return "No path selected"
+                    }
+
+                    if (typeof selected === "string") {
+                        const split = selected.split("\\")
+                        split.pop()
+                        const selected_path = split.join("\\")
+                        SetProjectPath(selected_path)
+
+                        const project= await readTextFile(selected)
+
+                        if (project !== "") {
+                            const new_ast = ReparentAst(JSON.parse(project) as IAst)
+                            SetAst(new_ast)
+                        }
+                    }
+
+                } catch (e: any) {
+                    console.error(`err: ${e}`)
+                    return e.message
+                }
+            }
+        )
+
 
         const save_project = appWindow.listen(
             "save_project",
@@ -260,8 +283,10 @@ export function App() {
 
 
         return () => {
+
             new_project.then((f) => f())
-            open_project.then((f) => f())
+            open_project_file.then((f) => f())
+            open_schemas_folder.then((f) => f())
             save_project.then((f) => f())
             save_data_schema.then((f) => f())
             save_ui_schema.then((f) => f())

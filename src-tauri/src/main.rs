@@ -2,7 +2,6 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 use tauri::{CustomMenuItem, Menu, MenuItem, Submenu};
-use tauri::Manager;
 
 fn build_menu() -> Menu {
     let menu = Menu::new()
@@ -15,9 +14,10 @@ fn build_menu() -> Menu {
             "File",
             Menu::new()
                 .add_item(CustomMenuItem::new("new_project".to_string(), "New Project"))
-                .add_item(CustomMenuItem::new("open_project".to_string(), "Open Project"))
-                .add_item(CustomMenuItem::new("save_project".to_string(), "Save Project"))
+                .add_item(CustomMenuItem::new("open_project_file".to_string(), "Open Project File"))
+                .add_item(CustomMenuItem::new("save_project".to_string(), "Save Project File"))
                 .add_native_item(MenuItem::Separator)
+                .add_item(CustomMenuItem::new("open_schemas_folder".to_string(), "Open Schemas Folder"))
                 .add_item(CustomMenuItem::new("save_data_schema".to_string(), "Save Data Schema"))
                 .add_item(CustomMenuItem::new("save_ui_schema".to_string(), "Save UI Schema"))
                 .add_native_item(MenuItem::Separator)
@@ -29,7 +29,7 @@ fn build_menu() -> Menu {
 
 fn main() {
     tauri::Builder::default()
-          .setup(|app| {
+/*           .setup(|app| {
             #[cfg(debug_assertions)] // only include this code on debug builds
             {
               let window = app.get_window("main").unwrap();
@@ -37,16 +37,18 @@ fn main() {
               window.close_devtools();
             }
             Ok(())
-          })
+          }) */
         .menu(build_menu())
         .on_menu_event(|event| {
             match event.menu_item_id() {
                 "new_project" => {
                     event.window().emit("new_project", "").unwrap();
                 }
-                "open_project" => {
-                    println!("Open Project");
-                    event.window().emit("open_project", "").unwrap();
+                "open_project_file" => {
+                    event.window().emit("open_project_file", "").unwrap();
+                }
+                "open_schemas_folder" => {
+                    event.window().emit("open_schemas_folder", "").unwrap();
                 }
                 "save_project" => {
                     event.window().emit("save_project", "").unwrap();
