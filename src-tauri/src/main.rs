@@ -2,6 +2,7 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 use tauri::{CustomMenuItem, Menu, MenuItem, Submenu};
+use tauri::Manager;
 
 fn build_menu() -> Menu {
     let menu = Menu::new()
@@ -29,7 +30,7 @@ fn build_menu() -> Menu {
 
 fn main() {
     tauri::Builder::default()
-/*           .setup(|app| {
+        .setup(|app| {
             #[cfg(debug_assertions)] // only include this code on debug builds
             {
               let window = app.get_window("main").unwrap();
@@ -37,7 +38,7 @@ fn main() {
               window.close_devtools();
             }
             Ok(())
-          }) */
+          })
         .menu(build_menu())
         .on_menu_event(|event| {
             match event.menu_item_id() {

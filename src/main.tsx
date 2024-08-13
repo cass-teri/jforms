@@ -7,6 +7,7 @@ import {DragContextProvider} from "@/components/context/DragContextProvider.tsx"
 import {AstContextProvider} from "@/components/context/AstContextProvider.tsx"
 import {SelectionProvider} from "@/components/context/SelectionContext.tsx"
 import {ProjectContextProvider} from "@/components/context/ProjectContextProvider.tsx";
+import {ErrorBoundary} from "react-error-boundary";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
@@ -14,6 +15,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             <SelectionProvider>
                 <DragContextProvider>
                     <ProjectContextProvider>
+                        <ErrorBoundary FallbackComponent={(e)=><div>{e.error}</div>}>
                         <AstContextProvider>
                             <App/>
                             <Toolbar></Toolbar>
@@ -21,6 +23,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                         <Footer></Footer>
 */}
                         </AstContextProvider>
+                        </ErrorBoundary>
                     </ProjectContextProvider>
                 </DragContextProvider>
             </SelectionProvider>

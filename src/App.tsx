@@ -301,7 +301,9 @@ export function App() {
                 className="flex flex-col items-top pt-0 bg-background border shadow-2xl clear-both justify-start pl-28 pr-4 w-1/2 overflow-hidden h-screen"
             >
                 <ResizablePanel defaultSize={50} className="flex flex-col" minSize={18}>
+                    <ErrorBoundary FallbackComponent={(e) => <div>Temporary Error Placeholder: {e.error}</div>}>
                     <Root></Root>
+                    </ErrorBoundary>
                 </ResizablePanel>
                 <ResizableHandle/>
                 <ResizablePanel defaultSize={50} className="pr-12" minSize={18}>

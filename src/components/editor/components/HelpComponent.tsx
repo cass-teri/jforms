@@ -1,9 +1,12 @@
-import {DropZone} from "@/components/editor/DropZone.tsx"
-import {useDragging} from "@/components/context/DragContextProvider.tsx"
-import {IAst} from "@/types/IAst.tsx"
-import {useSelection} from "@/components/context/SelectionContext.tsx"
-import {cn} from "@/lib/utils.ts";
-import {motion} from "framer-motion";
+import { DropZone } from "@/components/editor/DropZone.tsx"
+import { useDragging } from "@/components/context/DragContextProvider.tsx"
+import { IAst } from "@/types/IAst.tsx"
+import { useSelection } from "@/components/context/SelectionContext.tsx"
+import { cn } from "@/lib/utils.ts"
+import { motion } from "framer-motion"
+import { ImParagraphLeft } from "react-icons/im"
+import { PiListBulletsBold } from "react-icons/pi"
+import { MdHelpCenter } from "react-icons/md"
 
 interface IHelpComponentProps {
     id: string
@@ -14,9 +17,8 @@ interface IHelpComponentProps {
 }
 
 export function HelpComponent(props: IHelpComponentProps) {
-    const {SetDraggingContext} = useDragging()
-    const {selected, SetSelected} = useSelection()
-
+    const { SetDraggingContext } = useDragging()
+    const { selected, SetSelected } = useSelection()
 
     function OnClick(e: any) {
         e.stopPropagation()
@@ -32,6 +34,30 @@ export function HelpComponent(props: IHelpComponentProps) {
         e.stopPropagation()
     }
 
+    let icon = <h1 className="text-2xl font-extrabold text-neutral-400">H</h1>
+    switch (props.type) {
+        case "Header": {
+            icon = <h1 className="text-2xl font-extrabold text-neutral-400">h</h1>
+            break
+        }
+        case "SubHeader": {
+            icon = <h2 className="text-xl font-bold text-neutral-400">H</h2>
+            break
+        }
+        case "Paragraph": {
+            icon = <ImParagraphLeft className="text-neutral-400" />
+            break
+        }
+        case "Bullets": {
+            icon = <PiListBulletsBold className="text-neutral-400" />
+            break
+        }
+        case "Help Content": {
+            icon = <MdHelpCenter className="text-neutral-400" />
+            break
+        }
+    }
+
     return (
         <>
             <DropZone before={props.id}></DropZone>
@@ -41,14 +67,15 @@ export function HelpComponent(props: IHelpComponentProps) {
                 onClick={OnClick}
                 draggable
                 tabIndex={0}
-                className={cn("my-1 bg-neutral-50 text-neutral-800 hover:shadow-2xl px-4 py-2 ring-amber-300 shadow-inner flex flex-col rounded border-neutral-200", props.id == selected ? "ring-4" : "")}
+                className={cn(
+                    "bg-white m-1 hover:shadow-2xl px-4 py-2 ring-amber-300 shadow-inner flex flex-col rounded ",
+                    props.id == selected ? "ring-4" : ""
+                )}
             >
-                <div className="flex flex-row items-center justify-between overflow-hidden">
-                    <span className="flex flex-row items-center pr-4">
-                        <span className="text-2xl font-extrabold">T</span>
-                        {props.type}
-                    </span>
+                <div className="flex flex-row items-center justify-between overflow-hidden pr-4">
+                    <span className="flex flex-row items-center pr-4">{props.type}</span>
                     {props.debug ? <span className="text-neutral-50">{props.id}</span> : null}
+                    {icon}
                 </div>
                 <label> {props.name}</label>
             </motion.div>

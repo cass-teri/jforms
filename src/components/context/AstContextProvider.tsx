@@ -1,6 +1,6 @@
-import { createContext, useContext, useState } from "react"
-import { IAst } from "@/types/IAst.tsx"
-import { ReparentAst } from "@/components/context/ReparentAst.tsx"
+import {createContext, useContext, useState} from "react"
+import {IAst} from "@/types/IAst.tsx"
+import {ReparentAst} from "@/components/context/ReparentAst.tsx"
 import {GenerateDataSchema} from "@/lib/GenerateDataSchema.ts";
 import {GenerateUiSchema} from "@/lib/GenerateUiSchema.ts";
 
@@ -73,6 +73,8 @@ export function AstContextProvider(props: IAstContextProviderProps) {
                 return value
             })
         )
+
+        console.log("SetAst", localStorage.getItem("ast"))
     }
 
     return <AstContext.Provider value={{ ast, SetAst, data_schema, SetDataSchema, ui_schema, SetUiSchema}}>{props.children}</AstContext.Provider>

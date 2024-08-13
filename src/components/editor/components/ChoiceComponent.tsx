@@ -1,14 +1,18 @@
-import {DropZone} from "@/components/editor/DropZone.tsx"
-import {useDragging} from "@/components/context/DragContextProvider.tsx"
-import {RiDropdownList} from "react-icons/ri"
-import {IAst} from "@/types/IAst.tsx"
-import {useSelection} from "@/components/context/SelectionContext.tsx"
-import {ToDisplayString} from "@/lib/ToTitleCase.ts";
-import {motion} from "framer-motion"
-import {cn} from "@/lib/utils.ts";
-import {FindById} from "@/lib/FindById.ts";
-import {GetSchemasForName} from "@/lib/GetSchemasForName.ts";
-import {useAst} from "@/components/context/AstContextProvider.tsx";
+import { DropZone } from "@/components/editor/DropZone.tsx"
+import { useDragging } from "@/components/context/DragContextProvider.tsx"
+import { RiDropdownList } from "react-icons/ri"
+import { IAst } from "@/types/IAst.tsx"
+import { useSelection } from "@/components/context/SelectionContext.tsx"
+import { ToDisplayString } from "@/lib/ToTitleCase.ts"
+import { motion } from "framer-motion"
+import { cn } from "@/lib/utils.ts"
+import { FindById } from "@/lib/FindById.ts"
+import { GetSchemasForName } from "@/lib/GetSchemasForName.ts"
+import { useAst } from "@/components/context/AstContextProvider.tsx"
+import { VscSymbolBoolean } from "react-icons/vsc"
+import { IoMdRadioButtonOn } from "react-icons/io"
+import { FaLandmark, FaRegSquareCheck } from "react-icons/fa6"
+import { MdOutlineLandscape } from "react-icons/md"
 
 interface IChoiceComponentProps {
     id: string
@@ -18,9 +22,9 @@ interface IChoiceComponentProps {
 }
 
 export function ChoiceComponent(props: IChoiceComponentProps) {
-    const {SetDraggingContext} = useDragging()
-    const {selected, SetSelected} = useSelection()
-    const {ast, SetAst} = useAst()
+    const { SetDraggingContext } = useDragging()
+    const { selected, SetSelected } = useSelection()
+    const { ast, SetAst } = useAst()
 
     function OnClick(e: any) {
         e.stopPropagation()
@@ -35,7 +39,6 @@ export function ChoiceComponent(props: IChoiceComponentProps) {
         })
         e.stopPropagation()
     }
-
 
     function OnBlur(e: any) {
         console.log(e.target.innerText)
@@ -58,7 +61,34 @@ export function ChoiceComponent(props: IChoiceComponentProps) {
         }
         SetAst(ast)
         //location.reload()
+    }
 
+    let icon = <RiDropdownList />
+    switch (props.type) {
+        case "Boolean": {
+            icon = <VscSymbolBoolean />
+            break
+        }
+        case "DropDown": {
+            icon = <RiDropdownList />
+            break
+        }
+        case "Radio": {
+            icon = <IoMdRadioButtonOn />
+            break
+        }
+        case "Checkbox": {
+            icon = <FaRegSquareCheck />
+            break
+        }
+        case "Province": {
+            icon = <MdOutlineLandscape />
+            break
+        }
+        case "Ministry": {
+            icon = <FaLandmark />
+            break
+        }
     }
 
     return (
@@ -70,20 +100,22 @@ export function ChoiceComponent(props: IChoiceComponentProps) {
                 onClick={OnClick}
                 draggable
                 tabIndex={0}
-                className={cn("m-1 bg-white border hover:shadow-2xl px-4 py-2 ring-amber-300 shadow-inner flex flex-col rounded border-neutral-200 overflow-hidden", props.id == selected ? "ring-4" : "")}
+                className={cn(
+                    "m-1 bg-white border hover:shadow-2xl px-4 py-2 ring-amber-300 shadow-inner flex flex-col rounded border-neutral-200 overflow-hidden",
+                    props.id == selected ? "ring-4" : ""
+                )}
             >
                 <div className="flex flex-row items-center justify-between overflow-hidden">
                     <span
                         contentEditable
                         suppressContentEditableWarning={true}
                         onBlur={OnBlur}
-                        className="text-neutral-600">{ToDisplayString(props.id)}</span>
-                    <div className="flex flex-row items-center pr-4 text-neutral-400">
-                        <RiDropdownList className="text-neutral-400"/>
-                        {/*<span className="align-bottom ">{props.type}</span>*/}
-                    </div>
+                        className="text-neutral-600"
+                    >
+                        {ToDisplayString(props.id)}
+                    </span>
+                    <div className="flex flex-row items-center pr-4 text-neutral-400">{icon}</div>
                 </div>
-          {/*<label> {props.name}</label>*/}
             </motion.div>
         </>
     )
