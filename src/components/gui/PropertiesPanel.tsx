@@ -14,6 +14,7 @@ import { ParagraphProperties } from "@/components/gui/properties/ParagraphProper
 import { LayoutProperties } from "@/components/gui/properties/LayoutProperties.tsx"
 import { CategorizationProperties } from "@/components/gui/properties/CategorizationProperties.tsx"
 import { HelpContentProperties } from "@/components/gui/properties/HelpContentProperties.tsx"
+import { BulletProperties } from "@/components/gui/properties/BulletsProperties.tsx"
 
 export function PropertiesPanel() {
     const [minimize, setMinimize] = useState(true)
@@ -89,6 +90,7 @@ export function PropertiesPanel() {
                         {type === "Category" || type === "Group" ? <LayoutProperties></LayoutProperties> : null}
                         {type === "Categorization" ? <CategorizationProperties></CategorizationProperties> : null}
                         {type == "HelpContent" ? <HelpContentProperties></HelpContentProperties> : null}
+                        {type == "Bullets" ? <BulletProperties></BulletProperties> : null}
                     </form>
                 )}
             </div>

@@ -68,11 +68,12 @@ export function HelpComponent(props: IHelpComponentProps) {
                 draggable
                 tabIndex={0}
                 className={cn(
-                    "bg-white m-1 hover:shadow-2xl px-4 py-2 ring-amber-300 shadow-inner flex flex-col rounded ",
+                    "m-1 hover:shadow-2xl px-4 py-2 ring-amber-300 shadow-inner flex flex-col rounded-b bg-neutral-50 ",
                     props.id == selected ? "ring-4" : ""
                 )}
             >
                 <div className="flex flex-row items-center justify-between overflow-hidden pr-4">
+                    <div></div>
                     <span className="flex flex-row items-center pr-4">{props.type}</span>
                     {props.debug ? <span className="text-neutral-50">{props.id}</span> : null}
                     {icon}

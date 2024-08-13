@@ -48,7 +48,7 @@ export function GetComponentForName(component_name: string, props: any) {
             return <TextComponent {...new_props} key={props.key} type="Textarea"></TextComponent>
 
         case "Boolean":
-            return <ChoiceComponent {...new_props} key={props.key} type="Radio"></ChoiceComponent>
+            return <ChoiceComponent {...new_props} key={props.key} type="Boolean"></ChoiceComponent>
         case "DropDown":
             return <ChoiceComponent {...new_props} key={props.key} type="Dropdown"></ChoiceComponent>
         case "Radio":
