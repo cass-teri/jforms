@@ -2,17 +2,17 @@ import { LuTextCursorInput } from "react-icons/lu"
 import { DropZone } from "@/components/editor/DropZone.tsx"
 import { useDragging } from "@/components/context/DragContextProvider.tsx"
 import { useSelection } from "@/components/context/SelectionContext.tsx"
-import { ToDisplayString } from "@/lib/ToTitleCase.ts"
-import { cn } from "@/lib/utils.ts"
+import { cn, ReplaceIllegalCharacters, ToDisplayString } from "@/lib/utils.ts"
 import { motion } from "framer-motion"
 import { FindById } from "@/lib/FindById.ts"
 import { useAst } from "@/components/context/AstContextProvider.tsx"
-import { GetSchemasForName } from "@/lib/GetSchemasForName.ts"
+import { GetSchemasForComponentType } from "@/lib/GetSchemasForComponentType.ts"
 import { BsPostcard, BsTextareaResize } from "react-icons/bs"
 import { FaRegCalendarAlt } from "react-icons/fa"
 import { PiNumberSquareOneLight, PiPhoneDisconnect } from "react-icons/pi"
 import { TbDecimal } from "react-icons/tb"
 import { MdOutlineAlternateEmail } from "react-icons/md"
+import { useState } from "react"
 
 interface ITextComponentProps {
     id: string
@@ -24,6 +24,7 @@ export function TextComponent(props: ITextComponentProps) {
     const { SetDraggingContext } = useDragging()
     const { selected, SetSelected } = useSelection()
     const { ast, SetAst } = useAst()
+    const [error, SetError] = useState("")
 
     function OnClick(e: any) {
         e.stopPropagation()
@@ -42,22 +43,16 @@ export function TextComponent(props: ITextComponentProps) {
     function OnBlur(e: any) {
         console.log(e.target.innerText)
 
-        const new_id = e.target.innerText
-            .trim()
-            .replaceAll("\n", "")
-            .replaceAll("\t", " ")
-            .replaceAll("\n", " ")
-            .replaceAll("  ", " ")
-            .replaceAll(" ", "_")
-            .replaceAll("'", "")
-            .replaceAll("/", "")
-            .replaceAll(".", "")
-            .replaceAll(",", "")
-            .replaceAll("-", "")
-            .replaceAll("?", "")
-            .replaceAll("!", "")
-            .replaceAll(":", "")
-            .replaceAll(";", "")
+        const new_id = ReplaceIllegalCharacters(e.target.innerText)
+
+        const new_node = FindById(ast, new_id)
+        if (new_node) {
+            if (new_id === props.id) {
+                return
+            }
+            SetError("This id already exists, id not changed")
+            return
+        }
 
         const node = FindById(ast, props.id)
 
@@ -66,7 +61,7 @@ export function TextComponent(props: ITextComponentProps) {
             // @ts-expect-error possibly null or undefined
             const old_schema = node.SchemaPackage.data_schema[old_id]
 
-            const new_schema = GetSchemasForName(node.type, new_id)
+            const new_schema = GetSchemasForComponentType(node.type, new_id)
 
             // @ts-expect-error possibly null or undefined
             new_schema.data_schema[`${new_id}`] = old_schema
@@ -75,6 +70,7 @@ export function TextComponent(props: ITextComponentProps) {
             node.id = new_id
         }
         SetAst(ast)
+        SetError("")
     }
 
     let icon = <LuTextCursorInput className="text-neutral-400" />
@@ -139,6 +135,7 @@ export function TextComponent(props: ITextComponentProps) {
 
                     <span className="text-neutral-500 flex flex-row items-center pr-4">{icon}</span>
                 </div>
+                {error ? <div className="text-red-700 font-bold">{error}</div> : null}
             </motion.div>
         </>
     )
