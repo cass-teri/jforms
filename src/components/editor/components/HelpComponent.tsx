@@ -37,11 +37,11 @@ export function HelpComponent(props: IHelpComponentProps) {
     let icon = <h1 className="text-2xl font-extrabold text-neutral-400">H</h1>
     switch (props.type) {
         case "Header": {
-            icon = <h1 className="text-2xl font-extrabold text-neutral-400">h</h1>
+            icon = <h1 className="text-2xl font-extrabold text-neutral-400">H</h1>
             break
         }
-        case "SubHeader": {
-            icon = <h2 className="text-xl font-bold text-neutral-400">H</h2>
+        case "Sub Header": {
+            icon = <h2 className="text-xl font-bold text-neutral-400">h</h2>
             break
         }
         case "Paragraph": {
@@ -68,7 +68,7 @@ export function HelpComponent(props: IHelpComponentProps) {
                 draggable
                 tabIndex={0}
                 className={cn(
-                    "m-1 hover:shadow-2xl px-4 py-2 ring-amber-300 shadow-inner flex flex-col rounded-b bg-neutral-50 ",
+                    "m-1 hover:shadow-2xl px-4 py-2 ring-amber-300 shadow-inner flex flex-col rounded-b bg-neutral-50 text-neutral-800",
                     props.id == selected ? "ring-4" : ""
                 )}
             >

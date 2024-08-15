@@ -1,6 +1,6 @@
 import { IAst } from "@/types/IAst.tsx"
 import { createId } from "@paralleldrive/cuid2"
-import { GetSchemasForName } from "@/lib/GetSchemasForName.ts"
+import { GetSchemasForComponentType } from "@/lib/GetSchemasForComponentType.ts"
 import { GetObjectFromDataSchemaAddress } from "@/lib/GetObjectFromDataSchemaAddress.ts"
 
 export function ParseUiSchemaNode(type: string, data_schema: any, ui_schema: any, parent: IAst | null) {
@@ -20,7 +20,7 @@ export function ParseUiSchemaNode(type: string, data_schema: any, ui_schema: any
                 type: type,
                 parent: parent,
                 children: children,
-                SchemaPackage: GetSchemasForName(type, id)
+                SchemaPackage: GetSchemasForComponentType(type, id)
             }
 
             if (ui_schema.label) {
@@ -82,7 +82,7 @@ export function ParseUiSchemaNode(type: string, data_schema: any, ui_schema: any
                 id: id,
                 type: sub_type,
                 parent: parent,
-                SchemaPackage: GetSchemasForName(sub_type, id),
+                SchemaPackage: GetSchemasForComponentType(sub_type, id),
                 children: []
             }
             break
@@ -122,7 +122,7 @@ export function ParseUiSchemaNode(type: string, data_schema: any, ui_schema: any
                 id,
                 type: sub_type,
                 parent: parent,
-                SchemaPackage: GetSchemasForName(sub_type, id),
+                SchemaPackage: GetSchemasForComponentType(sub_type, id),
                 children: []
             }
             //set the content

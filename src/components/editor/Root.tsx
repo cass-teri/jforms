@@ -1,20 +1,20 @@
-import React, {ReactNode, useState} from "react"
-import {cn} from "@/lib/utils.ts"
-import {GetComponentForName} from "@/lib/GetComponentForName.tsx"
-import {GetSchemasForName} from "@/lib/GetSchemasForName.ts"
-import {useDragging} from "@/components/context/DragContextProvider.tsx"
-import {useAst} from "@/components/context/AstContextProvider.tsx"
-import {createId} from "@paralleldrive/cuid2"
+import React, { ReactNode, useState } from "react"
+import { cn } from "@/lib/utils.ts"
+import { GetComponentForComponentType } from "@/lib/GetComponentForComponentType.tsx"
+import { GetSchemasForComponentType } from "@/lib/GetSchemasForComponentType.ts"
+import { useDragging } from "@/components/context/DragContextProvider.tsx"
+import { useAst } from "@/components/context/AstContextProvider.tsx"
+import { createId } from "@paralleldrive/cuid2"
 
 export function Root() {
     const [is_dragging, SetIsDragging] = useState(false)
     const [root, SetRoot] = useState<ReactNode | null>(null)
-    const {dragging_context, SetDraggingContext} = useDragging()
-    const {ast, SetAst} = useAst()
+    const { dragging_context, SetDraggingContext } = useDragging()
+    const { ast, SetAst } = useAst()
 
     if (ast !== null && (root === undefined || root === null)) {
         if (ast.id !== undefined) {
-            const component = GetComponentForName(ast.type, {ast, id: ast.id})
+            const component = GetComponentForComponentType(ast.type, { ast, id: ast.id })
             SetRoot(component)
         }
     }
@@ -34,7 +34,7 @@ export function Root() {
         SetIsDragging(false)
         const id = createId()
         const dragging_id = dragging_context.id
-        const component_schemas = GetSchemasForName(dragging_id, id)
+        const component_schemas = GetSchemasForComponentType(dragging_id, id)
 
         if (root !== null) {
             return root
@@ -48,7 +48,7 @@ export function Root() {
         }
         SetAst(new_ast)
 
-        const component = GetComponentForName(dragging_id, {id, ast: new_ast})
+        const component = GetComponentForComponentType(dragging_id, { id, ast: new_ast })
 
         SetRoot(component)
         SetDraggingContext({
@@ -59,12 +59,13 @@ export function Root() {
     }
 
     /*
-    */
+     */
     return (
         <div
-            className={cn("flex flex-col justify-start items-start w-full pb-96 overflow-auto h-[calc(100vh-0.1rem)]")}>
+            className={cn("flex flex-col justify-start items-start w-full pb-96 overflow-auto h-[calc(100vh-0.1rem)]")}
+        >
             <div
-                className={cn("w-full bg-white", root ? "h-[calc(100vh-0.1rem)]" : (is_dragging ? "h-64" : "h-32"))}
+                className={cn("w-full bg-white", root ? "h-[calc(100vh-0.1rem)]" : is_dragging ? "h-64" : "h-32")}
                 onDragOver={OnDragOver}
                 onDragLeave={OnDragLeave}
                 onDrop={OnDrop}
@@ -77,8 +78,10 @@ export function Root() {
                             backgroundColor: "#ffffff",
                             backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23999999' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
                         }}
-                        className="text-accent-foreground rounded flex items-center justify-center h-96">Drop Layout
-                        Component Here</p>
+                        className="text-accent-foreground rounded flex items-center justify-center h-96"
+                    >
+                        Drop Layout Component Here
+                    </p>
                 )}
             </div>
         </div>

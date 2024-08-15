@@ -1,11 +1,11 @@
-import {DropZone} from "@/components/editor/DropZone.tsx"
-import {useDragging} from "@/components/context/DragContextProvider.tsx"
-import {AiOutlineGroup} from "react-icons/ai"
-import {IAst} from "@/types/IAst.tsx"
-import {GetComponentForName} from "@/lib/GetComponentForName.tsx"
-import {useSelection} from "@/components/context/SelectionContext.tsx"
-import {cn} from "@/lib/utils.ts";
-import {motion} from "framer-motion";
+import { DropZone } from "@/components/editor/DropZone.tsx"
+import { useDragging } from "@/components/context/DragContextProvider.tsx"
+import { AiOutlineGroup } from "react-icons/ai"
+import { IAst } from "@/types/IAst.tsx"
+import { GetComponentForComponentType } from "@/lib/GetComponentForComponentType.tsx"
+import { useSelection } from "@/components/context/SelectionContext.tsx"
+import { cn } from "@/lib/utils.ts"
+import { motion } from "framer-motion"
 
 export interface IGroupComponentProps {
     id: string
@@ -15,8 +15,8 @@ export interface IGroupComponentProps {
 }
 
 export function GroupComponent(props: IGroupComponentProps) {
-    const {SetDraggingContext} = useDragging()
-    const {selected, SetSelected} = useSelection()
+    const { SetDraggingContext } = useDragging()
+    const { selected, SetSelected } = useSelection()
 
     function OnClick(e: any) {
         e.stopPropagation()
@@ -37,7 +37,6 @@ export function GroupComponent(props: IGroupComponentProps) {
         children = props.ast.children
     }
 
-
     return (
         <>
             <DropZone before={props.id}></DropZone>
@@ -47,11 +46,15 @@ export function GroupComponent(props: IGroupComponentProps) {
                 onClick={OnClick}
                 draggable
                 tabIndex={0}
-                className={cn("m-1 w-full bg-neutral-400 dark:bg-neutral-500 flex flex-col clear-both overflow-visible  p-2 hover:shadow-2xl rounded ring-amber-300", props.id == selected ? "ring-4" : "", props.ast.parent == undefined ? "m-0" : "m-1")}
+                className={cn(
+                    "m-1 w-full bg-neutral-400 dark:bg-neutral-500 flex flex-col clear-both overflow-visible  p-2 hover:shadow-2xl rounded ring-amber-300",
+                    props.id == selected ? "ring-4" : "",
+                    props.ast.parent == undefined ? "m-0" : "m-1"
+                )}
             >
                 <div className="flex flex-row justify-between overflow-hidden">
                     <div className="flex flex-row items-center pr-4">
-                        <AiOutlineGroup/>
+                        <AiOutlineGroup />
                         Group
                     </div>
                     {props.debug ? <span className="text-neutral-50">{props.id}</span> : null}
@@ -60,7 +63,7 @@ export function GroupComponent(props: IGroupComponentProps) {
                 <div className="overflow-visible clear-both">
                     <div className="clear-both">
                         {children.map((child: IAst, index: number) => {
-                            return GetComponentForName(child.type, {ast: child, id: child.id, key: index})
+                            return GetComponentForComponentType(child.type, { ast: child, id: child.id, key: index })
                         })}
                     </div>
                     <DropZone child_of={props.id} always_open={props.ast.parent === undefined}></DropZone>

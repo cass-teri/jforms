@@ -51,7 +51,7 @@ export function PropertiesPanel() {
 
     return (
         <motion.aside
-            className={`fixed top-0 right-0 bottom-16 bg-background text-foreground overflow-auto z-40 p-4 shadow-2xl ${minimize ? "w-16" : "w-2/5"}`}
+            className={`fixed top-0 right-0 bottom-16 bg-background text-foreground overflow-auto z-40 p-4 shadow-2xl  max-w-[42rem] ${minimize ? "w-16" : "w-2/5"}`}
             layout
             layoutId="properties-panel"
         >
@@ -76,7 +76,7 @@ export function PropertiesPanel() {
                         </label>
 
                         {/* TODO Clean this disaster up*/}
-                        {selected && NotGeneralTypes.includes(type) ? <GeneralProperties></GeneralProperties> : null}
+                        {selected && !NotGeneralTypes.includes(type) ? <GeneralProperties></GeneralProperties> : null}
                         {type === "Text" || type === "Email" || type === "Phone" || type === "PostalCode" ? (
                             <StringProperties></StringProperties>
                         ) : null}

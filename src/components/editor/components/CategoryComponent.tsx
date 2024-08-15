@@ -1,11 +1,11 @@
-import {DropZone} from "@/components/editor/DropZone.tsx"
-import {useDragging} from "@/components/context/DragContextProvider.tsx"
-import {IAst} from "@/types/IAst.tsx"
-import {GetComponentForName} from "@/lib/GetComponentForName.tsx"
-import {useSelection} from "@/components/context/SelectionContext.tsx"
-import {cn} from "@/lib/utils.ts";
-import {motion} from "framer-motion";
-import {IoDocumentsOutline} from "react-icons/io5";
+import { DropZone } from "@/components/editor/DropZone.tsx"
+import { useDragging } from "@/components/context/DragContextProvider.tsx"
+import { IAst } from "@/types/IAst.tsx"
+import { GetComponentForComponentType } from "@/lib/GetComponentForComponentType.tsx"
+import { useSelection } from "@/components/context/SelectionContext.tsx"
+import { cn } from "@/lib/utils.ts"
+import { motion } from "framer-motion"
+import { IoDocumentsOutline } from "react-icons/io5"
 
 export interface ICategoryComponentProps {
     id: string
@@ -15,8 +15,8 @@ export interface ICategoryComponentProps {
 }
 
 export function CategoryComponent(props: ICategoryComponentProps) {
-    const {SetDraggingContext} = useDragging()
-    const {selected, SetSelected} = useSelection()
+    const { SetDraggingContext } = useDragging()
+    const { selected, SetSelected } = useSelection()
 
     function OnClick(e: any) {
         e.stopPropagation()
@@ -37,7 +37,6 @@ export function CategoryComponent(props: ICategoryComponentProps) {
         children = props.ast.children
     }
 
-
     return (
         <>
             <DropZone before={props.id}></DropZone>
@@ -47,11 +46,15 @@ export function CategoryComponent(props: ICategoryComponentProps) {
                 onClick={OnClick}
                 draggable
                 tabIndex={0}
-                className={cn("m-1 w-full bg-neutral-500 dark:bg-neutral-500 flex flex-col clear-both overflow-visible  p-2 hover:shadow-2xl rounded ring-amber-300", props.id == selected ? "ring-4" : "", props.ast.parent == undefined ? "m-0" : "m-1")}
+                className={cn(
+                    "m-1 w-full bg-neutral-500 dark:bg-neutral-500 flex flex-col clear-both overflow-visible  p-2 hover:shadow-2xl rounded ring-amber-300",
+                    props.id == selected ? "ring-4" : "",
+                    props.ast.parent == undefined ? "m-0" : "m-1"
+                )}
             >
                 <div className="flex flex-row justify-between overflow-hidden">
                     <div className="flex flex-row items-center pr-4">
-                        <IoDocumentsOutline/>
+                        <IoDocumentsOutline />
                         Category
                     </div>
                     {props.debug ? <span className="text-neutral-50">{props.id}</span> : null}
@@ -60,7 +63,7 @@ export function CategoryComponent(props: ICategoryComponentProps) {
                 <div className="overflow-visible clear-both">
                     <div className="clear-both">
                         {children.map((child: IAst, index: number) => {
-                            return GetComponentForName(child.type, {ast: child, id: child.id, key: index})
+                            return GetComponentForComponentType(child.type, { ast: child, id: child.id, key: index })
                         })}
                     </div>
                     <DropZone child_of={props.id} always_open={props.ast.parent === undefined}></DropZone>

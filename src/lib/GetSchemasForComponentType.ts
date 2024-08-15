@@ -12,7 +12,7 @@ import {
 import { SchemaPackage } from "@/types/SchemaPackage.tsx"
 import { HelpContent } from "@/types/HelpContent.tsx"
 
-export function GetSchemasForName(component_type: string, id: string) {
+export function GetSchemasForComponentType(component_type: string, id: string) {
     switch (component_type) {
         case "Group": {
             const ui_schema: GroupLayout = {

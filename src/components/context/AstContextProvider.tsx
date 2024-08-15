@@ -1,8 +1,8 @@
-import {createContext, useContext, useState} from "react"
-import {IAst} from "@/types/IAst.tsx"
-import {ReparentAst} from "@/components/context/ReparentAst.tsx"
-import {GenerateDataSchema} from "@/lib/GenerateDataSchema.ts";
-import {GenerateUiSchema} from "@/lib/GenerateUiSchema.ts";
+import { createContext, useContext, useState } from "react"
+import { IAst } from "@/types/IAst.tsx"
+import { ReparentAst } from "@/components/context/ReparentAst.tsx"
+import { GenerateDataSchema } from "@/lib/GenerateDataSchema.ts"
+import { GenerateUiSchema } from "@/lib/GenerateUiSchema.ts"
 
 type AstContextProvider = {
     ast: IAst
@@ -39,12 +39,11 @@ export function AstContextProvider(props: IAstContextProviderProps) {
         return ReparentAst(JSON.parse(local) as IAst)
     })
 
-    if(ast.id !== undefined && !has_init) {
+    if (ast.id !== undefined && !has_init) {
         SetHasInit(true)
         SetDataSchema(ast)
         SetUiSchema(ast)
     }
-
 
     function SetDataSchema(ast: IAst) {
         const data_schema = GenerateDataSchema(ast)
@@ -74,10 +73,14 @@ export function AstContextProvider(props: IAstContextProviderProps) {
             })
         )
 
-        console.log("SetAst", localStorage.getItem("ast"))
+        //console.log("SetAst", localStorage.getItem("ast"))
     }
 
-    return <AstContext.Provider value={{ ast, SetAst, data_schema, SetDataSchema, ui_schema, SetUiSchema}}>{props.children}</AstContext.Provider>
+    return (
+        <AstContext.Provider value={{ ast, SetAst, data_schema, SetDataSchema, ui_schema, SetUiSchema }}>
+            {props.children}
+        </AstContext.Provider>
+    )
 }
 
 export function useAst() {

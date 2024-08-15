@@ -9,11 +9,11 @@ import { RepeaterComponent } from "@/components/editor/components/RepeaterCompon
 import { CategorizationComponent } from "@/components/editor/components/CategorizationComponent.tsx"
 import { CategoryComponent } from "@/components/editor/components/CategoryComponent.tsx"
 
-export function GetComponentForName(component_name: string, props: any) {
+export function GetComponentForComponentType(component_type: string, props: any) {
     const new_id = createId()
     const new_props = { id: new_id, ...props }
 
-    switch (component_name) {
+    switch (component_type) {
         case "HorizontalLayout":
             return <HorizontalComponent {...new_props} key={props.key}></HorizontalComponent>
         case "VerticalLayout":
@@ -24,9 +24,7 @@ export function GetComponentForName(component_name: string, props: any) {
             return <RepeaterComponent {...new_props} key={props.key}></RepeaterComponent>
         case "Categorization":
             return (
-                <CategorizationComponent {...new_props} key={props.key} type="categorization">
-                    {" "}
-                </CategorizationComponent>
+                <CategorizationComponent {...new_props} key={props.key} type="categorization"></CategorizationComponent>
             )
         case "Category":
             return <CategoryComponent {...new_props} key={props.key} type="Category"></CategoryComponent>
