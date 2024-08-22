@@ -29,5 +29,5 @@ npm install
 To run the project, run the following command:
 
 ```bash
-npm run dev
+npm run tauri::dev
 ```
